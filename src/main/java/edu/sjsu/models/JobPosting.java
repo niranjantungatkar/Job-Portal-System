@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -21,6 +22,7 @@ public class JobPosting {
 	
 	private String responsibilities;
 	
+	@ManyToMany
 	private List<Skill> skills;
 	
 	private int salary;

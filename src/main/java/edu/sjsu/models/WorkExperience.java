@@ -2,6 +2,9 @@ package edu.sjsu.models;
 
 import java.util.Date;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class WorkExperience {
 
 	private String company;
