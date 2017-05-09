@@ -13,35 +13,66 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class JobSeeker {
-	
+
 	@Id
-	private String jobseekerid; //To-do: generate id - use logic of existing ariline system
-	
+	private String jobseekerid; // To-do: generate id - use logic of existing
+								// ariline system
+
 	private String firstname;
-	
+
 	private String lastname;
-	
-	@Column(unique=true)
+
+	@Column(unique = true)
 	private String email;
-	
+
+	private String password;
+
 	private URL picture;
-	
+
 	private String selfIntroduction;
-	
+
 	@Embedded
 	private List<WorkExperience> workExp;
-	
+
 	@Embedded
 	private List<Education> education;
-	
+
 	@ManyToMany
-	private List<Skill> skills; //open
-	
+	private List<Skill> skills; // open
+
 	@OneToMany
 	List<JobApplication> applications;
-	
+
 	@ManyToMany
 	List<JobPosting> interestedJobs;
+
+	private Boolean isVerified;
+
+	private String verificationCode;
+
+	public Boolean getIsVerified() {
+		return isVerified;
+	}
+
+	public void setIsVerified(Boolean isVerified) {
+		this.isVerified = isVerified;
+	}
+
+	public String getVerificationCode() {
+		return verificationCode;
+	}
+
+	public void setVerificationCode(String verificationCode) {
+		this.verificationCode = verificationCode;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public List<Education> getEducation() {
 		return education;
@@ -130,5 +161,5 @@ public class JobSeeker {
 	public void setInterestedJobs(List<JobPosting> interestedJobs) {
 		this.interestedJobs = interestedJobs;
 	}
-	
+
 }
