@@ -31,6 +31,12 @@ public class JobSeekerService {
 	 * @return
 	 */
 	public JobSeeker createJobSeeker(HashMap<String, String> parameters) throws JobSeekerExceptions{
+		
+		Company company = companyRepository.findByEmail(parameters.get("email"));
+		if(company != null){
+			throw new JobSeekerExceptions("Email ID already registered by company");
+		}
+		
 		JobSeeker jobSeeker = new JobSeeker();
 		jobSeeker.setEmail(parameters.get("email"));
 		jobSeeker.setFirstname(parameters.get("firstname"));
@@ -38,10 +44,7 @@ public class JobSeekerService {
 		jobSeeker.setPassword(parameters.get("password"));
 		jobSeeker.setIsVerified(false);
 		
-		Company company = companyRepository.findByEmail(parameters.get("email"));
-		if(company != null){
-			throw new JobSeekerExceptions("Email ID already registered with company");
-		}
+		
 		jobSeekerRepository.save(jobSeeker);	
 		return jobSeeker;
 	}

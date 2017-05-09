@@ -48,7 +48,7 @@ public class JobSeekerController {
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 			if(ex.getMessage().contains("ConstraintViolationException")){
-				return new ResponseEntity(getErrorResponse("400", "Email ID already registered!"), responseHeaders,
+				return new ResponseEntity(getErrorResponse("400", "Email ID already registered by job seeker"), responseHeaders,
 						HttpStatus.BAD_REQUEST);
 			}
 			return new ResponseEntity(getErrorResponse("400", ex.getMessage()), responseHeaders,
