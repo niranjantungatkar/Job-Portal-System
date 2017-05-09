@@ -1,4 +1,217 @@
-<body>
- 	<p>ID is {{greeting.id}}</p>
- 	<p>Greeting is {{greeting.content}}</p>
-</body>
+<div ng-controller="controllerHome">
+
+
+	<!-- if user is not logged in  -->
+
+	<div class="header" id="header" ng-if= !currentuser>
+		<div class="wrapper">
+			<h1>
+				<img class="lazy-loaded" alt="LinkedIn" src="">
+			</h1>
+			<form class="login-form" method="POST" data-smartlock-autologin="true" data-smartlock-unmediated="" data-smartlock-save-signin="true">
+
+				<label for="login-email">Email</label>
+				<input type="text" name="session_key" ng-model="email" class="login-email" autocapitalize="off" tabindex="1" id="login-email" placeholder="Email" autofocus="autofocus" dir="ltr">
+
+				<label for="login-password"></label>
+				<input type="password" name="session_password" ng-model="password" class="login-password" id="login-password" aria-required="true" tabindex="1" placeholder="Password">
+
+				<input tabindex="1" id="login-submit" class="login submit-button" type="submit" value="Sign in" ng-click="login()">
+				<div id="login-callout" class="hopscotch-bubble animated hopscotch-callout no-number hidden" tabindex="-1">
+					<div class="hopscotch-bubble-container">
+						<div class="hopscotch-bubble-content">
+							<h3 class="hopscotch-title">Trying to sign in?</h3>
+							<div class="hopscotch-content">Someone's already using that email. If that’s you, enter your Email and password here to sign in.</div>
+						</div>
+						<a title="Close" href="#" class="hopscotch-bubble-close hopscotch-close">Close</a>
+					</div>
+					<div class="hopscotch-bubble-arrow-container hopscotch-arrow up"></div>
+				</div>
+				<input name="isJsEnabled" type="hidden" value="false"><input name="loginCsrfParam" id="loginCsrfParam-login" type="hidden" value="9826e358-8b36-470e-89f4-f3d99f93668a">
+				<input name="sourceAlias" id="sourceAlias-login" type="hidden" value="0_7r5yezRXCiA_H0CRD8sf6DhOjTKUNps5xGTqeX8EEoi">
+			</form>
+		</div>
+	</div>
+
+
+
+
+
+	<!--  if user is logged in  -->
+
+
+    <!--<div class="header" id="header">-->
+        <!--<div class="wrapper">-->
+            <!--<h1>-->
+                <!--<img class="lazy-loaded" alt="LinkedIn" src="">-->
+            <!--</h1>-->
+
+
+            <!--&lt;!&ndash; search form &ndash;&gt;-->
+
+            <!--<form id="extended-nav-search" class="nav-search" style="">-->
+                <!--<div class="nav-search-bar">-->
+                    <!--<div id="nav-typeahead-wormhole">-->
+                        <!--<section id="ember1365" class="ember-view">-->
+                            <!--<div id="ember1369" class="ember-view">-->
+                                <!--<div class="type-ahead-wrapper type-ahead-theme-primary">-->
+                                    <!--&lt;!&ndash;&ndash;&gt;-->
+                                    <!--<div role="search" class="type-ahead-input-container">-->
+                                        <!--<div class="type-ahead-input-wrapper">-->
+                                            <!--<div class="type-ahead-input">-->
+                                                <!--<label for="a11y-ember1365" class="visually-hidden">-->
+                                                    <!--Search-->
+                                                <!--</label>-->
+                                                <!--<span class="typeahead-icon svg-icon-wrap">-->
+                                    <!--<li-icon aria-hidden="true" type="search-icon" size="medium">-->
+                                       <!--<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon">-->
+                                          <!--<g class="large-icon" style="fill: currentColor">-->
+                                             <!--<path d="M21,19.67l-5.44-5.44a7,7,0,1,0-1.33,1.33L19.67,21ZM10,15.13A5.13,5.13,0,1,1,15.13,10,5.13,5.13,0,0,1,10,15.13Z"></path>-->
+                                          <!--</g>-->
+                                       <!--</svg>-->
+                                    <!--</li-icon>-->
+                                 <!--</span>-->
+                                                <!--<input aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Search" autocorrect="off" autocapitalize="off" id="a11y-ember1365" role="combobox" class="ember-text-field ember-view"></input>-->
+                                                <!--<div class="type-ahead-input-icons">-->
+                                                    <!--&lt;!&ndash;&ndash;&gt;-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--&lt;!&ndash;&ndash;&gt;-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <!--&lt;!&ndash;&ndash;&gt;-->
+                                    <!--<div aria-live="polite" class="live-region visually-hidden"></div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</section>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div id="nav-search-controls-wormhole" class="nav-search-controls">    <button data-control-name="nav.search_button" class="nav-search-button" data-ember-action="" data-ember-action-1392="1392">Search</button></div>-->
+            <!--</form>-->
+
+
+
+
+
+        <!--</div>-->
+    <!--</div>-->
+
+
+
+
+
+
+
+	<!--angular ui-view-->
+
+	<div ui-view>
+
+
+		<div class="main background lazy-loaded show-join" data-delayed-url="https://static.licdn.com/sc/h/64xk850n3a8uzse6fi11l3vmz">
+			<form id="regForm" class="reg-form" action="" method="POST" data-jsenabled="check" data-autologin="" data-smartlock-save-on-signup="false">
+				<h2 class="title">Be great at what you do</h2>
+				<h3 class="subtitle">Get started - it's free.</h3>
+				<div class="reg-alert hidden" tabindex="-1">
+					<span class="alert-content"></span>
+					<button type="button" class="dismiss-alert">
+						<span class="screen-reader-text">Close</span>
+					</button>
+				</div>
+
+				<label for="reg-password">Account Type</label>
+				<select name="session_password" ng-model="type" ng-init= "type = 'user' " class="reg-userType" id="reg-email" aria-required="true" tabindex="1" style="width: 100%; height: 35px; margin-bottom: 20px;">
+					<option value="user"> User </option>
+					<option value="company"> Company </option>
+				</select>
+
+				<!-- if user selected  -->
+
+				<div ng-if= "type == 'user' ">
+					<label for="reg-firstName">First name</label>
+					<input type="text" name="firstName" ng-model="firstname" id="reg-firstname" class="reg-firstname" tabindex="1" autofocus="autofocus">
+
+					<label for="reg-lastName">Last name</label>
+					<input type="text" tabindex="1" name="lastName" ng-model="lastname" id="reg-lastname" class="reg-lastname" aria-required="true">
+
+					<label for="reg-email">Email</label>
+					<input type="text" name="session_key" class="reg-email" ng-model="useremail" autocapitalize="off" tabindex="1" id="reg-email" autofocus="autofocus">
+
+					<label for="reg-password">Password (6 or more characters)</label>
+					<input type="password" name="session_password" class="reg-password" ng-model="userpassword" id="reg-password" aria-required="true" tabindex="1" autocomplete="new-password">
+					<!--<span class="agreement">By clicking Join now, you agree to the LinkedIn <a tabindex="2" href="https://www.linkedin.com/legal/user-agreement">User Agreement</a>, <a tabindex="2" href="https://www.linkedin.com/legal/privacy-policy">Privacy Policy</a>, and <a tabindex="2" href="https://www.linkedin.com/legal/cookie-policy">Cookie Policy</a>.</span>-->
+				</div>
+
+				<!-- if company selected  -->
+
+				<div ng-if = "type == 'company' ">
+					<label for="reg-firstName">Company Name</label>
+					<input type="text" name="firstName" ng-model="name" id="reg-firstname" class="reg-firstname" tabindex="1" autofocus="autofocus">
+
+
+					<label for="reg-email">Company Email</label>
+					<input type="text" name="session_key" class="reg-email" ng-model="companyemail" autocapitalize="off" tabindex="1" id="reg-email" autofocus="autofocus">
+
+					<label for="reg-password">Password (6 or more characters)</label>
+					<input type="password" name="session_password" class="reg-password" ng-model="companypassword" id="reg-password" aria-required="true" tabindex="1" autocomplete="new-password">
+				</div>
+
+
+				<input tabindex="1" id="registration-submit" class="registration submit-button" type="submit" ng-click="signup()" value="Join now">
+			</form>
+		</div>
+
+
+
+
+
+
+		<!-- sub footer -->
+		<div class="meter">
+			<div class="directory" style="">
+
+				<div class="directory">
+					<h3 class="title" style="color: white; text-align: center;">Contact Us</h3>
+
+					<div class = "container" style="text-align: center; color: white;">
+
+						<span>
+							Darshan Sapaliga
+						</span>
+						</br></br>
+						<span>
+							Niranjan Tungatkar
+						</span>
+						</br></br>
+						<span>
+							Ajay Tanpure
+						</span>
+
+					</div>
+				</div>
+
+
+
+			</div>
+
+		</div>
+
+
+
+
+	</div>
+
+
+
+
+
+	<!-- Footer -->
+	<footer>
+		<div class="legal-nav">
+			<div class="copyright"><img class="logo-copyright lazy-loaded" alt="LinkedIn" src="https://static.licdn.com/sc/h/5koy91fjbrc47yhwyzws65ml7"> © 2017</div>
+			<ul>
+				<li><a href="https://www.linkedin.com/legal/copyright-policy?trk=uno-reg-guest-home-copyright-policy">Copyright Policy</a></li>
+			</ul>
+		</div>
+	</footer>
+
+</div>
