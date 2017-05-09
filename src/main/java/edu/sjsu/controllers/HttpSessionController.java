@@ -1,7 +1,6 @@
 package edu.sjsu.controllers;
 
 import java.util.HashMap;
-import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpHeaders;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mysql.fabric.Response;
 
 @EnableRedisHttpSession(maxInactiveIntervalInSeconds = 30)
 @RestController
