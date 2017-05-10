@@ -23,7 +23,7 @@ public class CompanyController {
 	@Autowired
 	CompanyService companyService;
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/company", method = RequestMethod.POST)
 	public ResponseEntity<?> signUp(@RequestParam("email") String email,
 			@RequestParam("companyName") String companyName, @RequestParam("password") String password) {

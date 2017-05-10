@@ -17,16 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.sjsu.exceptions.JobSeekerExceptions;
 import edu.sjsu.services.JobSeekerService;
 
+@SuppressWarnings("unused")
 @RestController
 public class JobSeekerController {
 
 	@Autowired
 	JobSeekerService jobSeekerService;
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/jobseeker", method = RequestMethod.POST)
-	public ResponseEntity<?> signUp(@RequestParam("email") String email, @RequestParam("firstname") String firstname,
-			@RequestParam("lastname") String lastname, @RequestParam("password") String password) {
+	public ResponseEntity signUp(@RequestParam("email") String email, 
+								 @RequestParam("firstname") String firstname,
+								 @RequestParam("lastname") String lastname,
+								 @RequestParam("password") String password) {
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -56,7 +59,6 @@ public class JobSeekerController {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
 	public HashMap<String, String> getErrorResponse(String errorcode, String error) {
 		HashMap<String, String> errorMap = new HashMap<String, String>();
 		errorMap.put("code", errorcode);
