@@ -26,26 +26,22 @@ public class JobSeekerController {
 
 	@Autowired
 	JobSeekerService jobSeekerService;
-	
+
 	@Autowired
 	EmailService emailService;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/jobseeker", method = RequestMethod.POST)
-	public ResponseEntity signUp(@RequestBody Map<String, Object> parameterMap ){
-	/*public ResponseEntity signUp(@RequestParam("email") String email, 
-								 @RequestParam("firstname") String firstname,
-								 @RequestParam("lastname") String lastname,
-								 @RequestParam("password") String password) {*/
+	public ResponseEntity signUp(@RequestBody Map<String, Object> parameterMap) {
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
 
 		HashMap<String, String> parameters = new HashMap<>();
-		parameters.put("email", (String)parameterMap.get("email"));
-		parameters.put("firstname", (String)parameterMap.get("firstname"));
-		parameters.put("lastname", (String)parameterMap.get("lastname"));
-		parameters.put("password", (String)parameterMap.get("password"));
+		parameters.put("email", (String) parameterMap.get("email"));
+		parameters.put("firstname", (String) parameterMap.get("firstname"));
+		parameters.put("lastname", (String) parameterMap.get("lastname"));
+		parameters.put("password", (String) parameterMap.get("password"));
 
 		try {
 			JobSeeker jobSeeker = jobSeekerService.createJobSeeker(parameters);
@@ -58,9 +54,9 @@ public class JobSeekerController {
 					HttpStatus.BAD_REQUEST);
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
-			if(ex.getMessage().contains("ConstraintViolationException")){
-				return new ResponseEntity(getErrorResponse("400", "Email ID already registered by job seeker"), responseHeaders,
-						HttpStatus.BAD_REQUEST);
+			if (ex.getMessage().contains("ConstraintViolationException")) {
+				return new ResponseEntity(getErrorResponse("400", "Email ID already registered by job seeker"),
+						responseHeaders, HttpStatus.BAD_REQUEST);
 			}
 			return new ResponseEntity(getErrorResponse("400", ex.getMessage()), responseHeaders,
 					HttpStatus.BAD_REQUEST);

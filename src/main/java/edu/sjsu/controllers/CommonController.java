@@ -1,6 +1,7 @@
 package edu.sjsu.controllers;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,9 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.sjsu.exceptions.CompanyExceptions;
@@ -36,13 +37,13 @@ public class CommonController {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity login(HttpSession session, @RequestParam("email") String email,
-			@RequestParam("password") String password) {
+	public ResponseEntity login(HttpSession session, @RequestBody Map<String, Object> parameterMap) {
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
 		try {
-			HashMap<String, Object> response = commonService.checkCredential(email, password);
+			HashMap<String, Object> response = commonService.checkCredential((String) parameterMap.get("email"),
+					(String) parameterMap.get("password"));
 			if (response != null) {
 				session.setAttribute("id", response.get("id"));
 				session.setAttribute("type", response.get("type"));
@@ -77,20 +78,21 @@ public class CommonController {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/verify", method = RequestMethod.POST)
-	public ResponseEntity verifyAccount(@RequestParam(value = "id") String id, @RequestParam("type") String type,
-			@RequestParam("verificationCode") String verificationCode) {
+	public ResponseEntity verifyAccount(@RequestBody Map<String, Object> parameterMap) {
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
 
 		try {
-			if (type.equals("jobseeker")) {
-				jobSeekerService.verifyJobSeeker(id, verificationCode);
+			if (parameterMap.get("type").toString().equals("jobseeker")) {
+				jobSeekerService.verifyJobSeeker((String) parameterMap.get("id"),
+						(String) parameterMap.get("verificationCode"));
 				HashMap<String, Object> result = new HashMap<>();
 				result.put("rersult", true);
 				return new ResponseEntity(result, responseHeaders, HttpStatus.OK);
 			} else {
-				companyService.verifyCompany(id, verificationCode);
+				companyService.verifyCompany((String) parameterMap.get("id"),
+						(String) parameterMap.get("verificationCode"));
 				HashMap<String, Object> result = new HashMap<>();
 				result.put("result", true);
 				return new ResponseEntity(result, responseHeaders, HttpStatus.OK);

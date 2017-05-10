@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HttpSessionController {
 
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/session", method = RequestMethod.GET)
 	public ResponseEntity getSession(HttpSession session) {
 		System.out.println("asfdsdf");

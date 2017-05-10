@@ -1,14 +1,16 @@
 package edu.sjsu.controllers;
 
 import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.sjsu.exceptions.CompanyExceptions;
@@ -27,16 +29,15 @@ public class CompanyController {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/company", method = RequestMethod.POST)
-	public ResponseEntity<?> signUp(@RequestParam("email") String email,
-			@RequestParam("companyName") String companyName, @RequestParam("password") String password) {
+	public ResponseEntity<?> signUp(@RequestBody Map<String, Object> parameterMap) {
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
 
 		HashMap<String, String> parameters = new HashMap<>();
-		parameters.put("companyName", companyName);
-		parameters.put("email", email);
-		parameters.put("password", password);
+		parameters.put("companyName", (String) parameterMap.get("companyName"));
+		parameters.put("email", (String) parameterMap.get("email"));
+		parameters.put("password", (String) parameterMap.get("password"));
 
 		try {
 			Company company = companyService.createCompany(parameters);
