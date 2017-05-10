@@ -11,7 +11,8 @@ jobPortalApp.controller('controllerHome',function($scope, $http, userSession) {
 	
 	//Sing in variables
 	$scope.signindata = {
-			
+			email:"",
+			password:""
 	}
 	
 	//Signup variables for companay and user
@@ -35,32 +36,50 @@ jobPortalApp.controller('controllerHome',function($scope, $http, userSession) {
 		if(userSession.data.type == "company") {
 			$scope.profiletype="company";
 			$scope.isverified=userSession.data.verified;
-			//state.go('home.jobseekerprofile', { companyDet: { name: userSession.id } })
+			state.go('home.companyprofile', { companyDet: { name: userSession.data.id, type : userSession.data.type, verified: userSession.data.verified } })
 		} else if (userSession.type == "jobseeker") {
 			$scope.profiletype="jobseeker";
 			$scope.isverified=userSession.data.verified;
-			//$state.go('home.companyprofile', { profileDet: { id: userSession.id } }) 
+			$state.go('home.jobseekerprofile', { profileDet: { id: userSession.data.id, type: userSession.data.type, verified: userSession.data.verified } }) 
 		}
 	} 
 	
+	/*
+	 * login function
+	 * Requires signin data object
+	 */
+	$scope.login = function () {
+		$http({
+			method: "POST",
+			url: '/login',
+			data: {
+				"email": $scope.signindata.email,
+				"password": $scope.signindata.password
+			}
+		}).success(function(data) {
+			if(data.type == "jobseeker") {
+				$state.go('home.jobseekerprofile', { profileDet: { id: data.id, type: data.type, verified: data.verified } })
+			} else if(data.type == "company") {
+				$state.go('home.companyprofile', { companyDet: { id: data.id, type: data.type, verified: data.verified } })
+			}
+		})
+	}
 	
-	/*function validate() {
-		
-	}*/
 	
+	/*
+	 * Sign up function
+	 * Requires userdata & companydata $scope objects
+	 */
 	$scope.signup = function () {
 	
 		if($scope.profile.type == "company") {
 			$http({
 				method : "POST",
 				url : '/company',
-				/*headers: {
-			        'Content-Type': 'application/x-www-form-urlencoded'
-			    },*/
 				data : {
-					name : $scope.companydata.cname,
-					email : $scope.companydata.cemail,
-					password : $scope.companydata.cpassword
+					"name" : $scope.companydata.cname,
+					"email" : $scope.companydata.cemail,
+					"password" : $scope.companydata.cpassword
 				}
 			}).success(function(data){
 				console.log(data)
@@ -70,9 +89,6 @@ jobPortalApp.controller('controllerHome',function($scope, $http, userSession) {
 			$http({
 				method : "POST",
 				url : '/jobseeker',
-				/*headers: {
-			        'Content-Type': 'application/x-www-form-urlencoded'
-			    },*/
 				data : {
 					"email" : $scope.userdata.uemail,
 					"firstname" : $scope.userdata.fname,
@@ -85,4 +101,9 @@ jobPortalApp.controller('controllerHome',function($scope, $http, userSession) {
 			})
 		}
 	} 
+	
+	
+	
+	
+	
 });

@@ -1,3 +1,3 @@
-jobPortalApp.controller('controllerJobSeekerProfile', function(){
+jobPortalApp.controller('controllerJobSeekerProfile', function($scope, $stateParams, $log){
 	console.log("jobseeker");
 })
