@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,19 +32,20 @@ public class JobSeekerController {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/jobseeker", method = RequestMethod.POST)
-	public ResponseEntity signUp(@RequestParam("email") String email, 
+	public ResponseEntity signUp(@RequestBody Map<String, Object> parameterMap ){
+	/*public ResponseEntity signUp(@RequestParam("email") String email, 
 								 @RequestParam("firstname") String firstname,
 								 @RequestParam("lastname") String lastname,
-								 @RequestParam("password") String password) {
+								 @RequestParam("password") String password) {*/
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
 
 		HashMap<String, String> parameters = new HashMap<>();
-		parameters.put("email", email);
-		parameters.put("firstname", firstname);
-		parameters.put("lastname", lastname);
-		parameters.put("password", password);
+		parameters.put("email", (String)parameterMap.get("email"));
+		parameters.put("firstname", (String)parameterMap.get("firstname"));
+		parameters.put("lastname", (String)parameterMap.get("lastname"));
+		parameters.put("password", (String)parameterMap.get("password"));
 
 		try {
 			JobSeeker jobSeeker = jobSeekerService.createJobSeeker(parameters);

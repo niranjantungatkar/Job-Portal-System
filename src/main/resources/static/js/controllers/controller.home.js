@@ -54,9 +54,9 @@ jobPortalApp.controller('controllerHome',function($scope, $http, userSession) {
 			$http({
 				method : "POST",
 				url : '/company',
-				headers: {
+				/*headers: {
 			        'Content-Type': 'application/x-www-form-urlencoded'
-			    },
+			    },*/
 				data : {
 					name : $scope.companydata.cname,
 					email : $scope.companydata.cemail,
@@ -70,9 +70,9 @@ jobPortalApp.controller('controllerHome',function($scope, $http, userSession) {
 			$http({
 				method : "POST",
 				url : '/jobseeker',
-				headers: {
+				/*headers: {
 			        'Content-Type': 'application/x-www-form-urlencoded'
-			    },
+			    },*/
 				data : {
 					"email" : $scope.userdata.uemail,
 					"firstname" : $scope.userdata.fname,
