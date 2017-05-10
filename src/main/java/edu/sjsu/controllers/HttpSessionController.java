@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 30)
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 600)
 @RestController
 public class HttpSessionController {
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/getSession", method = RequestMethod.GET)
-	public ResponseEntity getSession(HttpSession session) {
 
+	@RequestMapping(value = "/session", method = RequestMethod.GET)
+	public ResponseEntity getSession(HttpSession session) {
+		System.out.println("asfdsdf");
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
 		
