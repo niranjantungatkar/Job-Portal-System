@@ -42,7 +42,7 @@ public class JobSeekerService {
 		JobSeeker jobSeeker = new JobSeeker();
 		jobSeeker.setEmail(parameters.get("email"));
 		jobSeeker.setFirstname(parameters.get("firstname"));
-		jobSeeker.setFirstname(parameters.get("lastname"));
+		jobSeeker.setLastname(parameters.get("lastname"));
 		jobSeeker.setPassword(parameters.get("password"));
 		jobSeeker.setIsVerified(false);
 

@@ -4,15 +4,17 @@
 
 jobPortalApp.controller('controllerHome',function($scope, $http, userSession) {
 	
-
+	//for storing the type of profile of the current user.
 	$scope.profile = {
 			type:""
 	}
 	
+	//Sing in variables
 	$scope.signindata = {
 			
 	}
 	
+	//Signup variables for companay and user
 	$scope.userdata = { 
 		fname:"",
 		lname:"",
@@ -52,6 +54,9 @@ jobPortalApp.controller('controllerHome',function($scope, $http, userSession) {
 			$http({
 				method : "POST",
 				url : '/company',
+				headers: {
+			        'Content-Type': 'application/x-www-form-urlencoded'
+			    },
 				data : {
 					name : $scope.companydata.cname,
 					email : $scope.companydata.cemail,
@@ -65,11 +70,14 @@ jobPortalApp.controller('controllerHome',function($scope, $http, userSession) {
 			$http({
 				method : "POST",
 				url : '/jobseeker',
+				headers: {
+			        'Content-Type': 'application/x-www-form-urlencoded'
+			    },
 				data : {
-					firstname : $scope.userdata.firstname,
-					lastname : $scope.userdata.lastname,
-					email : $scope.userdata.uemail,
-					password : $scope.userdata.upassword
+					"email" : $scope.userdata.uemail,
+					"firstname" : $scope.userdata.fname,
+					"lastname" : $scope.userdata.lname,
+					"password" : $scope.userdata.upassword
 				}
 			}).success(function(data) {
 				console.log(data);

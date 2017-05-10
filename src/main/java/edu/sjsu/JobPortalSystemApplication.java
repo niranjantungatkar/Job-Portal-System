@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-@EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
 @SpringBootApplication
 public class JobPortalSystemApplication {
 		
