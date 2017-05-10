@@ -25,15 +25,22 @@ jobPortalApp.config(function($stateProvider, $urlRouterProvider){
 				},
 				controller: 'controllerHome'
 			})
+		.state('home.verify', 
+				{
+					url:'verification',
+					templateUrl:'./templates/view.verify.html',
+					controller:'controllerVerify',
+					params:{profile:null}
+				})
 		.state('home.jobseekerprofile',
 			{
-				url:'/profile/jobseeker',
+				url:'profile/jobseeker',
 				templateUrl : './templates/view.jobseeker.profile.html',
 				params : { profiledet: null},
 				controller : 'controllerJobSeekerProfile'
 			})
 		.state('home.companyprofile', {
-				url:'/company',
+				url:'company',
 				templateUrl: './templates/view.company.profile.html',
 				params: {companydet: null},
 				controller: 'controllerCompanyProfile' 

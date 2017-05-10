@@ -2,7 +2,7 @@
  * Home Controller
  */
 
-jobPortalApp.controller('controllerHome',function($scope, $http, userSession) {
+jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSession) {
 	
 	//for storing the type of profile of the current user.
 	$scope.profile = {
@@ -28,18 +28,24 @@ jobPortalApp.controller('controllerHome',function($scope, $http, userSession) {
 		cemail:"",
 		cpassword:""
 	}
+	
+	$scope.header = {
+			profile:"",
+			verified:"",
+			session:false
+	}
 
 	/* Check for user session or company session.
 	 * If valid company or user session redirect to correct state.
 	 */
-	if(userSession != null) {
+	if(userSession.data != null && userSession.data != "" && userSession != undefined) {
+		$scope.header.session=true;
+		$scope.header.verified=userSession.data.verified;
 		if(userSession.data.type == "company") {
-			$scope.profiletype="company";
-			$scope.isverified=userSession.data.verified;
-			state.go('home.companyprofile', { companyDet: { name: userSession.data.id, type : userSession.data.type, verified: userSession.data.verified } })
-		} else if (userSession.type == "jobseeker") {
-			$scope.profiletype="jobseeker";
-			$scope.isverified=userSession.data.verified;
+			$scope.header.profile = "company";
+			$state.go('home.companyprofile', { companyDet: { name: userSession.data.id, type : userSession.data.type, verified: userSession.data.verified } })
+		} else if (userSession.data.type == "jobseeker") {
+			$scope.header.profile = "jobseeker";
 			$state.go('home.jobseekerprofile', { profileDet: { id: userSession.data.id, type: userSession.data.type, verified: userSession.data.verified } }) 
 		}
 	} 
@@ -72,38 +78,33 @@ jobPortalApp.controller('controllerHome',function($scope, $http, userSession) {
 	 */
 	$scope.signup = function () {
 	
+		var data = {};
+		var url = "";
 		if($scope.profile.type == "company") {
-			$http({
-				method : "POST",
-				url : '/company',
-				data : {
-					"name" : $scope.companydata.cname,
-					"email" : $scope.companydata.cemail,
-					"password" : $scope.companydata.cpassword
-				}
-			}).success(function(data){
-				console.log(data)
-				//state.go(to verification page for company) // check logic if it can be generic
-			})
+			data = {
+				"name" : $scope.companydata.cname,
+				"email" : $scope.companydata.cemail,
+				"password" : $scope.companydata.cpassword
+			}
+			url="/company"
+			
 		} else if($scope.profile.type == "user") {
-			$http({
-				method : "POST",
-				url : '/jobseeker',
-				data : {
-					"email" : $scope.userdata.uemail,
-					"firstname" : $scope.userdata.fname,
-					"lastname" : $scope.userdata.lname,
-					"password" : $scope.userdata.upassword
-				}
-			}).success(function(data) {
-				console.log(data);
-				//state.go(to verification page for job seeker
-			})
+			data = {
+				"email" : $scope.userdata.uemail,
+				"firstname" : $scope.userdata.fname,
+				"lastname" : $scope.userdata.lname,
+				"password" : $scope.userdata.upassword
+			}
+			url="/jobseeker"
 		}
+		
+		$http({
+			method : "POST",
+			url : url,
+			data : data
+		}).success(function(data){
+			console.log(data)
+			$state.go('home.verify', { profile: { id: data.id, type: data.type , verified: data.verified } } ) 
+		})
 	} 
-	
-	
-	
-	
-	
 });
