@@ -13,14 +13,16 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.GenericGenerator;
+
 @Entity
 public class JobSeeker {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int jobseekerid; // To-do: generate id - use logic of existing
-								// ariline system
-
+	@GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
+	private String jobseekerid; 
+	
 	private String firstname;
 
 	private String lastname;
@@ -85,11 +87,11 @@ public class JobSeeker {
 		this.education = education;
 	}
 
-	public int getJobseekerid() {
+	public String getJobseekerid() {
 		return jobseekerid;
 	}
 
-	public void setJobseekerid(int jobseekerid) {
+	public void setJobseekerid(String jobseekerid) {
 		this.jobseekerid = jobseekerid;
 	}
 

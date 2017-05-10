@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HttpSessionController {
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/getSession", method = RequestMethod.GET)
 	public ResponseEntity getSession(HttpSession session) {
 
@@ -35,7 +36,6 @@ public class HttpSessionController {
 	}
 	
 	
-	@SuppressWarnings("rawtypes")
 	public HashMap<String, String> getErrorResponse(String errorcode, String error) {
 		HashMap<String, String> errorMap = new HashMap<String, String>();
 		errorMap.put("code", errorcode);

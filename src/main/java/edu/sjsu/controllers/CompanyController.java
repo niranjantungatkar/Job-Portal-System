@@ -1,9 +1,6 @@
 package edu.sjsu.controllers;
 
 import java.util.HashMap;
-import java.util.Map;
-
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,13 +12,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.sjsu.exceptions.CompanyExceptions;
+import edu.sjsu.models.Company;
 import edu.sjsu.services.CompanyService;
+import edu.sjsu.services.EmailService;
 
 @RestController
 public class CompanyController {
 
 	@Autowired
 	CompanyService companyService;
+
+	@Autowired
+	EmailService emailService;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/company", method = RequestMethod.POST)
@@ -37,7 +39,8 @@ public class CompanyController {
 		parameters.put("password", password);
 
 		try {
-			companyService.createCompany(parameters);
+			Company company = companyService.createCompany(parameters);
+			emailService.sendMail(company.getEmail(), "Test Email", company.getVerificationCode());
 			HashMap<String, Object> result = new HashMap<>();
 			result.put("result", true);
 			return new ResponseEntity(result, responseHeaders, HttpStatus.BAD_REQUEST);
@@ -50,7 +53,6 @@ public class CompanyController {
 		}
 	}
 
-	@SuppressWarnings("rawtypes")
 	public HashMap<String, String> getErrorResponse(String errorcode, String error) {
 		HashMap<String, String> errorMap = new HashMap<String, String>();
 		errorMap.put("code", errorcode);

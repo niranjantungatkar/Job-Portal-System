@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.sjsu.exceptions.JobSeekerExceptions;
+import edu.sjsu.models.JobSeeker;
 import edu.sjsu.services.JobSeekerService;
+import edu.sjsu.services.EmailService;
 
 @SuppressWarnings("unused")
 @RestController
@@ -23,6 +25,9 @@ public class JobSeekerController {
 
 	@Autowired
 	JobSeekerService jobSeekerService;
+	
+	@Autowired
+	EmailService emailService;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/jobseeker", method = RequestMethod.POST)
@@ -41,7 +46,8 @@ public class JobSeekerController {
 		parameters.put("password", password);
 
 		try {
-			jobSeekerService.createJobSeeker(parameters);
+			JobSeeker jobSeeker = jobSeekerService.createJobSeeker(parameters);
+			emailService.sendMail(jobSeeker.getEmail(), "Test Email", jobSeeker.getVerificationCode());
 			HashMap<String, Object> reponse = new HashMap<>();
 			reponse.put("result", true);
 			return new ResponseEntity(reponse, responseHeaders, HttpStatus.OK);

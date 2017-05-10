@@ -9,4 +9,6 @@ public interface CompanyRepository extends CrudRepository<Company, String> {
 	public Company findByEmailAndPassword(String email, String password);
 	
 	public Company findByEmail(String email);
+	
+	public Company findByCompanyNameAndVerificationCode(String companyName, String verificationCode);
 }
