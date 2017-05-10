@@ -46,9 +46,12 @@ public class JobSeekerController {
 		try {
 			JobSeeker jobSeeker = jobSeekerService.createJobSeeker(parameters);
 			emailService.sendMail(jobSeeker.getEmail(), "Test Email", jobSeeker.getVerificationCode());
-			HashMap<String, Object> reponse = new HashMap<>();
-			reponse.put("result", true);
-			return new ResponseEntity(reponse, responseHeaders, HttpStatus.OK);
+			HashMap<String, Object> response = new HashMap<>();
+			response.put("result", true);
+			response.put("id",jobSeeker.getJobseekerid());
+			response.put("type","jobseeker");
+			response.put("verified", jobSeeker.getIsVerified());
+			return new ResponseEntity(response, responseHeaders, HttpStatus.OK);
 		} catch (JobSeekerExceptions ex) {
 			return new ResponseEntity(getErrorResponse("400", ex.getMessage()), responseHeaders,
 					HttpStatus.BAD_REQUEST);
@@ -63,6 +66,22 @@ public class JobSeekerController {
 		}
 	}
 
+	
+	
+	@SuppressWarnings("rawtypes")
+	@RequestMapping(value="/jobseeker", method=RequestMethod.PUT)
+	public ResponseEntity updateProfile(@RequestBody Map<String, Object> parameterMap){
+		
+		try {
+			jobSeekerService.updateProfile(parameterMap);
+		} catch (JobSeekerExceptions e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
 	public HashMap<String, String> getErrorResponse(String errorcode, String error) {
 		HashMap<String, String> errorMap = new HashMap<String, String>();
 		errorMap.put("code", errorcode);

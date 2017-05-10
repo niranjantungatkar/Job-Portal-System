@@ -44,6 +44,9 @@ public class CompanyController {
 			emailService.sendMail(company.getEmail(), "Test Email", company.getVerificationCode());
 			HashMap<String, Object> result = new HashMap<>();
 			result.put("result", true);
+			result.put("id", company.getCompanyName());
+			result.put("type", "company");
+			result.put("verified", company.getIsVerified());
 			return new ResponseEntity(result, responseHeaders, HttpStatus.BAD_REQUEST);
 		} catch (CompanyExceptions ex) {
 			return new ResponseEntity(getErrorResponse("400", ex.getMessage()), responseHeaders,
