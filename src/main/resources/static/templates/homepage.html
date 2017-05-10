@@ -21,7 +21,7 @@
 
 <!-- if user is logged in -->
 
-<div class="ember-application boot-complete icons-loaded">
+<div class="ember-application boot-complete icons-loaded"  ng-if= " header.profile == 'jobseeker' ">
 	<nav id="extended-nav" class="extended-nav nav-main-container global-alert-offset-top" role="banner" tabindex="-1" style="display: block;">
 		<div class="nav-main__content display-flex">
 			<div class="nav-main__inbug-container fl mr3">
@@ -142,7 +142,7 @@
 
     <!-- if company is logged in  -->
 
-	<div class="ember-application boot-complete icons-loaded" ng-if=" company && isverified ">
+	<div class="ember-application boot-complete icons-loaded" ng-if=" header.profile == 'company'">
 		<nav id="extended-nav" class="extended-nav nav-main-container global-alert-offset-top" role="banner" tabindex="-1" style="display: block;">
 			<div class="nav-main__content display-flex">
 				<div class="nav-main__inbug-container fl mr3">
