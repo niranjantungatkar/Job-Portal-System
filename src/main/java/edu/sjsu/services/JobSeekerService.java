@@ -226,7 +226,7 @@ public class JobSeekerService {
 		return workExpList;
 	}
 
-	/** Update thh education
+	/** Update the education
 	 * 
 	 * @param parameters
 	 * @return List of Updated education

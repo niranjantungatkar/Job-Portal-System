@@ -3,14 +3,19 @@ package edu.sjsu.models;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class JobPosting {
 
 	@Id
+	@GeneratedValue(generator = "jobPostingIdGenerator")
+	@GenericGenerator(name = "jobPostingIdGenerator", strategy = "edu.sjsu.utils.JobPostingIdGenerator")
 	private String requisitionId;
 	
 	private String title;
