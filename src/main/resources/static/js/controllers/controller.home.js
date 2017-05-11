@@ -43,7 +43,7 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 		$scope.header.verified=userSession.data.verified;
 		if(userSession.data.type == "company") {
 			$scope.header.profile = "company";
-			$state.go('home.companyprofile', { companyDet: { name: userSession.data.id, type : userSession.data.type, verified: userSession.data.verified } })
+			$state.go('home.companyprofile', { companyDet: { id: userSession.data.id, type : userSession.data.type, verified: userSession.data.verified } })
 		} else if (userSession.data.type == "jobseeker") {
 			$scope.header.profile = "jobseeker";
 			$state.go('home.jobseekerprofile', { profileDet: { id: userSession.data.id, type: userSession.data.type, verified: userSession.data.verified } }) 

@@ -42,21 +42,29 @@ jobPortalApp.config(function($stateProvider, $urlRouterProvider){
 			{
 				url:'profile/jobseeker',
 				templateUrl : './templates/view.jobseeker.profile.html',
-				params : { profiledet: null},
+				params : { profileDet: null},
 				controller : 'controllerJobSeekerProfile'
 			})
         .state('home.updateJobseekerProfile', 
         	{
             	url:'updateJobseekerProfile',
             	templateUrl: './templates/view.company.updateJobseekerProfile.html',
-            	params: {profiledet: null},
+            	params: {profileDet: null},
             	controller: 'controllerJobSeekerProfile'
         	})
-		.state('home.companyprofile', {
+		.state('home.companyprofile', 
+			{
 				url:'company',
 				templateUrl: './templates/view.company.profile.html',
-				params: {companydet: null},
+				params: {companyDet: null},
 				controller: 'controllerCompanyProfile' 
+			})
+		.state('home.update',
+			{
+				url:'/update',
+				templateUrl: './templates/view.company.update.html',
+				controller: 'controllerCompanyUpdate',
+				params: {companyDet: null}
 			})
 	
 }).controller('mainController', function(){
