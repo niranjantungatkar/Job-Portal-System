@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.sjsu.exceptions.CompanyExceptions;
+import edu.sjsu.exceptions.JobApplicationExceptions;
+import edu.sjsu.exceptions.JobPostingException;
 import edu.sjsu.models.JobPosting;
 import edu.sjsu.services.JobPostingService;
 
@@ -34,8 +36,24 @@ public class JobPostingController {
 			JobPosting jobPosting = jobPostingService.createJobPosting(paramtersMap);
 			return new ResponseEntity(jobPosting, responseHeaders, HttpStatus.OK);
 		} catch (CompanyExceptions ex) {
-			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders,
-					HttpStatus.NOT_FOUND);
+			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
+		} catch (Exception ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/jobposting", method = RequestMethod.PUT)
+	public ResponseEntity updateJobPosting(@RequestBody Map<String, Object> parameters) {
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+		try {
+			JobPosting jobPosting = jobPostingService.updateJobPosting(parameters);
+			return new ResponseEntity(jobPosting, responseHeaders, HttpStatus.OK);
+		} catch (JobPostingException | JobApplicationExceptions ex) {
+			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
 		} catch (Exception ex) {
 			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
 					HttpStatus.INTERNAL_SERVER_ERROR);
