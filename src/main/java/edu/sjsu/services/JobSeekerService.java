@@ -153,8 +153,11 @@ public class JobSeekerService {
 	 * @param id
 	 * @return JobSeeker
 	 */
-	public JobSeeker getProfile(String id){
+	public JobSeeker getProfile(String id) throws JobSeekerExceptions{
 		JobSeeker jobSeeker = jobSeekerRepository.findByJobseekerid(id);
+		if(jobSeeker == null){
+			throw new JobSeekerExceptions("No profile found.");
+		}
 		return jobSeeker;
 	} 
 	

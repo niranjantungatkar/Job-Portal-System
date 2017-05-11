@@ -80,17 +80,18 @@ public class JobSeekerController {
 			JobSeeker jobSeeker = jobSeekerService.updateProfile(parameterMap);
 			return new ResponseEntity(jobSeeker, responseHeaders, HttpStatus.OK);
 		} catch (JobSeekerExceptions ex) {
-			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
-					HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders,
+					HttpStatus.NOT_FOUND);
 		} catch (WorkExperienceExceptions ex) {
 			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (SkillExceptions ex) {
 			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
 					HttpStatus.INTERNAL_SERVER_ERROR);
-		}catch( Exception ex){
-			return new ResponseEntity(getErrorResponse("500", "Error occurred while updating the profile. Try again later"), responseHeaders,
-					HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception ex) {
+			return new ResponseEntity(
+					getErrorResponse("500", "Error occurred while updating the profile. Try again later"),
+					responseHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -100,9 +101,17 @@ public class JobSeekerController {
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+		try {
+			JobSeeker jobSeeker = jobSeekerService.getProfile(id);
+			return new ResponseEntity(jobSeeker, responseHeaders, HttpStatus.OK);
+		} catch (JobSeekerExceptions ex) {
+			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders,
+					HttpStatus.NOT_FOUND);
+		} catch (Exception ex) {
+			return new ResponseEntity(getErrorResponse("400", ex.getMessage()), responseHeaders,
+					HttpStatus.BAD_REQUEST);
+		}
 
-		JobSeeker jobSeeker = jobSeekerService.getProfile(id);
-		return new ResponseEntity(jobSeeker, responseHeaders, HttpStatus.OK);
 	}
 
 	public HashMap<String, String> getErrorResponse(String errorcode, String error) {
