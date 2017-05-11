@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.sjsu.exceptions.CompanyExceptions;
+import edu.sjsu.exceptions.JobPostingException;
 import edu.sjsu.models.Company;
 import edu.sjsu.models.JobPosting;
 import edu.sjsu.models.Skill;
@@ -60,5 +61,15 @@ public class JobPostingService {
 		return jobPosting;
 	
 	}
+	
+	public JobPosting getJobPosting(String requisitionId) throws JobPostingException{
+		
+		JobPosting jobPosting = jobPostingRepository.findByRequisitionId(requisitionId);
+		if(jobPosting == null){
+			throw new JobPostingException("Job Posting not found");
+		}
+		return jobPosting;
+	}
+	
 
 }

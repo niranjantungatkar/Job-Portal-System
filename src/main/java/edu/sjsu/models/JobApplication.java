@@ -1,15 +1,19 @@
 package edu.sjsu.models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 public class JobApplication {
 
 	
 	@Id
+	@GeneratedValue(generator = "jobApplicationIdGenerator")
+	@GenericGenerator(name = "jobApplicationIdGenerator", strategy = "edu.sjsu.utils.JobApplicationIdGenerator")
 	private String applicationId; //generate id - use existing id generation logic of ariline system.
 	
 	@OneToOne
