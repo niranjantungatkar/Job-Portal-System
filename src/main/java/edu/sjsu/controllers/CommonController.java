@@ -77,7 +77,7 @@ public class CommonController {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/verify", method = RequestMethod.POST)
-	public ResponseEntity verifyAccount(@RequestBody Map<String, Object> parameterMap) {
+	public ResponseEntity verifyAccount(HttpSession session ,@RequestBody Map<String, Object> parameterMap) {
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -94,6 +94,9 @@ public class CommonController {
 						(String) parameterMap.get("verificationCode"));
 				HashMap<String, Object> result = new HashMap<>();
 				result.put("result", true);
+				if(session != null){
+					session.setAttribute("verified", true);
+				}
 				return new ResponseEntity(result, responseHeaders, HttpStatus.OK);
 			}
 		} catch (JobSeekerExceptions ex) {
