@@ -56,7 +56,7 @@ public class JobPostingService {
 		List<Skill> skills = getSkillList(skillsInputList);
 
 		jobPosting.setSkills(skills);
-		jobPosting.setSalary((Integer) parametersMap.get("salary"));
+		jobPosting.setSalary(Integer.valueOf(String.valueOf(parametersMap.get("salary"))));
 		jobPosting.setStatus(0); // 0 status- Open position
 		jobPostingRepository.save(jobPosting);
 		return jobPosting;
@@ -144,7 +144,7 @@ public class JobPostingService {
 			message.append("job status ");
 		}
 		if (parameters.containsKey("salary")) {
-			jobPosting.setSalary((Integer) parameters.get("salary"));
+			jobPosting.setSalary(Integer.valueOf(String.valueOf(parameters.get("salary"))));
 			if (changed)
 				message.append(", ");
 			changed = true;

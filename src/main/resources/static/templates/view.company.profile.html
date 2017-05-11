@@ -1,52 +1,32 @@
 <div id="ember2385" class="ember-view ng-scope">
     <div aria-live="polite" role="status" id="ember2407" class="notification-container ember-view">
-        <!---->
     </div>
-    <!---->
     <div class="application-outlet ">
-        
-        <!---->
-        <!---->
-        
         <div class="authentication-outlet">
             <div class="organization-outlet">
                 <!---->
                 <div id="ember7506" class="org-organization-page ember-view">
-                    
-                    <!---->
-                    <!---->
-                    
-                    <section id="ember7552" class="org-top-card-module org-top-card-module--lcp-page ember-view">
+					<section id="ember7552" class="org-top-card-module org-top-card-module--lcp-page ember-view">
                         <div class="org-top-card-module__container container-with-shadow clearfix">
                             <!---->
-                            <img class="lazy-image org-top-card-module__logo loaded" alt="Google Logo" height="120" width="120" src="https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAALTAAAAJGY1NGY1N2ZhLTNmZmUtNGRmZi1iMDgxLTJjZjdkNjNkYmZlOQ.png">
+                            <img class="lazy-image org-top-card-module__logo loaded" alt="Company Logo" height="120" width="120" ng-src={{company.logoURL}}>
                             <div class="org-top-card-module__details">
                                 <div class="org-top-card-module__main-column">
                                     <h1 dir="ltr" class="org-top-card-module__name mb1 Sans-26px-black-85%-light">
-                                        Google
+                                        {{company.companyName}}
                                     </h1>
                                     <div class="org-top-card-module__summary-company-info">
                               <span class="Sans-15px-black-55%">
-                              Mountain View, CA
+                              			{{company.address}}
                               </span>
-                                        
                                     </div>
-                                    
-                                    
                                     <div class="org-top-card-module__company-actions-bar">
                                         <div id="ember7609" class="inline-block org-top-card-actions ember-view">
-                                            
                                         </div>
-                                        
                                     </div>
                                 </div>
-                                
                             </div>
-                            
                         </div>
-                        <!---->
-                        <!---->
-                        <!---->
                     </section>
                     <div role="main" class="org-organization-page__entity-company">
                         <div id="ember7670" class="org-organization-nav ui-tabbed-nav ember-view">
@@ -56,8 +36,8 @@
                                 <div class="org-overview-container content-container">
                                     <div class="main">
                                         <!----><!----><!---->
-                                        <section id="ember8009" class="org-about-company-module module container-with-shadow clearfix ember-view">
-                                            <div id="ember8018" class="ember-view">
+                                        <section id="ember8009" class="org-about-company-module module container-with-shadow clearfix ember-view" style="width:100%; height: 250px">
+                                            <div id="ember8018" class="ember-view" >
                                                 <div id="org-about-company-module" tabindex="-1" class="media">
                                                     <div class="org-about-company-module__org-info org-about-company-module__org-info--is-collapsed media__body easeInOut-long-slow-motion pr4 pl5 pt5">
                                                         
@@ -65,8 +45,8 @@
                                                             <div class="company-heading">
                                                                 <h2 class="about-us-heading Sans-21px-black-85% mb4">About us</h2>
                                                             </div>
-                                                            <p dir="ltr" class="org-about-us-organization-description__text description mb5 pre-wrap Sans-15px-black-70%">Google’s mission is to organize the world‘s information and make it universally accessible and useful.
-                                                                Since our founding in 1998, Google has grown by leaps and bounds. From offering search in a single language we now offer dozens of products and services—including various forms of advertising and web applications for all kinds of tasks—in scores of languages. And starting from two computer science students in a university dorm room, we now have thousands of employees and offices around the world. A lot has changed since the first Google search engine appeared. But some things haven’t changed: our dedication to our users and our belief in the possibilities of the Internet itself.
+                                                            <p dir="ltr" class="org-about-us-organization-description__text description mb5 pre-wrap Sans-15px-black-70%">
+                                                            {{company.companyDesc}}
                                                             </p>
                                                         </div>
                                                         
@@ -76,54 +56,31 @@
                                                                 Headquarters
                                                             </dt>
                                                             <dd itemprop="address" class="org-about-company-module__headquarter Sans-15px-black-70%">
-                                                                Mountain View, CA
+                                                                {{company.address}}
                                                             </dd>
                                                         </dl>
                                                         
                                                         <dl class="org-about-company-module__meta-list-item">
                                                             <dt class="Sans-15px-black-85%-semibold">Website</dt>
                                                             <dd dir="ltr" class="org-about-company-module__company-page-url Sans-15px-black-70%">
-                                                                <a rel="noopener noreferrer" target="_blank" href="http://www.google.com" id="ember8032" class="link-without-visited-state ember-view">                http://www.google.com
+                                                                <a rel="noopener noreferrer" target="_blank" href="http://www.google.com" id="ember8032" class="link-without-visited-state ember-view">
+                                                                {{company.website}}
                                                                 </a>
                                                             </dd>
                                                         </dl>
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        
-                                                        <!---->
                                                     </div>
                                                     
                                                 </div>
                                             </div>
                                         </section>
-                                        
-                                        
-                                        <!----><!---->
-                                        
-                                        
-                                        
                                     </div>
-
-                                    
                                 </div>
-                                <!---->
                             </div>
-                            
-                            
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <!---->
-    <!---->
-    <!---->
-    <!---->
-    
-    
-    
+
 </div>

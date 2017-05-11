@@ -4,6 +4,7 @@
 
 jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSession) {
 	
+	
 	//for storing the type of profile of the current user.
 	$scope.profile = {
 			type:""
@@ -42,6 +43,7 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 		$scope.header.session=true;
 		$scope.header.verified=userSession.data.verified;
 		if(userSession.data.type == "company") {
+			console.log(userSession);
 			$scope.header.profile = "company";
 			$state.go('home.companyprofile', { companyDet: { id: userSession.data.id, type : userSession.data.type, verified: userSession.data.verified } })
 		} else if (userSession.data.type == "jobseeker") {

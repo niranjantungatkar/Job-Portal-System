@@ -22,40 +22,45 @@
         </div>
       </section>
       <div class="pe-s-form__body pe-form-body">
-      <div data-form-elem-focus="true" class="pe-form-field pe-top-card-form__headline-field floating-label  ">
+      	<div data-form-elem-focus="true" class="pe-form-field pe-top-card-form__headline-field floating-label  ">
 			<label for="topcard-headline" class="pe-form-field__label label-text required">
-    			Company Description
+    			Job Title
   			</label>
-  			<textarea id="topcard-headline" ng-model="updateCompanyData.companyDesc" class="pe-top-card-form__headline-text ember-text-area pe-form-field__textarea ember-view"></textarea>
-	  </div>
+  			<input type="text" name="firstName" ng-model="jobpostingData.title" maxlength="200" id="topcard-firstname" class="ember-text-field pe-form-field__text-input ember-view">
+	  	</div>
+      	<div data-form-elem-focus="true" class="pe-form-field pe-top-card-form__headline-field floating-label  ">
+			<label for="topcard-headline" class="pe-form-field__label label-text required">
+    			Job Description
+  			</label>
+  			<textarea id="topcard-headline" ng-model="jobpostingData.jobDescription" class="pe-top-card-form__headline-text ember-text-area pe-form-field__textarea ember-view"></textarea>
+	  	</div>
+	  	<div data-form-elem-focus="true" class="pe-form-field pe-top-card-form__headline-field floating-label  ">
+			<label for="topcard-headline" class="pe-form-field__label label-text required">
+    			Responsibilities
+  			</label>
+  			<textarea id="topcard-headline" ng-model="jobpostingData.responsibilities" class="pe-top-card-form__headline-text ember-text-area pe-form-field__textarea ember-view"></textarea>
+	  	</div>
  		<div data-form-elem-focus="true" class="pe-form-field pe-top-card-form__headline-field floating-label  ">
 			<label for="topcard-headline" class="pe-form-field__label label-text required">
-    			Address
+    			Skills
   			</label>
-  			<input type="text" name="firstName" ng-model="updateCompanyData.address" maxlength="200" id="topcard-firstname" class="ember-text-field pe-form-field__text-input ember-view">
+  			<textarea id="topcard-headline" ng-model="jobpostingData.skills" class="pe-top-card-form__headline-text ember-text-area pe-form-field__textarea ember-view"></textarea>
 	  	</div>
 	  	<div data-form-elem-focus="true" class="pe-form-field pe-top-card-form__headline-field floating-label  ">
 			<label for="topcard-headline" class="pe-form-field__label label-text required">
-    			Website
+    			Salary
   			</label>
-  			<input type="text" name="firstName" ng-model="updateCompanyData.website" maxlength="200" id="topcard-firstname" class="ember-text-field pe-form-field__text-input ember-view">
+  			<input type="text" name="firstName" ng-model="jobpostingData.salary" maxlength="200" id="topcard-firstname" class="ember-text-field pe-form-field__text-input ember-view">
 	  	</div>
-	  	<div data-form-elem-focus="true" class="pe-form-field pe-top-card-form__headline-field floating-label  ">
-			<label for="topcard-headline" class="pe-form-field__label label-text required">
-    			Password
-  			</label>
-  			<input type="password" name="firstName" ng-model="updateCompanyData.password" maxlength="200" id="topcard-firstname" class="ember-text-field pe-form-field__text-input ember-view">
-	  	</div>
- 		
-	      <div id="ember10750" class="ember-view">
-	      <div class="pe-form-field pe-treasury-view">
+	  	<div id="ember10750" class="ember-view">
+	      	<div class="pe-form-field pe-treasury-view">
 				<div class="pe-treasury-view__actions display-flex justify-space-between">
-    			<input type="button" id="pe-treasury-view__media-upload" name="file" class="visually-hidden pe-treasury-view__media" ng-click="updateCompany()">
+    			<input type="button" id="pe-treasury-view__media-upload" name="file" class="visually-hidden pe-treasury-view__media" ng-click="postJob()">
     			<label for="pe-treasury-view__media-upload" class="pe-treasury-view__upload-label button-primary-large">
-      				Update
+      				Publish
     			</label>
   			</div>
 		  </div>
 		</div>
     </div>
- </div>
+</div>
