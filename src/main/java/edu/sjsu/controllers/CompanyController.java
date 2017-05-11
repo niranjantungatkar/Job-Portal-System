@@ -47,7 +47,7 @@ public class CompanyController {
 			result.put("id", company.getCompanyName());
 			result.put("type", "company");
 			result.put("verified", company.getIsVerified());
-			return new ResponseEntity(result, responseHeaders, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity(result, responseHeaders, HttpStatus.OK);
 		} catch (CompanyExceptions ex) {
 			return new ResponseEntity(getErrorResponse("400", ex.getMessage()), responseHeaders,
 					HttpStatus.BAD_REQUEST);

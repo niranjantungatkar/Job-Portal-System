@@ -36,7 +36,7 @@ public class JobSeeker {
 
 	private String selfIntroduction;
 
-	@Embedded
+	@OneToMany
 	private List<WorkExperience> workExp;
 
 	@Embedded

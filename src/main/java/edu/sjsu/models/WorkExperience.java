@@ -3,10 +3,21 @@ package edu.sjsu.models;
 import java.util.Date;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-@Embeddable
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
 public class WorkExperience {
 
+	@Id
+	@GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
+	private String id;
+	
 	private String company;
 	
 	private String positionHeld;
@@ -19,6 +30,14 @@ public class WorkExperience {
 		super();
 	}
 
+	public String getId(){
+		return id;
+	}
+	
+	public void setId(String id){
+		this.id = id;
+	}
+	
 	public String getCompany() {
 		return company;
 	}

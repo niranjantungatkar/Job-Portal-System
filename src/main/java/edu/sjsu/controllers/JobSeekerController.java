@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.sjsu.exceptions.JobSeekerExceptions;
+import edu.sjsu.exceptions.SkillExceptions;
+import edu.sjsu.exceptions.WorkExperienceExceptions;
 import edu.sjsu.models.JobSeeker;
 import edu.sjsu.services.JobSeekerService;
 import edu.sjsu.services.EmailService;
@@ -48,8 +51,8 @@ public class JobSeekerController {
 			emailService.sendMail(jobSeeker.getEmail(), "Test Email", jobSeeker.getVerificationCode());
 			HashMap<String, Object> response = new HashMap<>();
 			response.put("result", true);
-			response.put("id",jobSeeker.getJobseekerid());
-			response.put("type","jobseeker");
+			response.put("id", jobSeeker.getJobseekerid());
+			response.put("type", "jobseeker");
 			response.put("verified", jobSeeker.getIsVerified());
 			return new ResponseEntity(response, responseHeaders, HttpStatus.OK);
 		} catch (JobSeekerExceptions ex) {
@@ -66,22 +69,42 @@ public class JobSeekerController {
 		}
 	}
 
-	
-	
-	@SuppressWarnings("rawtypes")
-	@RequestMapping(value="/jobseeker", method=RequestMethod.PUT)
-	public ResponseEntity updateProfile(@RequestBody Map<String, Object> parameterMap){
-		
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/jobseeker", method = RequestMethod.PUT)
+	public ResponseEntity updateProfile(@RequestBody Map<String, Object> parameterMap) {
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+
 		try {
-			jobSeekerService.updateProfile(parameterMap);
-		} catch (JobSeekerExceptions e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JobSeeker jobSeeker = jobSeekerService.updateProfile(parameterMap);
+			return new ResponseEntity(jobSeeker, responseHeaders, HttpStatus.OK);
+		} catch (JobSeekerExceptions ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (WorkExperienceExceptions ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (SkillExceptions ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}catch( Exception ex){
+			return new ResponseEntity(getErrorResponse("500", "Error occurred while updating the profile. Try again later"), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		return null;
 	}
-	
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/jobseeker/{id}", method = RequestMethod.GET)
+	public ResponseEntity getProfile(@PathVariable("id") String id) {
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+		JobSeeker jobSeeker = jobSeekerService.getProfile(id);
+		return new ResponseEntity(jobSeeker, responseHeaders, HttpStatus.OK);
+	}
+
 	public HashMap<String, String> getErrorResponse(String errorcode, String error) {
 		HashMap<String, String> errorMap = new HashMap<String, String>();
 		errorMap.put("code", errorcode);
