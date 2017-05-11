@@ -110,6 +110,7 @@ public class JobPostingService {
 		JobPosting jobPosting = getJobPosting((String) parameters.get("requisitionId"));
 
 		Boolean changed = false;
+		int statusChanged = -1;
 		StringBuilder message = new StringBuilder();
 		
 		if (parameters.containsKey("jobDescription")) {
@@ -141,6 +142,7 @@ public class JobPostingService {
 			if (changed)
 				message.append(", ");
 			changed = true;
+			statusChanged = (Integer) parameters.get("status");
 			message.append("job status ");
 		}
 		if (parameters.containsKey("salary")) {
@@ -152,13 +154,21 @@ public class JobPostingService {
 		}
 		jobPostingRepository.save(jobPosting);
 
+		String details = null;
+		if(statusChanged == 1)
+			details = "Position has been filled.Thanks for applying";
+		else if(statusChanged == 2)
+			details = "Position has been Cancelled.Thanks for applying";
+		
 		// Send the email to all the applicant here
 		if (changed) {
 			List<JobApplication> jobApplications = jobApplicationService.getJobApplicationByJobPosting(jobPosting);
 			for (JobApplication jobApplication : jobApplications) {
 				JobSeeker applicant = jobApplication.getApplicant();
 				String subject = "Job Id " + jobPosting.getRequisitionId() + " has been updated";
-				message.append("has been updated");
+				message.append("has been updated\n");
+				if(details != null)
+					message.append(details);
 				emailService.sendMail(applicant.getEmail(), subject, message.toString());
 			}
 		}
