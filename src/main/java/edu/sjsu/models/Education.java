@@ -3,20 +3,38 @@ package edu.sjsu.models;
 import java.util.Date;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-@Embeddable
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
 public class Education {
 
+	@Id
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid")
+	private String id;
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	private String institute;
-	
+
 	private Date startDate;
-	
+
 	private Date endDate;
-	
+
 	private String degree;
-	
+
 	public Education() {
 		super();
+	}
+
+	public String getId() {
+		return id;
 	}
 
 	public String getInstitute() {

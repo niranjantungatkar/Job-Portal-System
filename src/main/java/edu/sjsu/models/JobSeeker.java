@@ -39,7 +39,7 @@ public class JobSeeker {
 	@OneToMany
 	private List<WorkExperience> workExp;
 
-	@Embedded
+	@OneToMany
 	private List<Education> education;
 
 	@ManyToMany

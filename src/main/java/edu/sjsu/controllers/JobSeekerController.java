@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.sjsu.exceptions.EducationExceptions;
 import edu.sjsu.exceptions.JobSeekerExceptions;
 import edu.sjsu.exceptions.SkillExceptions;
 import edu.sjsu.exceptions.WorkExperienceExceptions;
@@ -80,12 +81,14 @@ public class JobSeekerController {
 			JobSeeker jobSeeker = jobSeekerService.updateProfile(parameterMap);
 			return new ResponseEntity(jobSeeker, responseHeaders, HttpStatus.OK);
 		} catch (JobSeekerExceptions ex) {
-			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders,
-					HttpStatus.NOT_FOUND);
+			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
 		} catch (WorkExperienceExceptions ex) {
 			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (SkillExceptions ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (EducationExceptions ex) {
 			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception ex) {
@@ -105,8 +108,7 @@ public class JobSeekerController {
 			JobSeeker jobSeeker = jobSeekerService.getProfile(id);
 			return new ResponseEntity(jobSeeker, responseHeaders, HttpStatus.OK);
 		} catch (JobSeekerExceptions ex) {
-			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders,
-					HttpStatus.NOT_FOUND);
+			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
 		} catch (Exception ex) {
 			return new ResponseEntity(getErrorResponse("400", ex.getMessage()), responseHeaders,
 					HttpStatus.BAD_REQUEST);

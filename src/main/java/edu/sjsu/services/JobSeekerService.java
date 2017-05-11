@@ -11,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.sjsu.exceptions.EducationExceptions;
 import edu.sjsu.exceptions.JobSeekerExceptions;
 import edu.sjsu.exceptions.SkillExceptions;
 import edu.sjsu.exceptions.WorkExperienceExceptions;
 import edu.sjsu.models.Company;
+import edu.sjsu.models.Education;
 import edu.sjsu.models.JobSeeker;
 import edu.sjsu.models.Skill;
 import edu.sjsu.models.WorkExperience;
@@ -35,12 +37,15 @@ public class JobSeekerService {
 
 	@Autowired
 	WorkExperienceService workExperienceService;
-	
+
 	@Autowired
 	EmailService emailService;
 
 	@Autowired
 	SkillService skillService;
+
+	@Autowired
+	EducationService educationService;
 
 	/**
 	 * Signup the job seeker
@@ -91,14 +96,18 @@ public class JobSeekerService {
 		}
 	}
 
-	/**
-	 * Update the jobSeeker's profile
+	/** Update the profile of jobSeeker
 	 * 
 	 * @param parameters
+	 * @return UpdatedJobseeker
 	 * @throws JobSeekerExceptions
+	 * @throws WorkExperienceExceptions
+	 * @throws SkillExceptions
+	 * @throws EducationExceptions
 	 */
 	@SuppressWarnings({ "unchecked" })
-	public JobSeeker updateProfile(Map<String, Object> parameters) throws JobSeekerExceptions, WorkExperienceExceptions, SkillExceptions {
+	public JobSeeker updateProfile(Map<String, Object> parameters)
+			throws JobSeekerExceptions, WorkExperienceExceptions, SkillExceptions, EducationExceptions {
 		JobSeeker jobSeeker = jobSeekerRepository.findByJobseekerid((String) parameters.get("id"));
 
 		if (jobSeeker == null) {
@@ -123,53 +132,70 @@ public class JobSeekerService {
 
 		// Update the skills
 		if (parameters.containsKey("skills")) {
-			try{
+			try {
 				List<Skill> skillsList = updateSkillsList(parameters);
 				jobSeeker.setSkills(skillsList);
-			}catch(Exception ex){
+			} catch (Exception ex) {
 				throw new SkillExceptions("Error occurred while updating the skills. Try again later");
 			}
-			
+
 		}
 
-		//update the workExperience
+		// update the workExperience
 		if (parameters.containsKey("workExperience")) {
 			List<WorkExperience> oldWorkExp = jobSeeker.getWorkExp();
-			try{
+			try {
 				workExperienceService.deleteWorkExperience(oldWorkExp);
 				List<WorkExperience> workExpList = updateWorkExperience(parameters);
 				jobSeeker.setWorkExp(workExpList);
-			}catch(Exception ex){
-				throw new WorkExperienceExceptions("Error occurred while updating the work experience. Try again later.");
+			} catch (Exception ex) {
+				throw new WorkExperienceExceptions(
+						"Error occurred while updating the work experience. Try again later.");
 			}
-			
 		}
+
+		//Update the education
+		if (parameters.containsKey("education")) {
+			List<Education> oldEducationList = jobSeeker.getEducation();
+			try {
+				educationService.deleteEducation(oldEducationList);
+				List<Education> educatonList = updateEducation(parameters);
+				jobSeeker.setEducation(educatonList);
+			} catch (Exception ex) {
+				throw new EducationExceptions("Error occurred while updating the work education. Try again later");
+			}
+
+		}
+
 		jobSeekerRepository.save(jobSeeker);
 		return jobSeeker;
 	}
-	
-	/** Get the jobseeker's profile
+
+	/**
+	 * Get the jobseeker's profile
 	 * 
 	 * @param id
 	 * @return JobSeeker
 	 */
-	public JobSeeker getProfile(String id) throws JobSeekerExceptions{
+	public JobSeeker getProfile(String id) throws JobSeekerExceptions {
 		JobSeeker jobSeeker = jobSeekerRepository.findByJobseekerid(id);
-		if(jobSeeker == null){
+		if (jobSeeker == null) {
 			throw new JobSeekerExceptions("No profile found.");
 		}
 		return jobSeeker;
-	} 
-	
-	/** Update the skills 
+	}
+
+	/**
+	 * Update the skills
 	 * 
 	 * @param parameters
 	 * @return List of updated Skill
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Skill> updateSkillsList(Map<String, Object> parameters){
+	public List<Skill> updateSkillsList(Map<String, Object> parameters) {
 		List<Skill> skillsList = new ArrayList<>();
-		List<LinkedHashMap<String, String>> skillsInput = (List<LinkedHashMap<String, String>>) parameters.get("skills");
+		List<LinkedHashMap<String, String>> skillsInput = (List<LinkedHashMap<String, String>>) parameters
+				.get("skills");
 		for (LinkedHashMap<String, String> skillMap : skillsInput) {
 			Skill skill = null;
 			try {
@@ -181,21 +207,39 @@ public class JobSeekerService {
 		}
 		return skillsList;
 	}
-	
-	/** Update the Work Experience.
+
+	/**
+	 * Update the Work Experience.
 	 * 
 	 * @param parameters
 	 * @return List of Updated WorkExperience
 	 */
 	@SuppressWarnings("unchecked")
-	public List<WorkExperience> updateWorkExperience(Map<String, Object> parameters){
+	public List<WorkExperience> updateWorkExperience(Map<String, Object> parameters) {
 		List<WorkExperience> workExpList = new ArrayList<>();
-		List<LinkedHashMap<String, String>> workExpInput = (List<LinkedHashMap<String, String>>) parameters.get("workExperience");
+		List<LinkedHashMap<String, String>> workExpInput = (List<LinkedHashMap<String, String>>) parameters
+				.get("workExperience");
 		for (LinkedHashMap<String, String> workExp : workExpInput) {
 			WorkExperience workExperience = workExperienceService.createWorkExperience(workExp);
 			workExpList.add(workExperience);
 		}
 		return workExpList;
 	}
+
+	/** Update thh education
+	 * 
+	 * @param parameters
+	 * @return List of Updated education
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Education> updateEducation(Map<String, Object> parameters) {
+		List<Education> educationList = new ArrayList<>();
+		List<LinkedHashMap<String, String>> educationInput = (List<LinkedHashMap<String, String>>) parameters
+				.get("education");
+		for (LinkedHashMap<String, String> edu : educationInput) {
+			Education newEdu = educationService.createEducation(edu);
+			educationList.add(newEdu);
+		}
+		return educationList;
+	}
 }
-	
