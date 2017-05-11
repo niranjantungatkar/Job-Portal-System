@@ -20,8 +20,10 @@ import edu.sjsu.exceptions.JobPostingException;
 import edu.sjsu.exceptions.JobSeekerExceptions;
 import edu.sjsu.models.JobApplication;
 import edu.sjsu.models.JobPosting;
+import edu.sjsu.models.JobSeeker;
 import edu.sjsu.services.JobApplicationService;
 import edu.sjsu.services.JobPostingService;
+import edu.sjsu.services.JobSeekerService;
 
 @RestController
 public class JobApplicationController {
@@ -31,6 +33,9 @@ public class JobApplicationController {
 
 	@Autowired
 	JobPostingService jobPostingService;
+
+	@Autowired
+	JobSeekerService jobSeekerService;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/jobapplication", method = RequestMethod.POST)
@@ -53,7 +58,7 @@ public class JobApplicationController {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/jobapplication/{requisitionId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/jobapplication/jobposting/{requisitionId}", method = RequestMethod.GET)
 	public ResponseEntity getApplicationByJob(@PathVariable("requisitionId") String requisitionId)
 			throws JobPostingException, JobApplicationExceptions {
 
@@ -64,6 +69,25 @@ public class JobApplicationController {
 			List<JobApplication> jobApplications = jobApplicationService.getJobApplicationByJobPosting(jobPosting);
 			return new ResponseEntity(jobApplications, responseHeaders, HttpStatus.OK);
 		} catch (JobPostingException | JobApplicationExceptions ex) {
+			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
+		} catch (Exception ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/jobapplication/jobseeker/{id}", method = RequestMethod.GET)
+	public ResponseEntity getApplicationByApplicant(@PathVariable("id") String id) {
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+		try {
+			JobSeeker jobSeeker = jobSeekerService.getProfile(id);
+			List<JobApplication> jobApplications = jobApplicationService.getJobApplicationByJobSeeker(jobSeeker);
+			return new ResponseEntity(jobApplications, responseHeaders, HttpStatus.OK);
+		} catch (JobSeekerExceptions | JobApplicationExceptions ex) {
 			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
 		} catch (Exception ex) {
 			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,

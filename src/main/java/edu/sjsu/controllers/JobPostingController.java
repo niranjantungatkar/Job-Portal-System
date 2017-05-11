@@ -63,7 +63,7 @@ public class JobPostingController {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = "/jobposting/{companyName}", method=RequestMethod.GET)
+	@RequestMapping(value = "/jobposting/company/{companyName}", method = RequestMethod.GET)
 	public ResponseEntity getJobPosting(@PathVariable("companyName") String companyName) {
 
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -73,6 +73,24 @@ public class JobPostingController {
 			List<JobPosting> jobPostings = jobPostingService.getJobsPostingbyCompany(companyName);
 			return new ResponseEntity(jobPostings, responseHeaders, HttpStatus.OK);
 		} catch (CompanyExceptions | JobPostingException ex) {
+			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
+		} catch (Exception ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/jobposting/{requisitionId}", method = RequestMethod.GET)
+	public ResponseEntity getJobPostingById(@PathVariable("requisitionId") String requisitionId) {
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+		try {
+			JobPosting jobPosting = jobPostingService.getJobPosting(requisitionId);
+			return new ResponseEntity(jobPosting, responseHeaders, HttpStatus.OK);
+		} catch (JobPostingException ex) {
 			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
 		} catch (Exception ex) {
 			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,

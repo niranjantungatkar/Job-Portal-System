@@ -113,7 +113,6 @@ public class JobSeekerController {
 			return new ResponseEntity(getErrorResponse("400", ex.getMessage()), responseHeaders,
 					HttpStatus.BAD_REQUEST);
 		}
-
 	}
 
 	public HashMap<String, String> getErrorResponse(String errorcode, String error) {
