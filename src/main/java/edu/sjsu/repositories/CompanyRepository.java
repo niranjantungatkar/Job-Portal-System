@@ -6,6 +6,8 @@ import edu.sjsu.models.Company;
 
 public interface CompanyRepository extends CrudRepository<Company, String> {
 
+	public Company findByCompanyName(String companyName);
+	
 	public Company findByEmailAndPassword(String email, String password);
 	
 	public Company findByEmail(String email);

@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,7 +30,7 @@ public class CompanyController {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/company", method = RequestMethod.POST)
-	public ResponseEntity<?> signUp(@RequestBody Map<String, Object> parameterMap) {
+	public ResponseEntity signUp(@RequestBody Map<String, Object> parameterMap) {
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -54,6 +55,22 @@ public class CompanyController {
 		} catch (Exception ex) {
 			return new ResponseEntity(getErrorResponse("400", ex.getMessage()), responseHeaders,
 					HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/company/{companyName}", method = RequestMethod.GET)
+	public ResponseEntity updateCompany(@PathVariable("companyName") String companyName) {
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+		try {
+			Company company = companyService.getCompany(companyName);
+			return new ResponseEntity(company, responseHeaders, HttpStatus.OK);
+		} catch (CompanyExceptions ex) {
+			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
+		} catch (Exception ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

@@ -76,4 +76,20 @@ public class CompanyService {
 			throw new CompanyExceptions("Invalid Verification Code");
 		}
 	}
+	
+	/**Returns the company object
+	 * 
+	 * @param companyName
+	 * @return Company
+	 * @throws CompanyExceptions
+	 */
+	public Company getCompany(String companyName) throws CompanyExceptions{
+		Company company = companyRepository.findByCompanyName(companyName);
+		
+		if(company == null){
+			throw new CompanyExceptions("No Company found");
+		}
+		return company;
+	}
+	
 }
