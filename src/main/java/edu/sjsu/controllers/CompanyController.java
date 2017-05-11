@@ -58,9 +58,26 @@ public class CompanyController {
 		}
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value = "/company", method = RequestMethod.PUT)
+	public ResponseEntity updateCompany(@RequestBody Map<String, Object> parametersMap) {
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+		try {
+			Company company = companyService.updateCompany(parametersMap);
+			return new ResponseEntity(company, responseHeaders, HttpStatus.OK);
+		} catch (CompanyExceptions ex) {
+			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
+		} catch (Exception ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/company/{companyName}", method = RequestMethod.GET)
-	public ResponseEntity updateCompany(@PathVariable("companyName") String companyName) {
+	public ResponseEntity getCompany(@PathVariable("companyName") String companyName) {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
 		try {
@@ -69,7 +86,7 @@ public class CompanyController {
 		} catch (CompanyExceptions ex) {
 			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
 		} catch (Exception ex) {
-			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+			return new ResponseEntity(getErrorResponse("500", "Error occurred while updating the company information"), responseHeaders,
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}

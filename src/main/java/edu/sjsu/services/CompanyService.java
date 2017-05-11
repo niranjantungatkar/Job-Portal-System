@@ -1,6 +1,11 @@
 package edu.sjsu.services;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,7 +72,7 @@ public class CompanyService {
 
 		Company company = companyRepository.findByCompanyNameAndVerificationCode(id, verificationCode);
 		if (company != null) {
-			if(company.getIsVerified()){
+			if (company.getIsVerified()) {
 				throw new CompanyExceptions("Already Verified! Please login to continue");
 			}
 			company.setIsVerified(true);
@@ -76,20 +81,55 @@ public class CompanyService {
 			throw new CompanyExceptions("Invalid Verification Code");
 		}
 	}
-	
-	/**Returns the company object
+
+	/**Update the company information
+	 * 
+	 * @param parameterMap
+	 * @return Company
+	 * @throws CompanyExceptions
+	 * @throws MalformedURLException
+	 */
+	public Company updateCompany(Map<String, Object> parameterMap) throws CompanyExceptions, MalformedURLException{
+
+		Company company = companyRepository.findByCompanyName((String) parameterMap.get("companyName"));
+		if (company == null) {
+			throw new CompanyExceptions("Company not found");
+		}
+		if (parameterMap.containsKey("password")) {
+			company.setPassword((String) parameterMap.get("password"));
+		}
+		if (parameterMap.containsKey("website")) {
+			URL websiteUrl = new URL((String) parameterMap.get("website"));
+			company.setWebsite(websiteUrl);
+		}
+		if (parameterMap.containsKey("logoUrl")) {
+			URL logoUrl = new URL((String)parameterMap.get("logoUrl"));
+			company.setLogoURL(logoUrl);
+		}
+		if (parameterMap.containsKey("address")) {
+			company.setAddress((String) parameterMap.get("address"));
+		}
+		if (parameterMap.containsKey("companyDesc")) {
+			company.setCompanyDesc((String) parameterMap.get("companyDesc"));
+		}
+		companyRepository.save(company);
+		return company;
+	}
+
+	/**
+	 * Returns the company object
 	 * 
 	 * @param companyName
 	 * @return Company
 	 * @throws CompanyExceptions
 	 */
-	public Company getCompany(String companyName) throws CompanyExceptions{
+	public Company getCompany(String companyName) throws CompanyExceptions {
 		Company company = companyRepository.findByCompanyName(companyName);
-		
-		if(company == null){
+
+		if (company == null) {
 			throw new CompanyExceptions("No Company found");
 		}
 		return company;
 	}
-	
+
 }
