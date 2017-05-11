@@ -64,7 +64,6 @@ public class CommonController {
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
-
 		try {
 			session.invalidate();
 			HashMap<String, Object> result = new HashMap<>();
@@ -82,13 +81,13 @@ public class CommonController {
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
-
+		
 		try {
 			if (parameterMap.get("type").toString().equals("jobseeker")) {
 				jobSeekerService.verifyJobSeeker((String) parameterMap.get("id"),
 						(String) parameterMap.get("verificationCode"));
 				HashMap<String, Object> result = new HashMap<>();
-				result.put("rersult", true);
+				result.put("result", true);
 				return new ResponseEntity(result, responseHeaders, HttpStatus.OK);
 			} else {
 				companyService.verifyCompany((String) parameterMap.get("id"),

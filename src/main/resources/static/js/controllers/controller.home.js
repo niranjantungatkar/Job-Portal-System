@@ -64,10 +64,34 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 			}
 		}).success(function(data) {
 			if(data.type == "jobseeker") {
+				$scope.header.profile="jobseeker";
+				$scope.header.verified=data.verified;
+				$scope.header.session=true;
 				$state.go('home.jobseekerprofile', { profileDet: { id: data.id, type: data.type, verified: data.verified } })
 			} else if(data.type == "company") {
+				$scope.header.profile="company";
+				$scope.header.verified=data.verified;
+				$scope.header.session=true;
 				$state.go('home.companyprofile', { companyDet: { id: data.id, type: data.type, verified: data.verified } })
 			}
+		})
+	}
+	
+	$scope.logout = function() {
+		$http({
+			method: 'GET',
+			url:'/logout'
+		}).success(function(data){
+			if(data.result) {
+				$scope.header.profile="";
+				$scope.header.verified=false;
+				$scope.header.session=false;
+				$scope.signindata.email = "";
+				$scope.signindata.password = "";
+				$state.go('home');
+			}
+		}).error(function(data){
+			alert("Error while loggin out.")
 		})
 	}
 	
@@ -82,11 +106,16 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 		var url = "";
 		if($scope.profile.type == "company") {
 			data = {
-				"name" : $scope.companydata.cname,
+				"companyName" : $scope.companydata.cname,
 				"email" : $scope.companydata.cemail,
 				"password" : $scope.companydata.cpassword
 			}
 			url="/company"
+			//Flush the scope variables
+			$scope.companydata.cname = "";	
+			$scope.companydata.cemail = "";
+			$scope.companydata.cpassword = "";
+			
 			
 		} else if($scope.profile.type == "user") {
 			data = {
@@ -95,16 +124,30 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 				"lastname" : $scope.userdata.lname,
 				"password" : $scope.userdata.upassword
 			}
-			url="/jobseeker"
+			url="/jobseeker";
+			//Flush the scope variables
+			$scope.userdata.fname = "";
+			$scope.userdata.lname = "";
+			$scope.userdata.upassword = "";
+			$scope.userdata.uemail="";
 		}
-		
+
+		//make http request
 		$http({
+				
 			method : "POST",
 			url : url,
 			data : data
-		}).success(function(data){
-			console.log(data)
-			$state.go('home.verify', { profile: { id: data.id, type: data.type , verified: data.verified } } ) 
+			
+		}).success(function(data) {
+				
+			//If success transition to verification page
+			$state.go('home.verify', { profile: { id: data.id, type: data.type , verified: data.verified } } )
+				
+		}).error(function(data) {
+				
+			//Alert the user if ther email is already in use. Do not make transition to any page.s
+			$scope.invEmail="Email already in use";
 		})
 	} 
 });

@@ -1,6 +1,6 @@
 jobPortalApp.controller('controllerVerify', function($scope, $stateParams, $state, $log, $http){
 	
-	console.log($state.params.profile.id+" "+$state.params.profile.type)
+	$scope.invVerirficationMsg="";
 	if (typeof(Storage) !== "undefined") {
     	if($state.params.profile.id != null && $state.params.profile.id != "" && $state.params.profile.id != undefined)
     	{
@@ -14,14 +14,13 @@ jobPortalApp.controller('controllerVerify', function($scope, $stateParams, $stat
 	
 	$scope.profileId = JSON.parse(localStorage.getItem('profile_id'));
 	$scope.profileType = JSON.parse(localStorage.getItem('profile_type'));
-	console.log($scope.profileId+" "+$scope.profileType);
 	
 	var verification = {
 			code:""
 	}
 	
 	$scope.verify = function() {
-		console.log($scope.profileId+" "+$scope.profileType+" "+$scope.verification.code)
+		
 		$http({
 			method: "POST",
 			url: '/verify',
@@ -31,11 +30,12 @@ jobPortalApp.controller('controllerVerify', function($scope, $stateParams, $stat
 				"verificationCode": $scope.verification.code
 			}
 		}).success(function(data){
-			console.log(data)
-			if(data.result) {
-				$state.go('home');
-			}
 			
+			if(data.result) {
+				$state.go('home.signin');
+			}
+		}).error(function(data){
+			$scope.invVerirficationMsg = data.msg;
 		})
 	}
 })

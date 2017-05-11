@@ -2,25 +2,20 @@
 	<!-- if user is not logged in  -->
 
 	<div class="header" id="header" ng-if= "!header.session">
-
 		<div class="wrapper">
 			<h1>
 				<img class="lazy-loaded" alt="LinkedIn" src="">
 			</h1>
 			<div class="login-form" data-smartlock-autologin="true" data-smartlock-unmediated="" data-smartlock-save-signin="true">
 				<label for="login-email">Email</label>
-				<input type="text" name="session_key" ng-model="signindata.email" class="login-email" autocapitalize="off" tabindex="1" id="login-email" placeholder="Email" autofocus="autofocus" dir="ltr">
+				<input type="email" name="session_key" ng-model="signindata.email" class="login-email" autocapitalize="off" tabindex="1" id="login-email" placeholder="Email" autofocus="autofocus" dir="ltr">
 				<label for="login-password"></label>
 				<input type="password" name="session_password" ng-model="signindata.password" class="login-password" id="login-password" aria-required="true" tabindex="1" placeholder="Password">
 				<input tabindex="1" id="login-submit" class="login submit-button" type="submit" value="Sign in" ng-click="login()">
 			</div>
 		</div>
 	</div>
-
-
-
 <!-- if user is logged in -->
-
 <div class="ember-application boot-complete icons-loaded"  ng-if= " header.profile == 'jobseeker' ">
 	<nav id="extended-nav" class="extended-nav nav-main-container global-alert-offset-top" role="banner" tabindex="-1" style="display: block;">
 		<div class="nav-main__content display-flex">
@@ -134,14 +129,9 @@
 	</nav>
 </div>
 
-
-
-
-
-
-
-    <!-- if company is logged in  -->
-
+	
+	<!-- HEADER C1 -->
+    <!-- if company is logged in && verified -->
 	<div class="ember-application boot-complete icons-loaded" ng-if=" header.profile == 'company'">
 		<nav id="extended-nav" class="extended-nav nav-main-container global-alert-offset-top" role="banner" tabindex="-1" style="display: block;">
 			<div class="nav-main__content display-flex">
@@ -152,112 +142,93 @@
 					</div>
 					<div id="china-branding-nav-item" class="nav-item--china-branding hidden" lang="en"><a href="/feed/" data-alias="" data-link-to="feed" data-control-name="nav.homepage-zh_CN"><span class="nav-item__china-logo" aria-role=""><span class="visually-hidden">LinkedIn领英</span></span></a></div>
 				</div>
-				<form id="extended-nav-search" class="nav-search">
-					<div class="nav-search-bar">
-						<div id="nav-typeahead-wormhole">
-							<section id="ember2373" class="ember-view">
-								<div id="ember2377" class="ember-view">
-									<div class="type-ahead-wrapper type-ahead-theme-primary">
-										<!---->
-										<div role="search" class="type-ahead-input-container">
-											<div class="type-ahead-input-wrapper">
-												<div class="type-ahead-input">
-													<label for="a11y-ember2373" class="visually-hidden">
-														Search
-													</label>
-													<span class="typeahead-icon svg-icon-wrap">
-                                    <li-icon aria-hidden="true" type="search-icon" size="medium">
-                                       <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon">
-                                          <g class="large-icon" style="fill: currentColor">
-                                             <path d="M21,19.67l-5.44-5.44a7,7,0,1,0-1.33,1.33L19.67,21ZM10,15.13A5.13,5.13,0,1,1,15.13,10,5.13,5.13,0,0,1,10,15.13Z"></path>
-                                          </g>
-                                       </svg>
-                                    </li-icon>
-                                 </span>
-													<input aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Search" autocorrect="off" autocapitalize="off" id="a11y-ember2373" role="combobox" class="ember-text-field ember-view" aria-expanded="false"></input>
-													<div class="type-ahead-input-icons">
-														<!---->
-													</div>
-												</div>
-												<!---->
-											</div>
-										</div>
-										<!---->
-										<div aria-live="polite" class="live-region visually-hidden"></div>
-									</div>
-								</div>
-							</section>
-						</div>
-					</div>
-					<div id="nav-search-controls-wormhole" class="nav-search-controls">    <button data-control-name="nav.search_button" class="nav-search-button" data-ember-action="" data-ember-action-2400="2400">Search</button></div>
-				</form>
+				
 				<ul class="nav-main nav-container" role="navigation" style="width: 10px !important;">
 					<li id="feed-nav-item" class="nav-item nav-item--feed" lang="en" style="margin-right: -20px;">
 						<a href="/feed/" data-alias="" data-link-to="feed" data-resource="feed/badge" data-control-name="" class="nav-item__link js-nav-item-link">
-               <span id="feed-tab-icon" class="nav-item__icon" lang="en" aria-role="presentation">
-                  <li-icon aria-hidden="true" type="nav-small-home-icon" color="true">
-                     <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
-                        <g class="active-item" style="fill-opacity: 1">
-                        </g>
-                        <g class="inactive-item" style="fill: currentColor">
-                        </g>
-                     </svg>
-                  </li-icon>
-               </span>
+               				<span id="feed-tab-icon" class="nav-item__icon" lang="en" aria-role="presentation">
+                  				<li-icon aria-hidden="true" type="nav-small-home-icon" color="true">
+                     				<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
+                       					<g class="active-item" style="fill-opacity: 1">
+                        				</g>
+                        				<g class="inactive-item" style="fill: currentColor">
+                        				</g>
+                     				</svg>
+                  				</li-icon>
+               				</span>
 							<span class="nav-item__title">Home</span>
+						</a>
+					</li>
+					<li id="feed-nav-item" class="nav-item nav-item--feed" lang="en" style="margin-right: -20px;">
+						<a href="/feed/" data-alias="" data-link-to="feed" data-resource="feed/badge" data-control-name="" class="nav-item__link js-nav-item-link">
+               				<span id="feed-tab-icon" class="nav-item__icon" lang="en" aria-role="presentation">
+                  				<li-icon aria-hidden="true" type="nav-small-home-icon" color="true">
+                     				<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
+                       					<g class="active-item" style="fill-opacity: 1">
+                        				</g>
+                        				<g class="inactive-item" style="fill: currentColor">
+                        				</g>
+                     				</svg>
+                  				</li-icon>
+               				</span>
+							<span class="nav-item__title">Update</span>
+						</a>
+					</li>
+					<li id="feed-nav-item" class="nav-item nav-item--feed" lang="en" style="margin-right: -20px;">
+						<a href="/feed/" data-alias="" data-link-to="feed" data-resource="feed/badge" data-control-name="" class="nav-item__link js-nav-item-link">
+               				<span id="feed-tab-icon" class="nav-item__icon" lang="en" aria-role="presentation">
+                  				<li-icon aria-hidden="true" type="nav-small-home-icon" color="true">
+                     				<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
+                       					<g class="active-item" style="fill-opacity: 1">
+                        				</g>
+                        				<g class="inactive-item" style="fill: currentColor">
+                        				</g>
+                     				</svg>
+                  				</li-icon>
+               				</span>
+							<span class="nav-item__title">Post Job</span>
 						</a>
 					</li>
 					<li id="jobs-nav-item" class="nav-item nav-item--jobs" lang="en">
 						<a href="/jobs/" data-alias="" data-link-to="jobs" data-resource="" data-control-name="" class="nav-item__link js-nav-item-link">
-               <span id="jobs-tab-icon" class="nav-item__icon" lang="en" aria-role="presentation">
-                  <li-icon aria-hidden="true" type="nav-small-jobs-icon" color="true">
-                     <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
-                        <g class="active-item" style="fill-opacity: 1">
-                        </g>
-                        <g class="inactive-item" style="fill: currentColor">
-                        </g>
-                     </svg>
-                  </li-icon>
-               </span>
-							<span class="nav-item__title">Jobs</span>
+               				<span id="jobs-tab-icon" class="nav-item__icon" lang="en" aria-role="presentation">
+                  			<li-icon aria-hidden="true" type="nav-small-jobs-icon" color="true">
+                     			<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
+                        			<g class="active-item" style="fill-opacity: 1">
+                        			</g>
+                        			<g class="inactive-item" style="fill: currentColor">
+                        			</g>
+                     			</svg>
+                  			</li-icon>
+               				</span>
+							<span class="nav-item__title">View Jobs</span>
 						</a>
 					</li>
-					<li id="profile-nav-item" class="nav-item nav-item--profile" lang="en">
-						<div id="nav-settings__dropdown" class="dropdown closed ember-view">
-							<button type="button" aria-controls="nav-settings__dropdown-options" aria-expanded="false" data-control-name="nav.settings" id="nav-settings__dropdown-trigger" class="Sans-15px-black-70%-semibold nav-item__link dropdown-trigger ember-view">
-								<img src="https://media.licdn.com/mpr/mpr/shrinknp_100_100/AAEAAQAAAAAAAAkSAAAAJDY0YmIwODAwLWQxMjAtNDIzNC05ZGFmLWFmZjJiYjYwZjliZA.jpg" class="nav-item__profile-member-photo nav-item__icon" alt="Darshan Sapaliga" height="24" width="24">
-								<div class="nav-item__title-container">
-									<span class="nav-item__title nav-item__dropdown-trigger--title">Me</span>
-									<span class="nav-item__dropdown-trigger--icon svg-icon-wrap">
-                        <li-icon aria-hidden="true" type="caret-filled-down-icon" size="small">
-                           <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon">
-                              <g class="small-icon" style="fill-opacity: 1">
-                              </g>
-                           </svg>
-                        </li-icon>
-                     </span>
-								</div>
-							</button>
-							<ul id="nav-settings__dropdown-options" style="display: none;" class="dropdown-options nav-settings__dropdown-options ember-view" tabindex="-1">
-								<!---->
-							</ul>
-						</div>
+					<li id="jobs-nav-item" class="nav-item nav-item--jobs" lang="en">
+						<a data-alias="" data-link-to="jobs" data-resource="" data-control-name="" class="nav-item__link js-nav-item-link" ng-click="logout()">
+               				<span id="jobs-tab-icon" class="nav-item__icon" lang="en" aria-role="presentation">
+                  			<li-icon aria-hidden="true" type="nav-small-jobs-icon" color="true">
+                     			<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
+                        			<g class="active-item" style="fill-opacity: 1">
+                        			</g>
+                        			<g class="inactive-item" style="fill: currentColor">
+                        			</g>
+                     			</svg>
+                  			</li-icon>
+               				</span>
+							<span class="nav-item__title">Logout</span>
+						</a>
 					</li>
 				</ul>
 			</div>
 		</nav>
 	</div>
-
-
-
-
-
-
-
-
+	<!-- if company is logged in && verified -->
+	<!-- END OF HEADER C1 -->
+	
+	
+	
 	<!--angular ui-view-->
-
-
 	<div ui-view>
 		<div class="main background lazy-loaded show-join" data-delayed-url="https://static.licdn.com/sc/h/64xk850n3a8uzse6fi11l3vmz">
 			<div id="regForm" class="reg-form">
@@ -277,21 +248,23 @@
 				
 				<!-- if user selected --> 
 				<div ng-if= "profile.type == 'user' ">
+					<div class="invEmail" style="color : red">{{invEmail}}</div>
 					<label for="reg-firstName">First name</label>
 					<input type="text" name="firstName" id="reg-firstname" class="reg-firstname" tabindex="1" autofocus="autofocus" ng-model="userdata.fname">
 					<label for="reg-lastName">Last name</label>
 					<input type="text" tabindex="1" name="lastName"  id="reg-lastname" class="reg-lastname" aria-required="true" ng-model="userdata.lname">
 					<label for="reg-email">Email</label>
-					<input type="text" name="session_key" class="reg-email"  autocapitalize="off" tabindex="1" id="reg-email" autofocus="autofocus" ng-model="userdata.uemail">
+					<input type="email" name="session_key" class="reg-email"  autocapitalize="off" tabindex="1" id="reg-email" autofocus="autofocus" ng-model="userdata.uemail">
 					<label for="reg-password">Password (6 or more characters)</label>
 					<input type="password" name="session_password" class="reg-password" id="reg-password" aria-required="true" tabindex="1" autocomplete="new-password" ng-model="userdata.upassword">
 				</div>
 				<!-- if company selected  -->
 				<div ng-if = "profile.type == 'company' ">
+					<div class="invEmail">{{invEmail}}</div>
 					<label for="reg-firstName">Company Name</label>
 					<input type="text" name="firstName" ng-model="companydata.cname" id="reg-firstname" class="reg-firstname" tabindex="1" autofocus="autofocus">
 					<label for="reg-email">Company Email</label>
-					<input type="text" name="session_key" class="reg-email" ng-model="companydata.cemail" autocapitalize="off" tabindex="1" id="reg-email" autofocus="autofocus">
+					<input type="email" name="session_key" class="reg-email" ng-model="companydata.cemail" autocapitalize="off" tabindex="1" id="reg-email" autofocus="autofocus">
 					<label for="reg-password">Password (6 or more characters)</label>
 					<input type="password" name="session_password" class="reg-password" ng-model="companydata.cpassword" id="reg-password" aria-required="true" tabindex="1" autocomplete="new-password">
 				</div>

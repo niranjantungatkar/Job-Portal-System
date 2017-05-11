@@ -17,7 +17,7 @@ public class EmailService {
 	
 	public void sendMail(String toEmail, String subject, String message) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo("ajay.tanpure@sjsu.edu");
+        mailMessage.setTo(toEmail);
         mailMessage.setSubject(subject);
         mailMessage.setText(message);
         javaMailSender.send(mailMessage);

@@ -32,6 +32,12 @@ jobPortalApp.config(function($stateProvider, $urlRouterProvider){
 					controller:'controllerVerify',
 					params:{profile:null}
 				})
+		.state('home.signin', 
+				{
+					url:'signin',
+					templateUrl:'./templates/view.signin.html',
+					controller:'controllerSignin'
+				})
 		.state('home.jobseekerprofile',
 			{
 				url:'profile/jobseeker',
@@ -39,12 +45,13 @@ jobPortalApp.config(function($stateProvider, $urlRouterProvider){
 				params : { profiledet: null},
 				controller : 'controllerJobSeekerProfile'
 			})
-        .state('home.updateJobseekerProfile', {
-            url:'updateJobseekerProfile',
-            templateUrl: './templates/view.company.updateJobseekerProfile.html',
-            params: {profiledet: null},
-            controller: 'controllerJobSeekerProfile'
-        })
+        .state('home.updateJobseekerProfile', 
+        	{
+            	url:'updateJobseekerProfile',
+            	templateUrl: './templates/view.company.updateJobseekerProfile.html',
+            	params: {profiledet: null},
+            	controller: 'controllerJobSeekerProfile'
+        	})
 		.state('home.companyprofile', {
 				url:'company',
 				templateUrl: './templates/view.company.profile.html',
