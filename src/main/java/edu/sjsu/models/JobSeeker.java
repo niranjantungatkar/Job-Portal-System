@@ -45,9 +45,6 @@ public class JobSeeker {
 	@ManyToMany
 	private List<Skill> skills; // open
 
-	@OneToMany
-	List<JobApplication> applications;
-
 	@ManyToMany
 	List<JobPosting> interestedJobs;
 
@@ -149,14 +146,6 @@ public class JobSeeker {
 
 	public void setSkills(List<Skill> skills) {
 		this.skills = skills;
-	}
-
-	public List<JobApplication> getApplications() {
-		return applications;
-	}
-
-	public void setApplications(List<JobApplication> applications) {
-		this.applications = applications;
 	}
 
 	public List<JobPosting> getInterestedJobs() {
