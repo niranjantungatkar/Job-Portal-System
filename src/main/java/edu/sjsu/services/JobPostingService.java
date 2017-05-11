@@ -162,7 +162,22 @@ public class JobPostingService {
 				emailService.sendMail(applicant.getEmail(), subject, message.toString());
 			}
 		}
-
 		return jobPosting;
+	}
+	
+	/**Get the list of jobs by company Name
+	 * 
+	 * @param companyName
+	 * @return
+	 * @throws CompanyExceptions
+	 * @throws JobPostingException
+	 */
+	public List<JobPosting> getJobsPostingbyCompany(String companyName) throws CompanyExceptions, JobPostingException{
+		
+		Company company = companyService.getCompany(companyName);
+		List<JobPosting> jobPostings = jobPostingRepository.findByCompany(company);
+		if(jobPostings.size() == 0)
+			throw new JobPostingException("No Jobs found");
+		return jobPostings;
 	}
 }

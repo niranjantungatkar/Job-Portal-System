@@ -1,6 +1,7 @@
 package edu.sjsu.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,6 +55,24 @@ public class JobPostingController {
 			JobPosting jobPosting = jobPostingService.updateJobPosting(parameters);
 			return new ResponseEntity(jobPosting, responseHeaders, HttpStatus.OK);
 		} catch (JobPostingException | JobApplicationExceptions ex) {
+			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
+		} catch (Exception ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/jobposting/{companyName}", method=RequestMethod.GET)
+	public ResponseEntity getJobPosting(@PathVariable("companyName") String companyName) {
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+		try {
+			List<JobPosting> jobPostings = jobPostingService.getJobsPostingbyCompany(companyName);
+			return new ResponseEntity(jobPostings, responseHeaders, HttpStatus.OK);
+		} catch (CompanyExceptions | JobPostingException ex) {
 			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
 		} catch (Exception ex) {
 			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
