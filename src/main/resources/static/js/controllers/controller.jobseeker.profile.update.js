@@ -121,7 +121,8 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
             console.log("update jobseeker success");
             console.log(data);
 
-        //if success
+            //if success
+            $state.go("home.signin");
 
 
         }).error(function(error) {

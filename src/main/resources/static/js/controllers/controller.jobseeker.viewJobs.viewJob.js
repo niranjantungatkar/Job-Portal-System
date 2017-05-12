@@ -1,4 +1,4 @@
-jobPortalApp.controller('controllerViewJob', function($scope, $state, $stateParams, $http, $log) {
+jobPortalApp.controller('controllerViewJob', function($scope, $state, $stateParams, Upload, $timeout, $http) {
 
     $scope.jobisapplied = false;
     $scope.jobisinterested = false;
@@ -71,6 +71,18 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
     });
 
 
+    //for resume upload file
+    $http({
+        method:'POST',
+        url:'/signature'
+    }).success(function(data){
+        $scope.policy = data.policy;
+        $scope.signature = data.signature;
+        console.log($scope.policy+" "+$scope.signature);
+    })
+
+
+
 
     $scope.interestedJob = function(){
 
@@ -125,7 +137,72 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
 
     }
 
+
+    //for apply with resume
+    $scope.uploadFiles = function(file, errFiles) {
+        $scope.f = file;
+        $scope.errFile = errFiles && errFiles[0];
+        if (file) {
+            file.upload = Upload.upload({
+                url: 'https://angular-file-upload.s3-us-west-2.amazonaws.com/',
+                //data: {file: file},
+                data: {
+                    key: file.name, // the key to store the file on S3, could be file name or customized
+                    AWSAccessKeyId: "AKIAJPWE3LFVDSTG5IUQ",
+                    acl: 'private', // sets the access to the uploaded file in the bucket: private, public-read, ...
+                    policy: $scope.policy, // base64-encoded json policy (see article below)
+                    signature: $scope.signature, // base64-encoded signature based on policy string (see article below)
+                    "Content-Type": file.type != '' ? file.type : 'application/octet-stream', // content type of the file (NotEmpty)
+                    filename: file.name, // this is needed for Flash polyfill IE8-9
+                    file: file
+                }
+            });
+
+            //set resume url
+            $scope.resumeUrl = 'https://angular-file-upload.s3-us-west-2.amazonaws.com/'+file.name;
+
+            file.upload.then(function (response) {
+                console.log(response)
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (response) {
+                console.log(response)
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 *
+                    evt.loaded / evt.total));
+            });
+        }
+    }
+
     $scope.applywithresume = function(){
+
+
+        console.log("in apply with resume");
+        console.log($scope.resumeUrl);
+
+        //post job application
+        $http({
+            method: 'POST',
+            url: '/jobapplication',
+            data : {
+                applicant : $state.params.jobAndProfile.profileDet.id,
+                jobPostingId :  $state.params.jobAndProfile.requisitionId,
+                resume : $scope.resumeUrl
+            }
+        }).success(function(data){
+
+            console.log("success in job application with resume");
+            console.log(data);
+            $state.go('home.viewJobs', {profileDet: $state.params.jobAndProfile.profileDet} );
+
+        }).error(function(error){
+            console.log("Error in positing apply with resume");
+            console.log(error);
+        });
+
 
     }
 
