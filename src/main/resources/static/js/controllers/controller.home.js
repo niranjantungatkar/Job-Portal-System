@@ -172,5 +172,16 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 		$state.go("home.viewJobs", { profileDet: { id: userSession.data.id, type: userSession.data.type, verified: userSession.data.verified } });
 	}
 
+	$scope.gotohomepage = function(){
+		$state.go("home");
+	}
+
+	$scope.tointerestedjobs = function(){
+		$state.go("home.interestedjobs", {profileDet: { id: userSession.data.id, type: userSession.data.type, verified: userSession.data.verified } });
+	}
+
+	$scope.toappliedjobs = function(){
+		$state.go("home.appliedjobs", {profileDet: { id: userSession.data.id, type: userSession.data.type, verified: userSession.data.verified } });
+	}
 
 });

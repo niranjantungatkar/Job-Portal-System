@@ -30,59 +30,53 @@
 				</div>
 				<div id="china-branding-nav-item" class="nav-item--china-branding hidden" lang="en"><a data-alias="" data-link-to="feed" data-control-name="nav.homepage-zh_CN"><span class="nav-item__china-logo" aria-role=""><span class="visually-hidden">LinkedIn领英</span></span></a></div>
 			</div>
-			<form id="extended-nav-search" class="nav-search">
-				<div class="nav-search-bar">
-					<div id="nav-typeahead-wormhole">
-						<section id="ember2373" class="ember-view">
-							<div id="ember2377" class="ember-view">
-								<div class="type-ahead-wrapper type-ahead-theme-primary">
-									<!---->
-									<div role="search" class="type-ahead-input-container">
-										<div class="type-ahead-input-wrapper">
-											<div class="type-ahead-input">
-												<label for="a11y-ember2373" class="visually-hidden">
-													Search
-												</label>
-												<span class="typeahead-icon svg-icon-wrap">
-                                    <li-icon aria-hidden="true" type="search-icon" size="medium">
-                                       <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon">
-                                          <g class="large-icon" style="fill: currentColor">
-                                             <path d="M21,19.67l-5.44-5.44a7,7,0,1,0-1.33,1.33L19.67,21ZM10,15.13A5.13,5.13,0,1,1,15.13,10,5.13,5.13,0,0,1,10,15.13Z"></path>
-                                          </g>
-                                       </svg>
-                                    </li-icon>
-                                 </span>
-												<input aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Search" autocorrect="off" autocapitalize="off" id="a11y-ember2373" role="combobox" class="ember-text-field ember-view" aria-expanded="false"></input>
-												<div class="type-ahead-input-icons">
-													<!---->
-												</div>
-											</div>
-											<!---->
-										</div>
-									</div>
-									<!---->
-									<div aria-live="polite" class="live-region visually-hidden"></div>
-								</div>
-							</div>
-						</section>
-					</div>
-				</div>
-				<div id="nav-search-controls-wormhole" class="nav-search-controls">    <button data-control-name="nav.search_button" class="nav-search-button" data-ember-action="" data-ember-action-2400="2400">Search</button></div>
-			</form>
+
 			<ul class="nav-main nav-container" role="navigation" style="width: 10px !important;">
-				<li id="feed-nav-item" class="nav-item nav-item--feed" lang="en" style="margin-right: -20px;">
-					<a data-alias="" data-link-to="feed" data-resource="feed/badge" data-control-name="" class="nav-item__link js-nav-item-link">
-               <span id="feed-tab-icon" class="nav-item__icon" lang="en" aria-role="presentation">
-                  <li-icon aria-hidden="true" type="nav-small-home-icon" color="true">
-                     <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
-                        <g class="active-item" style="fill-opacity: 1">
-                        </g>
-                        <g class="inactive-item" style="fill: currentColor">
-                        </g>
-                     </svg>
-                  </li-icon>
-               </span>
+				<li id="feed-nav-item" class="nav-item nav-item--feed" lang="en">
+					<a ng-click="gotohomepage()" data-alias="" data-link-to="feed" data-resource="feed/badge" data-control-name="" class="nav-item__link js-nav-item-link active">
+						  <span id="feed-tab-icon" class="nav-item__icon" lang="en" aria-role="presentation">
+							 <li-icon aria-hidden="true" type="nav-small-home-icon" color="true">
+								<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
+								   <g class="active-item" style="fill-opacity: 1">
+								   </g>
+								   <g class="inactive-item" style="fill: currentColor">
+								   </g>
+								</svg>
+							 </li-icon>
+						  </span>
 						<span class="nav-item__title">Home</span>
+					</a>
+				</li>
+				<li id="mynetwork-nav-item" class="nav-item nav-item--mynetwork" lang="en">
+					<a ng-click="toappliedjobs()" data-alias="relationships" data-link-to="mynetwork" data-resource="voyagerCommunicationsTabBadges" data-control-name="" class="nav-item__link js-nav-item-link">
+						<span id="mynetwork-tab-icon" class="nav-item__icon" lang="en" aria-role="presentation">
+							 <li-icon aria-hidden="true" type="nav-small-people-icon" color="true">
+								<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
+								   <g class="active-item" style="fill-opacity: 1">
+								   </g>
+								   <g class="inactive-item" style="fill: currentColor">
+								   </g>
+								</svg>
+							 </li-icon>
+						  </span>
+						<span class="nav-item__title">Applied jobs</span>
+					</a>
+				</li>
+				<li id="jobs-nav-item" class="nav-item nav-item--jobs" lang="en">
+					<a ng-click="tointerestedjobs()" data-alias="" data-link-to="jobs" data-resource="" data-control-name="" class="nav-item__link js-nav-item-link">
+					  <span id="jobs-tab-icon" class="nav-item__icon" lang="en" aria-role="presentation">
+						 <li-icon aria-hidden="true" type="nav-small-jobs-icon" color="true">
+							<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
+							   <g class="active-item" style="fill-opacity: 1">
+								  <path d="M2,13H22v6a1,1,0,0,1-1,1H3a1,1,0,0,1-1-1V13ZM22,8v4H2V8A1,1,0,0,1,3,7H7V6a3,3,0,0,1,3-3h4a3,3,0,0,1,3,3V7h4A1,1,0,0,1,22,8ZM15,6a1,1,0,0,0-1-1H10A1,1,0,0,0,9,6V7h6V6Z"></path>
+							   </g>
+							   <g class="inactive-item" style="fill: currentColor">
+								  <path d="M21,7H17V6a3,3,0,0,0-3-3H10A3,3,0,0,0,7,6V7H3A1,1,0,0,0,2,8V19a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V8A1,1,0,0,0,21,7ZM9,6a1,1,0,0,1,1-1h4a1,1,0,0,1,1,1V7H9V6ZM20,18H4V13H20v5Zm0-6H4V9H20v3Z"></path>
+							   </g>
+							</svg>
+						 </li-icon>
+					  </span>
+						<span class="nav-item__title"> Interested</span>
 					</a>
 				</li>
 				<li id="jobs-nav-item" class="nav-item nav-item--jobs" lang="en">
@@ -112,7 +106,6 @@
                         <li-icon aria-hidden="true" type="caret-filled-down-icon" size="small">
                            <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon">
                               <g class="small-icon" style="fill-opacity: 1">
-                                 <path d="M8.8,10.66L14,5.12A0.07,0.07,0,0,0,13.93,5H2.07A0.07,0.07,0,0,0,2,5.12L7.2,10.66A1.1,1.1,0,0,0,8.8,10.66Z"></path>
                               </g>
                            </svg>
                         </li-icon>
