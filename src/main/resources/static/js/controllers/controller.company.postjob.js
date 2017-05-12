@@ -32,7 +32,8 @@ jobPortalApp.controller('controllerCompanyPostJob', function($scope, $stateParam
 			jobDescription:"",
 			responsibilities:"",
 			skills:"",
-			salary:""
+			salary:"",
+			location:""
 	}
 	
 	$scope.postJob = function() {

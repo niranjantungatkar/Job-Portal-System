@@ -1,14 +1,15 @@
 <div>
 <div id="ember6250" class="jobs-box jobs-box--full-width jobs-top-card ember-view" style="margin-top:70px; width:100%">
-<h3 style="margin-left: 50px">Jobs Posted By You</h3>
-<label for="reg-password">Account Type</label>
-	<select name="session_password" ng-model="status" ng-init= "status" class="reg-userType" id="reg-email" aria-required="true" tabindex="1" style="width: 100%; height: 35px; margin-bottom: 20px;">
+<h3 style="margin-left: 1%">Jobs Posted By You</h3>
+<label for="reg-password" style="margin-left: 1%">Job Posting Status</label>
+	<select name="session_password" ng-model="status" ng-init= "status" class="reg-userType" id="reg-email" aria-required="true" tabindex="1" style="margin-left:1%; width: 20%; height: 35px; margin-bottom: 20px;">
 		<option value="o"> Open </option>
 		<option value="c"> Closed </option>
 		<option value="f"> Filled </option>
 	</select>
 </div>
-	<ul class="card-list card-list--tile jobs-jymbii__list" ng-repeat="jobposting in jobpostings| filter:statusFilter">
+	<!-- | filter:statusFilter -->
+	<ul class="card-list card-list--tile jobs-jymbii__list" ng-repeat="jobposting in jobpostings  | filter:statusFilter">
 		<li id="ember6302" class="jobs-jymbii__list-item jobs-jymbii__list-item--fadein card-list__item job-card job-card--tile ember-view">          
 			<a data-control-name="A_jobshome_job_link_click" ng-click="" id="ember6351" class="job-card__link-wrapper js-focusable-card ember-view">  
 			<div class="job-card__image-and-sponsored-container">
@@ -64,8 +65,12 @@
 							</ul>
       					</div> -->
         				<div class="job-card__footer">
-              				<input type="button" class="btn-primary" value="Update Job" ng-click="updateJobPosting(jobposting.requisitionId)">
-              				<input type="button" class="btn-primary" style="margin-left:30px"value="View Applications" ng-click="viewApplicationsJobPosting(jobposting.requisitionId)">
+              				<input type="button" class="btn-primary" value="View Details" ng-click="updateJobPosting(jobposting.requisitionId)">
+              				<!-- <input type="button" id="pe-treasury-view__media-upload" name="file" class="visually-hidden pe-treasury-view__media" ng-click="updateJobPosting(jobposting.requisitionId)">
+    						<label for="pe-treasury-view__media-upload" class="pe-treasury-view__upload-label button-primary-large">
+      							View Details
+    						</label> -->
+              				<!-- <input type="button" class="btn-primary" style="margin-left:30px"value="View Applications" ng-click="viewApplicationsJobPosting(jobposting.requisitionId)"> -->
 			        	</div>    
   			</div>
 		</a>

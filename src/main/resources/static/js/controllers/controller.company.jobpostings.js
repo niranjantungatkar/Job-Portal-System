@@ -18,9 +18,9 @@ jobPortalApp.controller('controllerCompanyPostings', function($http, $state, $sc
 		if($scope.status == "o")
 			return jobposting.status == 0;
 		else if ($scope.status == "c")
-			return jobposting.status == 2;
+			return jobposting.status == 1;
 		else if ($scope.status == "f")
-			return jobposting.status == 3;
+			return jobposting.status == 2;
 	  };
 	
 	

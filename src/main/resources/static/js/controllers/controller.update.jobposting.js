@@ -35,7 +35,8 @@ jobPortalApp.controller('controllerUpdateJobPosting', function($http, $state, $s
 		responsibilities:"",
 		skills:"",
 		salary:"",
-		status:""
+		status:"",
+		location:""
 	};
 	
 	$scope.skills ="";
@@ -84,6 +85,11 @@ jobPortalApp.controller('controllerUpdateJobPosting', function($http, $state, $s
 		}).error(function(data){
 			console.log("Job posting error");
 		})
+	}
+	
+	
+	$scope.viewApplications = function() {
+		$state.go('home.vieApplications',{jobDet:{requisitionId: $scope.reqId}})
 	}
 	
 })
