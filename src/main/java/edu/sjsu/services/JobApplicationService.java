@@ -40,9 +40,10 @@ public class JobApplicationService {
 	 * @return JobApplication
 	 * @throws JobSeekerExceptions
 	 * @throws JobPostingException
+	 * @throws JobApplicationExceptions 
 	 */
 	public JobApplication createJobApplication(Map<String, Object> parameters)
-			throws JobSeekerExceptions, JobPostingException {
+			throws JobSeekerExceptions, JobPostingException, JobApplicationExceptions {
 
 		String jobSeekerId = (String) parameters.get("applicant");
 		String jobPostingId = (String) parameters.get("jobPosting");
@@ -50,6 +51,16 @@ public class JobApplicationService {
 		JobSeeker jobSeeker = jobSeekerService.getProfile(jobSeekerId);
 		JobPosting jobPosting = jobPostingService.getJobPosting(jobPostingId);
 
+		List<JobApplication> jobApplications = jobApplicationRepository.findByApplicantAndApplicationStatus(jobSeeker, 0);
+		if(jobApplications.size() >= 5){
+			return null;
+		}
+		
+		JobApplication jobApplicationExist =jobApplicationRepository.findByApplicantAndJobPosting(jobSeeker, jobPosting);
+		if(jobApplicationExist != null){
+			throw new JobApplicationExceptions("You have already applied to this job with application Id : " + jobApplicationExist.getApplicationId());
+		}
+		
 		JobApplication jobApplication = new JobApplication();
 
 		jobApplication.setApplicationStatus(0);

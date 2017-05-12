@@ -46,11 +46,17 @@ public class JobApplicationController {
 
 		try {
 			JobApplication jobApplication = jobApplicationService.createJobApplication(parameters);
+			if (jobApplication == null) {
+				HashMap<String, String> result = new HashMap<>();
+				result.put("msg", "You already have 5 applied jobs with status PENDING");
+				result.put("code", "200");
+				return new ResponseEntity(result, responseHeaders, HttpStatus.OK);
+			}
 			return new ResponseEntity(jobApplication, responseHeaders, HttpStatus.OK);
-		} catch (JobSeekerExceptions ex) {
+		} catch (JobSeekerExceptions | JobPostingException ex) {
 			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
-		} catch (JobPostingException ex) {
-			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
+		} catch (JobApplicationExceptions ex) {
+			return new ResponseEntity(getErrorResponse("200", ex.getMessage()), responseHeaders, HttpStatus.OK);
 		} catch (Exception ex) {
 			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
 					HttpStatus.INTERNAL_SERVER_ERROR);
