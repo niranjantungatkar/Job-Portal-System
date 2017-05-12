@@ -113,7 +113,7 @@ public class CompanyService {
 			company.setWebsite(websiteUrl);
 		}
 		if (parameterMap.containsKey("logoUrl")) {
-			URL logoUrl = new URL((String)parameterMap.get("logoUrl"));
+			URL logoUrl = new URL((String)parameterMap.get("logoURL"));
 			company.setLogoURL(logoUrl);
 		}
 		if (parameterMap.containsKey("address")) {
