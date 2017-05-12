@@ -22,6 +22,8 @@ public class JobApplication {
 	@OneToOne
 	private JobPosting jobPosting;
 	
+	private String resume;
+	
 	private int applicationStatus; 	// 0 - Pending, 1 - Offered, 2 - Rejected, 4 - Offer Accepted, 5 - Offer Rejected, 6 - cancelled
 									// 0 - By default, 1, 2, 6 - changed by company
 									// 4, 5 - changed by job seeker
@@ -62,6 +64,14 @@ public class JobApplication {
 
 	public void setApplicationStatus(int applicationStatus) {
 		this.applicationStatus = applicationStatus;
+	}
+
+	public String getResume() {
+		return resume;
+	}
+
+	public void setResume(String resume) {
+		this.resume = resume;
 	}
 	
 }

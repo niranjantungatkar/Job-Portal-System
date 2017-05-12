@@ -30,17 +30,18 @@ public class JobApplicationService {
 
 	@Autowired
 	JobPostingService jobPostingService;
-	
+
 	@Autowired
 	EmailService emailService;
 
-	/**Create the new Job Application
+	/**
+	 * Create the new Job Application
 	 * 
 	 * @param parameters
 	 * @return JobApplication
 	 * @throws JobSeekerExceptions
 	 * @throws JobPostingException
-	 * @throws JobApplicationExceptions 
+	 * @throws JobApplicationExceptions
 	 */
 	public JobApplication createJobApplication(Map<String, Object> parameters)
 			throws JobSeekerExceptions, JobPostingException, JobApplicationExceptions {
@@ -51,36 +52,45 @@ public class JobApplicationService {
 		JobSeeker jobSeeker = jobSeekerService.getProfile(jobSeekerId);
 		JobPosting jobPosting = jobPostingService.getJobPosting(jobPostingId);
 
-		List<JobApplication> jobApplications = jobApplicationRepository.findByApplicantAndApplicationStatus(jobSeeker, 0);
-		if(jobApplications.size() >= 5){
+		List<JobApplication> jobApplications = jobApplicationRepository.findByApplicantAndApplicationStatus(jobSeeker,
+				0);
+		if (jobApplications.size() >= 5) {
 			return null;
 		}
-		
-		JobApplication jobApplicationExist =jobApplicationRepository.findByApplicantAndJobPosting(jobSeeker, jobPosting);
-		if(jobApplicationExist != null){
-			throw new JobApplicationExceptions("You have already applied to this job with application Id : " + jobApplicationExist.getApplicationId());
+
+		JobApplication jobApplicationExist = jobApplicationRepository.findByApplicantAndJobPosting(jobSeeker,
+				jobPosting);
+		if (jobApplicationExist != null) {
+			throw new JobApplicationExceptions("You have already applied to this job with application Id : "
+					+ jobApplicationExist.getApplicationId());
 		}
-		
+
 		JobApplication jobApplication = new JobApplication();
 
 		jobApplication.setApplicationStatus(0);
 		jobApplication.setApplicant(jobSeeker);
 		jobApplication.setJobPosting(jobPosting);
 
+		if (parameters.containsKey("resume")) {
+			jobApplication.setResume((String) parameters.get("resume"));
+		}
+
 		jobApplicationRepository.save(jobApplication);
 		StringBuilder subject = new StringBuilder();
 		subject.append("Thank you for your interest at " + jobPosting.getCompany().getCompanyName());
-		
+
 		StringBuilder message = new StringBuilder();
 		message.append("Dear " + jobSeeker.getFirstname());
-		message.append("\n\nWe would like to thank you for applying for the following job at " + jobPosting.getCompany().getCompanyName());
+		message.append("\n\nWe would like to thank you for applying for the following job at "
+				+ jobPosting.getCompany().getCompanyName());
 		message.append("\nPosition : " + jobPosting.getTitle());
 		message.append("\nRequisition Id : " + jobPosting.getRequisitionId());
-		message.append("\n\nOne of our representative will review your application and get back to you, should your skills matches the requirements");
+		message.append(
+				"\n\nOne of our representative will review your application and get back to you, should your skills matches the requirements");
 		message.append("\n\n\nBest Regards,");
 		message.append("\nTalent Acquisition Team");
-		message.append("\n"+jobPosting.getCompany().getCompanyName());
-		
+		message.append("\n" + jobPosting.getCompany().getCompanyName());
+
 		emailService.sendMail(jobSeeker.getEmail(), subject.toString(), message.toString());
 		return jobApplication;
 	}
@@ -100,6 +110,7 @@ public class JobApplicationService {
 
 	/**
 	 * Get JobApplications by job applicant
+	 * 
 	 * @param jobseeker
 	 * @return List<JobApplication>
 	 * @throws JobApplicationExceptions
