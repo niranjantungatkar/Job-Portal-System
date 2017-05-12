@@ -47,9 +47,19 @@ public class CompanyService {
 		}
 		Company company = new Company();
 
+		try {
+			URL websiteUrl = new URL(parameters.get("websiteUrl"));
+			URL logoUrl = new URL(parameters.get("logoUrl"));
+			company.setWebsite(websiteUrl);
+			company.setLogoURL(logoUrl);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		company.setCompanyDesc(parameters.get("companyDesc"));
 		company.setEmail(parameters.get("email"));
 		company.setCompanyName(parameters.get("companyName"));
 		company.setPassword(parameters.get("password"));
+		company.setAddress(parameters.get("address"));
 		company.setIsVerified(false);
 
 		VerificationCodeGenerator verificationCodeGenerator = new VerificationCodeGenerator();

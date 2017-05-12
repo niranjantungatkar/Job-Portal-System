@@ -1,5 +1,6 @@
 package edu.sjsu.controllers;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,7 +40,11 @@ public class CompanyController {
 		parameters.put("companyName", (String) parameterMap.get("companyName"));
 		parameters.put("email", (String) parameterMap.get("email"));
 		parameters.put("password", (String) parameterMap.get("password"));
-
+		parameters.put("websiteUrl", (String) parameterMap.get("website"));
+		parameters.put("logoUrl", (String) parameterMap.get("logoUrl"));
+		parameters.put("address", (String) parameterMap.get("address"));
+		parameters.put("companyDesc", (String) parameterMap.get("companyDesc"));
+		
 		try {
 			Company company = companyService.createCompany(parameters);
 			emailService.sendMail(company.getEmail(), "Test Email", company.getVerificationCode());
