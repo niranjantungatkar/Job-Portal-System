@@ -2,7 +2,7 @@
  * Main job portal app
  */
 
-var jobPortalApp = angular.module('jobPortalApp',['ui.router']);
+var jobPortalApp = angular.module('jobPortalApp',['ui.router', 'ngFileUpload']);
 
 jobPortalApp.config(function($stateProvider, $urlRouterProvider){
 	

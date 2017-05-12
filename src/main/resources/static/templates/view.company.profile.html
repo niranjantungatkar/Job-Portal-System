@@ -25,8 +25,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
+                        <!-- sapa add this to your apply section-->
+                        <button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+          					accept="application/pdf" ngf-max-height="1000" ngf-max-size="5MB">
+      						Select File</button>
+  						<br><br>
+  						File:
+  						<div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+      						<span class="progress" ng-show="f.progress >= 0">
+          					<div style="width:{{f.progress}}%" ng-bind="f.progress + '%'"></div>
+      					</span>
+  						</div>     
+  						<!-- sapa add this  -->
                     </section>
                     <div role="main" class="org-organization-page__entity-company">
                         <div id="ember7670" class="org-organization-nav ui-tabbed-nav ember-view">

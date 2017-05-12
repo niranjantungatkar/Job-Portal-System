@@ -1,4 +1,4 @@
-jobPortalApp.controller('controllerCompanyProfile', function($http, $state, $scope, $rootScope){
+jobPortalApp.controller('controllerCompanyProfile', function($http, $state, $scope, $rootScope, fileUpload, Upload, $timeout){
 	
 	if($state.params.companyDet !== null && $state.params.companyDet !== "" && $state.params.companyDet !== undefined) {
 		
@@ -59,4 +59,77 @@ jobPortalApp.controller('controllerCompanyProfile', function($http, $state, $sco
 	$rootScope.viewJobPostings = function() {
 		$state.go('home.viewjobpostings', { companyDet: {  id: $scope.cid } })
 	}
+	
+	
+	
+	/*$scope.uploadFile = function(){
+        var file = $scope.myFile;
+        console.log('file is ' );
+        console.dir(file);
+        var uploadUrl = "/fileupload";
+        
+        //this.uploadFileToUrl = function(file, uploadUrl){
+            var fd = new FormData();
+            fd.append('file', file);
+            $http.post(uploadUrl, fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            })
+            .success(function(){
+            })
+            .error(function(){
+            });
+       // }
+        //fileUpload.uploadFileToUrl(file, uploadUrl);
+    };*/
+	
+	
+		
+	$http({
+		method:'POST',
+		url:'/signature'
+	}).success(function(data){
+		$scope.policy = data.policy;
+		$scope.signature = data.signature;
+		console.log($scope.policy+" "+$scope.signature);
+	})
+	
+	$scope.uploadFiles = function(file, errFiles) {
+        $scope.f = file;
+        $scope.errFile = errFiles && errFiles[0];
+        if (file) {
+            file.upload = Upload.upload({
+                url: 'https://angular-file-upload.s3-us-west-2.amazonaws.com/',
+                //data: {file: file},
+            	data: {
+            		key: file.name, // the key to store the file on S3, could be file name or customized
+            		AWSAccessKeyId: "AKIAJPWE3LFVDSTG5IUQ",
+            		acl: 'private', // sets the access to the uploaded file in the bucket: private, public-read, ...
+            		policy: $scope.policy, // base64-encoded json policy (see article below)
+            		signature: $scope.signature, // base64-encoded signature based on policy string (see article below)
+            		"Content-Type": file.type != '' ? file.type : 'application/octet-stream', // content type of the file (NotEmpty)
+            		filename: file.name, // this is needed for Flash polyfill IE8-9
+            		file: file
+            	}
+            });
+
+            file.upload.then(function (response) {
+            	console.log(response)
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (response) {
+            	console.log(response)
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 * 
+                                         evt.loaded / evt.total));
+            });
+        }   
+    }
+	
+	
+	
+	
 })
