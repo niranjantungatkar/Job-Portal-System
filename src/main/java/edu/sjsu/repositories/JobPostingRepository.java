@@ -12,4 +12,6 @@ public interface JobPostingRepository extends PagingAndSortingRepository<JobPost
 	public JobPosting findByRequisitionId(String requisitionId);
 	
 	public List<JobPosting> findByCompany(Company company);
+	
+	public List<JobPosting> findByStatus(int status);
 }

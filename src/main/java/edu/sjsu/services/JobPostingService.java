@@ -96,6 +96,14 @@ public class JobPostingService {
 		}
 		return jobPosting;
 	}
+	
+	
+	public List<JobPosting> getJobPostingOpen() throws JobPostingException{
+		List<JobPosting> jobPostings = jobPostingRepository.findByStatus(0);
+		if(jobPostings.size() == 0)
+			throw new JobPostingException("No Jobs found");
+		return jobPostings;
+	}
 
 	/**
 	 * Update the JobPosting

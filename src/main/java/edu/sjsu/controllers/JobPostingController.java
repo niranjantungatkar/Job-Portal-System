@@ -98,6 +98,24 @@ public class JobPostingController {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/jobposting/open", method = RequestMethod.GET)
+	public ResponseEntity getJobPostingOpen() {
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+		try {
+			List<JobPosting> jobPostings = jobPostingService.getJobPostingOpen();
+			return new ResponseEntity(jobPostings, responseHeaders, HttpStatus.OK);
+		} catch (JobPostingException ex) {
+			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
+		} catch (Exception ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	public HashMap<String, String> getErrorResponse(String errorcode, String error) {
 		HashMap<String, String> errorMap = new HashMap<String, String>();
 		errorMap.put("code", errorcode);
