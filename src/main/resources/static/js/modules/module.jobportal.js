@@ -73,6 +73,20 @@ jobPortalApp.config(function($stateProvider, $urlRouterProvider){
 				controller: 'controllerCompanyPostJob',
 				params: {companyDet: null}
 			})
+		.state('home.updateJobPosting',
+			{
+					url:'update/jobposting',
+					templateUrl: './templates/view.update.jobposting.html',
+					controller: 'controllerUpdateJobPosting',
+					params: { companyDet: null}
+			})
+		.state('home.viewjobpostings', 
+			{
+				url:'jobpostings',
+				templateUrl: './templates/view.company.postings.html',
+				controller: 'controllerCompanyPostings',
+				params: {companyDet: null}
+			})
 	
 }).controller('mainController', function(){
 });

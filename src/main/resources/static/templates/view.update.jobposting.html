@@ -1,0 +1,76 @@
+<div>
+	<section id="ember7552" class="org-top-card-module org-top-card-module--lcp-page ember-view">
+    	<div class="org-top-card-module__container container-with-shadow clearfix">
+                            <!---->
+        	<img class="lazy-image org-top-card-module__logo loaded" alt="Company Logo" height="120" width="120" ng-src={{company.logoURL}}>
+            	<div class="org-top-card-module__details">
+                	<div class="org-top-card-module__main-column">
+                    	<h1 dir="ltr" class="org-top-card-module__name mb1 Sans-26px-black-85%-light">
+                        	{{company.companyName}}
+                        </h1>
+                        <div class="org-top-card-module__summary-company-info">
+                        	<span class="Sans-15px-black-55%">
+                             	{{company.address}}
+                            </span>
+                        </div>
+                        <div class="org-top-card-module__company-actions-bar">
+                        	<div id="ember7609" class="inline-block org-top-card-actions ember-view">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+      </section>
+      <div class="pe-s-form__body pe-form-body">
+      	<div data-form-elem-focus="true" class="pe-form-field pe-top-card-form__headline-field floating-label  ">
+			<label for="topcard-headline" class="pe-form-field__label label-text required">
+    			Job Title
+  			</label>
+  			<input type="text" name="firstName" ng-model="updateJobPosting.title" maxlength="200" id="topcard-firstname" class="ember-text-field pe-form-field__text-input ember-view">
+	  	</div>
+      	<div data-form-elem-focus="true" class="pe-form-field pe-top-card-form__headline-field floating-label  ">
+			<label for="topcard-headline" class="pe-form-field__label label-text required">
+    			Job Description
+  			</label>
+  			<textarea id="topcard-headline" ng-model="updateJobPosting.jobDescription" class="pe-top-card-form__headline-text ember-text-area pe-form-field__textarea ember-view"></textarea>
+	  	</div>
+	  	<div data-form-elem-focus="true" class="pe-form-field pe-top-card-form__headline-field floating-label  ">
+			<label for="topcard-headline" class="pe-form-field__label label-text required">
+    			Responsibilities
+  			</label>
+  			<textarea id="topcard-headline" ng-model="updateJobPosting.responsibilities" class="pe-top-card-form__headline-text ember-text-area pe-form-field__textarea ember-view"></textarea>
+	  	</div>
+ 		<div data-form-elem-focus="true" class="pe-form-field pe-top-card-form__headline-field floating-label  ">
+			<label for="topcard-headline" class="pe-form-field__label label-text required">
+    			Skills
+  			</label>
+  			<textarea id="topcard-headline" ng-model="updateJobPosting.skills" class="pe-top-card-form__headline-text ember-text-area pe-form-field__textarea ember-view"></textarea>
+	  	</div>
+	  	<div data-form-elem-focus="true" class="pe-form-field pe-top-card-form__headline-field floating-label  ">
+			<label for="topcard-headline" class="pe-form-field__label label-text required">
+    			Salary
+  			</label>
+  			<input type="text" name="firstName" ng-model="updateJobPosting.salary" maxlength="200" id="topcard-firstname" class="ember-text-field pe-form-field__text-input ember-view">
+	  	</div>
+	  	<div data-form-elem-focus="true" class="pe-form-field pe-top-card-form__headline-field floating-label  ">
+			<label for="topcard-headline" class="pe-form-field__label label-text required">
+    			Update Status
+  			</label>
+  			<select name="session_password" ng-model="updateJobPosting.status" ng-init= "updateJobPosting.status" class="reg-userType" id="reg-email" aria-required="true" tabindex="1" style="width: 100%; height: 35px; margin-bottom: 20px;">
+					<option value="o"> Open </option>
+					<option value="c"> Closed </option>
+					<option value="c"> Filled </option>
+				</select>
+	  	</div>
+	  	<div id="ember10750" class="ember-view">
+	      	<div class="pe-form-field pe-treasury-view">
+				<div class="pe-treasury-view__actions display-flex justify-space-between">
+    			<input type="button" id="pe-treasury-view__media-upload" name="file" class="visually-hidden pe-treasury-view__media" ng-click="updateJPDetails()">
+    			<label for="pe-treasury-view__media-upload" class="pe-treasury-view__upload-label button-primary-large">
+      				Update Job Posting
+    			</label>
+  			</div>
+		  </div>
+		</div>
+    </div>
+</div>

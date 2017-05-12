@@ -27,7 +27,11 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 	$scope.companydata = { 
 		cname:"",
 		cemail:"",
-		cpassword:""
+		cpassword:"",
+		website:"",
+		logoURL:"",
+		address:"",
+		companyDesc:""
 	}
 	
 	$scope.header = {
@@ -110,13 +114,21 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 			data = {
 				"companyName" : $scope.companydata.cname,
 				"email" : $scope.companydata.cemail,
-				"password" : $scope.companydata.cpassword
+				"password" : $scope.companydata.cpassword,
+				"website":$scope.companydata.website,
+				"logoURL":$scope.companydata.logoURL,
+				"address":$scope.companydata.address,
+				"companyDesc":$scope.companydata.companyDesc
 			}
 			url="/company"
 			//Flush the scope variables
 			$scope.companydata.cname = "";	
 			$scope.companydata.cemail = "";
 			$scope.companydata.cpassword = "";
+			$scope.companydata.website ="";
+			$scope.companydata.logoURL = "";
+			$scope.companydata.address = "";
+			$scope.companydata.companyDesc = "";
 			
 			
 		} else if($scope.profile.type == "user") {
@@ -134,6 +146,7 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 			$scope.userdata.uemail="";
 		}
 
+		console.log(data)
 		//make http request
 		$http({
 				

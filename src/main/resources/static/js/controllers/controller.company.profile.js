@@ -55,4 +55,8 @@ jobPortalApp.controller('controllerCompanyProfile', function($http, $state, $sco
 			$state.go('home.verify', { profile : { id: $scope.cid, type: $scope.companyType } })
 		}
 	}
+	
+	$rootScope.viewJobPostings = function() {
+		$state.go('home.viewjobpostings', { companyDet: {  id: $scope.cid } })
+	}
 })

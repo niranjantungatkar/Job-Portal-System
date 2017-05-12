@@ -1,0 +1,69 @@
+<div>
+<div id="ember6250" class="jobs-box jobs-box--full-width jobs-top-card ember-view" style="margin-top:70px; width:100%">
+<h3 style="margin-left: 50px">Jobs Posted By You</h3>
+</div>
+	<ul class="card-list card-list--tile jobs-jymbii__list" ng-repeat="jobposting in jobpostings">
+		<li id="ember6302" class="jobs-jymbii__list-item jobs-jymbii__list-item--fadein card-list__item job-card job-card--tile ember-view">          
+			<a data-control-name="A_jobshome_job_link_click" ng-click="" id="ember6351" class="job-card__link-wrapper js-focusable-card ember-view">  
+			<div class="job-card__image-and-sponsored-container">
+    			<figure class="job-card__logo-wrapper">
+      				<img class="lazy-image job-card__logo-image loaded" title="Amazon Lab126" alt="" height="64" width="64" src="images/job-icon.png">
+    			</figure>
+        		<button data-control-name="jobshome_delete_job_click" class="job-card__dismiss-button" data-ember-action="" data-ember-action-6352="6352">
+          			<span class="job-card__dismiss-icon svg-icon-wrap">
+          				<li-icon aria-hidden="true" type="cancel-icon" size="small">
+          					<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon">
+          						<g class="small-icon" style="fill-opacity: 1">
+        							<path d="M13,4.32L9.31,8,13,11.69,11.69,13,8,9.31,4.31,13,3,11.69,6.69,8,3,4.31,4.31,3,8,6.69,11.68,3Z"></path>
+      							</g>
+      						</svg>
+      					</li-icon>
+      				</span>
+          			<span class="visually-hidden">Dismiss job Java Developer</span>
+        		</button>
+        	</div>
+
+  			<div class="job-card__content-wrapper">
+				<span class="visually-hidden">Job Title</span>
+      			<div class="job-card__title-line">
+        			<h3 id="ember6353" class="job-card__title ember-view">
+        				<div class="truncate-multiline--truncation-target">
+        					<span class="truncate-multiline--last-line-wrapper">
+        						<span>{{jobposting.title}}</span>
+        							<button class="truncate-multiline--button-hidden" data-ember-action="" data-ember-action-8544="8544">
+    								</button>
+    							</span>
+    					</div>
+  
+					</h3>
+      			</div>
+    			<span class="visually-hidden">Company Name</span>
+    				<h4 class="job-card__company-name">{{jobposting.requisitionId}}</h4>
+    					<h5 class="job-card__location">
+      						<span class="visually-hidden">Job Location</span>
+      							{{jobposting.company.address}}
+    					</h5>
+						<!-- <div class="job-card__job-flavors-container">
+        					<ul id="ember6355" class="job-flavors ember-view">  
+        						<li class="job-flavors__flavor-wrapper">
+    								<div id="ember6356" class="job-flavors__flavor job-flavors__flavor--company-recruit ember-view">  
+    								<div class="job-flavors__logo-container">
+    									<img class="lazy-image job-flavors__logo-image loaded" title="San Jose State University" alt="San Jose State University" src="https://media.licdn.com/mpr/mpr/shrinknp_100_100/p/5/005/07f/3a1/1e29cff.png">
+  									</div>
+  										<div class="job-flavors__label">
+    										4 company alumni
+  										</div>
+									</div>
+  								</li>
+							</ul>
+      					</div> -->
+        				<div class="job-card__footer">
+              				<input type="button" class="btn-primary" value="Update Job" ng-click="updateJobPosting(jobposting.requisitionId)">
+              				<input type="button" class="btn-primary" style="margin-left:30px"value="View Applications" ng-click="viewApplicationsJobPosting(jobposting.requisitionId)">
+			        	</div>    
+  			</div>
+		</a>
+		</li>   		
+	</ul>  
+</div>
+</div>
