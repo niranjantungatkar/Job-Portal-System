@@ -162,7 +162,7 @@ public class JobSeekerService {
 				List<Education> educatonList = updateEducation(parameters);
 				jobSeeker.setEducation(educatonList);
 			} catch (Exception ex) {
-				throw new EducationExceptions("Error occurred while updating the work education. Try again later");
+				throw new EducationExceptions("Error occurred while updating the education. Try again later");
 			}
 
 		}
