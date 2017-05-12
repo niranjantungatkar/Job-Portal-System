@@ -34,6 +34,8 @@ public class JobPosting {
 	
 	private int status; //3 statuses - 0 - open, 1 - filled, 2 - cancelled
 	
+	private String location;
+	
 	public JobPosting() {
 		super();
 	}
@@ -100,5 +102,13 @@ public class JobPosting {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 }

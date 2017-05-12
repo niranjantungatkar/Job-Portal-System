@@ -46,7 +46,7 @@ public class JobApplicationService {
 			throws JobSeekerExceptions, JobPostingException, JobApplicationExceptions {
 
 		String jobSeekerId = (String) parameters.get("applicant");
-		String jobPostingId = (String) parameters.get("jobPosting");
+		String jobPostingId = (String) parameters.get("jobPostingId");
 
 		JobSeeker jobSeeker = jobSeekerService.getProfile(jobSeekerId);
 		JobPosting jobPosting = jobPostingService.getJobPosting(jobPostingId);

@@ -50,6 +50,7 @@ public class JobPostingService {
 
 		jobPosting.setJobDescription((String) parametersMap.get("jobDescription"));
 		jobPosting.setResponsibilities((String) parametersMap.get("responsibilities"));
+		jobPosting.setLocation((String) parametersMap.get("location"));
 
 		String skillInput = (String) parametersMap.get("skills");
 		List<String> skillsInputList = Arrays.asList(skillInput.split("\\s*,\\s*"));
@@ -96,11 +97,10 @@ public class JobPostingService {
 		}
 		return jobPosting;
 	}
-	
-	
-	public List<JobPosting> getJobPostingOpen() throws JobPostingException{
+
+	public List<JobPosting> getJobPostingOpen() throws JobPostingException {
 		List<JobPosting> jobPostings = jobPostingRepository.findByStatus(0);
-		if(jobPostings.size() == 0)
+		if (jobPostings.size() == 0)
 			throw new JobPostingException("No Jobs found");
 		return jobPostings;
 	}
@@ -111,7 +111,7 @@ public class JobPostingService {
 	 * @param parameters
 	 * @return JobPosting
 	 * @throws JobPostingException
-	 * @throws JobApplicationExceptions 
+	 * @throws JobApplicationExceptions
 	 */
 	public JobPosting updateJobPosting(Map<String, Object> parameters) throws JobPostingException {
 
@@ -120,7 +120,7 @@ public class JobPostingService {
 		Boolean changed = false;
 		int statusChanged = -1;
 		StringBuilder message = new StringBuilder();
-		
+
 		if (parameters.containsKey("jobDescription")) {
 			jobPosting.setJobDescription((String) parameters.get("jobDescription"));
 			if (changed)
@@ -134,6 +134,13 @@ public class JobPostingService {
 				message.append(", ");
 			changed = true;
 			message.append("job responsibilities ");
+		}
+		if (parameters.containsKey("location")) {
+			jobPosting.setLocation((String) parameters.get("location"));
+			if (changed)
+				message.append(", ");
+			changed = true;
+			message.append("location");
 		}
 		if (parameters.containsKey("skills")) {
 			String skillInput = (String) parameters.get("skills");
@@ -163,11 +170,11 @@ public class JobPostingService {
 		jobPostingRepository.save(jobPosting);
 
 		String details = null;
-		if(statusChanged == 1)
+		if (statusChanged == 1)
 			details = "Position has been filled.Thanks for applying";
-		else if(statusChanged == 2)
+		else if (statusChanged == 2)
 			details = "Position has been Cancelled.Thanks for applying";
-		
+
 		// Send the email to all the applicant here
 		if (changed) {
 			List<JobApplication> jobApplications;
@@ -177,7 +184,7 @@ public class JobPostingService {
 					JobSeeker applicant = jobApplication.getApplicant();
 					String subject = "Job Id " + jobPosting.getRequisitionId() + " has been updated";
 					message.append("has been updated\n");
-					if(details != null)
+					if (details != null)
 						message.append(details);
 					emailService.sendMail(applicant.getEmail(), subject, message.toString());
 				}
@@ -187,19 +194,20 @@ public class JobPostingService {
 		}
 		return jobPosting;
 	}
-	
-	/**Get the list of jobs by company Name
+
+	/**
+	 * Get the list of jobs by company Name
 	 * 
 	 * @param companyName
 	 * @return
 	 * @throws CompanyExceptions
 	 * @throws JobPostingException
 	 */
-	public List<JobPosting> getJobsPostingbyCompany(String companyName) throws CompanyExceptions, JobPostingException{
-		
+	public List<JobPosting> getJobsPostingbyCompany(String companyName) throws CompanyExceptions, JobPostingException {
+
 		Company company = companyService.getCompany(companyName);
 		List<JobPosting> jobPostings = jobPostingRepository.findByCompany(company);
-		if(jobPostings.size() == 0)
+		if (jobPostings.size() == 0)
 			throw new JobPostingException("No Jobs found");
 		return jobPostings;
 	}
