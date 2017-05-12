@@ -41,7 +41,7 @@ public class CompanyController {
 		parameters.put("email", (String) parameterMap.get("email"));
 		parameters.put("password", (String) parameterMap.get("password"));
 		parameters.put("websiteUrl", (String) parameterMap.get("website"));
-		parameters.put("logoUrl", (String) parameterMap.get("logoUrl"));
+		parameters.put("logoUrl", (String) parameterMap.get("logoURL"));
 		parameters.put("address", (String) parameterMap.get("address"));
 		parameters.put("companyDesc", (String) parameterMap.get("companyDesc"));
 		
