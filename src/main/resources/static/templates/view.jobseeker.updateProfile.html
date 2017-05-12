@@ -1,43 +1,68 @@
-<!--<script src="https://ucarecdn.com/widget/2.10.1/uploadcare/uploadcare.full.min.js" charset="utf-8"></script>-->
-
-<!--<script>-->
-    <!--UPLOADCARE_PUBLIC_KEY = '2c62456a3dcc92792dbb';-->
-    <!--UPLOADCARE_LOCALE = 'en';-->
-    <!--UPLOADCARE_LIVE = false;-->
-<!--</script>-->
-<!--<script>-->
-    <!--var images=[];-->
-    <!--$("#propImage").on("click", function() {-->
-
-        <!--uploadcare.openDialog(null, {-->
-            <!--imagesOnly: true-->
-        <!--}).done(function(file) {-->
-            <!--file.done(function(fileInfo) {-->
-                <!--images.push(fileInfo.cdnUrl);-->
-                <!--$('#image_preview').append("<img src='"+fileInfo.cdnUrl+"' height='200' width='200' >&nbsp;&nbsp;&nbsp;");-->
-                <!--document.getElementById('mainDiv').style.visibility="hidden";-->
-                <!--document.getElementById('mainDiv2').style.visibility="visible";-->
-
-            <!--});-->
-        <!--});-->
-    <!--});-->
-    <!--$("#propImage1").on("click", function() {-->
-
-        <!--uploadcare.openDialog(null, {-->
-            <!--imagesOnly: true-->
-        <!--}).done(function(file) {-->
-            <!--file.done(function(fileInfo) {-->
-                <!--images.push(fileInfo.cdnUrl);-->
-                <!--$('#image_preview').append("<img src='"+fileInfo.cdnUrl+"' height='200' width='200' >&nbsp;&nbsp;&nbsp;");-->
+<script src="https://ucarecdn.com/widget/2.10.1/uploadcare/uploadcare.full.min.js" charset="utf-8"></script>
+<!-- bootstrap jquery minified -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- bootstrap javascript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- jquery ui -->
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 
 
-            <!--});-->
-        <!--});-->
-    <!--});-->
+<script>
+    UPLOADCARE_PUBLIC_KEY = '2c62456a3dcc92792dbb';
+    UPLOADCARE_LOCALE = 'en';
+    UPLOADCARE_LIVE = false;
+</script>
+<script>
+    var images=[];
+    $("#propImage").on("click", function() {
 
-<!--</script>-->
+        console.log("in prop image click");
+        uploadcare.openDialog(null, {
+            imagesOnly: true
+        }).done(function(file) {
+            file.done(function(fileInfo) {
+                images.push(fileInfo.cdnUrl);
+                $('#image_preview').append("<img src='"+fileInfo.cdnUrl+"' height='200' width='200' >&nbsp;&nbsp;&nbsp;");
+                document.getElementById('mainDiv').style.visibility="hidden";
+                document.getElementById('mainDiv2').style.visibility="visible";
+
+            });
+        });
+    });
+    function uploadcarepopup(){
+        console.log("in prop image click");
+        uploadcare.openDialog(null, {
+            imagesOnly: true
+        }).done(function(file) {
+            file.done(function(fileInfo) {
+                images.push(fileInfo.cdnUrl);
+                $('#image_preview').append("<img src='"+fileInfo.cdnUrl+"' height='200' width='200' >&nbsp;&nbsp;&nbsp;");
+                document.getElementById('mainDiv').style.visibility="hidden";
+                document.getElementById('mainDiv2').style.visibility="visible";
+
+            });
+        });
+    }
+
+    $("#propImage1").on("click", function() {
+
+        uploadcare.openDialog(null, {
+            imagesOnly: true
+        }).done(function(file) {
+            file.done(function(fileInfo) {
+                images.push(fileInfo.cdnUrl);
+                $('#image_preview').append("<img src='"+fileInfo.cdnUrl+"' height='200' width='200' >&nbsp;&nbsp;&nbsp;");
 
 
+            });
+        });
+    });
+
+
+</script>
+
+<link rel="stylesheet" href="https://static.licdn.com/sc/h/br/42hi13kwudp9n6mcvxypi2sei">
+<link rel="stylesheet" href="https://static.licdn.com/sc/h/br/7wwsuzq8ypctt24b973gr089n">
 
 
 
@@ -79,7 +104,7 @@
                         <div data-control-name="profile_background_image_edit" id="ember2631" class="bg-img-edit__grid-right-rail bg-img-edit-button ember-view">
                             <div id="ember2636" class="bg-img-edit-button__dropdown dropdown closed ember-view">
 
-                                <button type="button" ng-click="updatePage()" aria-controls="ember2636-options" aria-expanded="false" data-control-name="profile_background_image_edit" id="ember2636-trigger" class="bg-img-edit-button__dropdown-trigger dropdown-trigger ember-view">
+                                <button type="button" aria-controls="ember2636-options" aria-expanded="false" data-control-name="profile_background_image_edit" id="ember2636-trigger" class="bg-img-edit-button__dropdown-trigger dropdown-trigger ember-view">
                                     <div class="bg-img-edit-button__action-body bg-img-edit-button__action-body--dropdown-trigger">
 									<span class="bg-img-edit-button__action-icon bg-img-edit-button__action-icon--dropdown-trigger svg-icon-wrap">
 										<li-icon aria-hidden="true" type="image-icon" size="medium">
@@ -116,7 +141,6 @@
 							<li-icon aria-hidden="true" type="ellipsis-horizontal-icon">
 								<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon">
 									<g class="large-icon" style="fill: currentColor">
-        <path d="M2,10H6v4H2V10Zm8,4h4V10H10v4Zm8-4v4h4V10H18Z"></path>
       </g></svg></li-icon></span>
                     </button><!----></div>
                     <!----></div>
@@ -137,24 +161,41 @@
                         </label>
 
                         <div id="ember2701" class="pv-top-card-section__edit-photo profile-photo-edit ember-view">
-                            <button data-control-name="edit_profile_photo" class="profile-photo-edit__edit-btn" data-ember-action="" data-ember-action-2702="2702">
+
+
+                            <button class="input-file" onclick="uploadcarepopup()" type="hidden" id="propImage" name="propImage" ng-model="propImage"
+                                    accept="image/jpg, image/jpeg, image/png, image/gif"
+                                    multiple data-control-name="edit_profile_photo" class="profile-photo-edit__edit-btn" data-ember-action="" data-ember-action-2702="2702">
                                 <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAkSAAAAJDY0YmIwODAwLWQxMjAtNDIzNC05ZGFmLWFmZjJiYjYwZjliZA.jpg" class="profile-photo-edit__preview" alt="Edit photo" height="128" width="128">
-                                <span class="profile-photo-edit__edit-icon svg-icon-wrap"><li-icon aria-hidden="true" type="pencil-icon" size="small"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon"><g class="small-icon" style="fill-opacity: 1">
-        <path d="M14.71,4L12,1.29a1,1,0,0,0-1.41,0L3,8.85,1,15l6.15-2,7.55-7.55A1,1,0,0,0,15,4.71,1,1,0,0,0,14.71,4Zm-8.84,7.6-1.5-1.5L9.42,5.07l1.5,1.5Zm5.72-5.72-1.5-1.5,1.17-1.17,1.5,1.5Z"></path>
-      </g></svg></li-icon></span>
+
                             </button>
+
                         </div>
 
                     </div>
-                    <!----></div>
 
-                <a data-control-name="edit_top_card" href="/in/darshan009/edit/topcard/" id="ember2713" class="pv-top-card-section__edit pv-top-card-section__right-corner-action button-tertiary-medium-round ember-view">    <span class="svg-icon-wrap"><span class="visually-hidden">Edit Profile</span><li-icon aria-hidden="true" type="pencil-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon"><g class="large-icon" style="fill: currentColor">
+                    <!----></div>
+                <button type="button" ng-click="updateJobseekerProfile()" class=" button-primary-medium org-hover-button ember-view" style="float: right; margin-top: -4%;">
+                    Update Profile
+                </button>
+
+                <a data-control-name="edit_top_card" id="ember2713" class="pv-top-card-section__edit pv-top-card-section__right-corner-action button-tertiary-medium-round ember-view">    <span class="svg-icon-wrap"><span class="visually-hidden">Edit Profile</span><li-icon aria-hidden="true" type="pencil-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon"><g class="large-icon" style="fill: currentColor">
 
       </g></svg></li-icon></span>
                 </a>
                 <div class="pv-top-card-section__body">
-                    <div class="pv-top-card-section__information mt3">
-                        <h1 class="pv-top-card-section__name Sans-26px-black-85% mb1"> {{firstname}} {{lastname}} </h1>
+                    <div class="pv-top-card-section__information mt3" style="margin-left: 30%; margin-right: 30%;">
+                        <h1 class="pv-top-card-section__name Sans-26px-black-85% mb1">
+                                <span>
+                                    <div style="float:left">
+                                        <input type="text" ng-model="jobseeker.firstname" name="firstname" class="firstname" id="reg-firstname" aria-required="true" tabindex="1" style="float: left">
+                                    </div>
+                                    -
+                                      <div style="float:right">
+                                        <input type="text" ng-model="jobseeker.lastname" name="lastname" class="lastname" id="reg-lastname" aria-required="true" tabindex="1" style="float: left">
+                                      </div>
+                                </span>
+                        </h1>
 
                         <!--<h2 class="pv-top-card-section__headline Sans-19px-black-85% mb1">Actively seeking Software Internship for Summer 2017 | Graduate student at San Jose State University</h2>-->
 
@@ -187,11 +228,11 @@
 							</span>
                             <span class="truncate-multiline--last-line-wrapper">
 							<span class="truncate-multiline--last-line">
-								<textarea>{{description}}</textarea>
+								<textarea ng-model="selfIntroduction">{{jobseeker.selfIntroduction}}</textarea>
 							</span>
 							<button class="truncate-multiline--button-hidden" data-ember-action="" data-ember-action-2723="2723">
 
-  </button></span></div>
+                            </button></span></div>
 
                         </p>
 
@@ -226,7 +267,7 @@
 
               <!-- work experience loop -->
 
-			  <ul class="pv-profile-section__section-info section-info pv-profile-section__section-info--has-no-more" ng-repeat="experience in workexperience">
+			  <ul class="pv-profile-section__section-info section-info pv-profile-section__section-info--has-no-more" data-ng-repeat="experience in workexperience">
 				  <li id="888496017" class="pv-profile-section__card-item pv-position-entity ember-view">
 					  <div class="pv-entity__actions">
 
@@ -237,22 +278,29 @@
 						</div>
 						<div class="pv-entity__summary-info">
 						  <h3 class="Sans-17px-black-85%-semibold">
-                              <label for="reg-password">Password (6 or more characters)</label>
-                              <input type="text" name="session_password" class="reg-password" id="reg-password" aria-required="true" tabindex="1" autocomplete="new-password" ng-model="experience.positionheld">
+                              {{experience.positionHeld}}
                           </h3>
 
 						  <h4>
-							<span class="visually-hidden">Company Name</span>
-							<span class="pv-position-entity__secondary-title pv-entity__secondary-title Sans-15px-black-55%">{{experience.companyname}}</span>
+                              <label for="reg-companyname"><b>Company Name</b></label>
+							<!--<span class="pv-position-entity__secondary-title pv-entity__secondary-title Sans-15px-black-55%">{{experience.companyname}}</span>-->
+                              <span>{{experience.company}}</span>
 						  </h4>
 							<h4 class="pv-entity__date-range Sans-15px-black-55%">
-							<span class="visually-hidden">Dates Employed</span>
-							<span>{{experience.startdate}} – {{experience.enddate}}</span>
-						  </h4>
+							<label for="reg-positionheld"><b>Dates Employed</b></label>
+							<span>
+                                <div style="float:left">
+                                    <span>{{experience.startDate}}</span>
+                                </div>
 
-                            <button id="ember14281" ng-click="addWorkExperience()" class="org-top-card-actions__follow-btn mr1 button-primary-medium org-hover-button ember-view">
-                              <span aria-hidden="true" class="org-hover-button__normal-label">Add new Work experience</span>
-                            </button>
+                                    ---
+
+                                <div style="float: right">
+                                    <span>{{experience.endDate}}</span>
+                                </div>
+                            </span>
+						  </h4>
+                            </br>
 
 						</div>
 
@@ -267,6 +315,57 @@
 			</li>
 		  </ul>
 
+              <!--  new added workexperience  -->
+
+               <li id="888496017" class="pv-profile-section__card-item pv-position-entity ember-view">
+					  <div class="pv-entity__actions">
+
+					  </div>
+
+					<a data-control-name="background_details_company" id="ember3249" class="ember-view">    <div class="pv-position-entity__logo pv-entity__logo company-logo">
+						  <img class="lazy-image pv-position-entity__logo-img pv-entity__logo-img EntityPhoto-square-4 loaded" alt="Bit Brothers" src="https://media.licdn.com/mpr/mpr/shrinknp_100_100/p/3/000/274/177/3c628ba.png">
+						</div>
+						<div class="pv-entity__summary-info">
+						  <h3 class="Sans-17px-black-85%-semibold">
+                              <label for="reg-password"><b>Position Held</b></label>
+                              <input type="text" ng-model="positionHeld" class="reg-positionheld" id="reg-password" aria-required="true" tabindex="1" style="width: 30%">
+                          </h3>
+
+						  <h4>
+                              <label for="reg-companyname"><b>Company Name</b></label>
+                              <!--<span class="pv-position-entity__secondary-title pv-entity__secondary-title Sans-15px-black-55%">{{experience.companyname}}</span>-->
+                              <input type="text" name="companyname" ng-model="companyname" class="reg-companyname" id="reg-companyname" aria-required="true" tabindex="1" style="width: 30%">
+						  </h4>
+							<h4 class="pv-entity__date-range Sans-15px-black-55%">
+							<label for="reg-positionheld"><b>Dates Employed</b></label>
+							<span>
+                                <div style="float:left">
+                                    <input type="text" ng-model="workexperiencestartdate" name="startdate" class="reg-startdate" id="reg-startdate" aria-required="true" tabindex="1" style="float: left">
+                                </div>
+
+                                    ---
+
+                                <div style="float: right">
+                                    <input type="text" ng-model="workexperienceenddate" name="enddate" class="enddate" id="reg-enddate" aria-required="true" tabindex="1" style="float: right">
+                                </div>
+                            </span>
+						  </h4>
+                            </br>
+
+
+						</div>
+
+					</a>
+					<div class="pv-entity__extra-details">
+					<p id="profile-position-888496017" tabindex="-1" class="pv-entity__description Sans-15px-black-70% mt4">
+
+					</p>
+
+				</div>
+
+			</li>
+
+
               <!----></section>
 
 
@@ -280,37 +379,43 @@
 
                 <!-- education loop section -->
 
-					<ul ng-repeat="education in educations" class="pv-profile-section__section-info section-info pv-profile-section__section-info--has-no-more">
+					<ul ng-repeat="edu in education" class="pv-profile-section__section-info section-info pv-profile-section__section-info--has-no-more">
 						<li id="382448460" class="pv-education-entity pv-profile-section__card-item ember-view">
-							<a data-control-name="edit_education" href="/in/darshan009/edit/education/382448460/" id="ember3295" class="pv-profile-section__edit-action ember-view">    <span class="svg-icon-wrap"><span class="visually-hidden">Edit education San Jose State University</span><li-icon aria-hidden="true" type="pencil-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon"><g class="large-icon" style="fill: currentColor">
-									<path d="M21.71,5L19,2.29a1,1,0,0,0-1.41,0L4,15.85,2,22l6.15-2L21.71,6.45A1,1,0,0,0,22,5.71,1,1,0,0,0,21.71,5ZM6.87,18.64l-1.5-1.5L15.92,6.57l1.5,1.5ZM18.09,7.41l-1.5-1.5,1.67-1.67,1.5,1.5Z"></path>
-								  </g></svg></li-icon></span>
-							</a>
-							<a data-control-name="background_details_school" href="/edu/school/17911/?legacySchoolId=17911" id="ember3296" class="ember-view">
+
+							<a data-control-name="background_details_school" id="ember3296" class="ember-view">
 							<div class="pv-education-entity__logo pv-entity__logo">
 							  <img class="lazy-image pv-education-entity__logo-img pv-entity__logo-img EntityPhoto-square-4 loaded" alt="San Jose State University" src="https://media.licdn.com/mpr/mpr/shrinknp_100_100/p/5/005/07f/3a1/1e29cff.png">
 							</div>
 
 							<div class="pv-entity__summary-info">
 							  <div class="pv-entity__degree-info">
-								<h3 class="pv-entity__school-name Sans-17px-black-85%-semibold">{{experience.institute}}</h3>
+								<h3 class="pv-entity__school-name Sans-17px-black-85%-semibold">
+
+                                    <span>{{edu.institute}}</span>
+
+                                </h3>
 
 								  <p class="pv-education-entity__secondary-title pv-entity__degree-name pv-entity__secondary-title Sans-15px-black-55%">
-									<span class="visually-hidden">Degree Name</span>
-									<span class="pv-entity__comma-item">{{education.degree}}</span>
+									<label for="reg-educationdegree"><b>Education Degree</b></label>
+                                      <span> {{edu.degree}} </span>
 								  </p>
 							  </div>
 
-								<p class="pv-education-entity__date pv-entity__dates Sans-15px-black-55%">
-								  <span class="visually-hidden">Dates attended or expected graduation</span>
+								<h4 class="pv-entity__date-range Sans-15px-black-55%">
+								  <label><b>Dates attended or expected graduation date</b></label>
 								  <span>
-										<time>{{experience.startdate}}</time> – <time>{{experience.enddate}}</time>
-								  </span>
-								</p>
+                                            <div style="float:left">
+                                                <span>{{edu.startDate}}</span>
+                                            </div>
+                                            ---
 
-                                <button id="ember14281" ng-click="addEducation()" class="org-top-card-actions__follow-btn mr1 button-primary-medium org-hover-button ember-view">
-                                  <span aria-hidden="true" class="org-hover-button__normal-label">Add Education</span>
-                                </button>
+                                          <div style="float:right">
+                                            <span>{{edu.endDate}}</span>
+                                          </div>
+								  </span>
+								</h4>
+
+
 
 
                                 </div>
@@ -326,6 +431,60 @@
 
 
 					</ul>
+                    <br>
+
+                        <!--  add new education section -->
+
+                        <li id="382448460" class="pv-education-entity pv-profile-section__card-item ember-view">
+
+							<a data-control-name="background_details_school" id="ember3296" class="ember-view">
+							<div class="pv-education-entity__logo pv-entity__logo">
+							  <img class="lazy-image pv-education-entity__logo-img pv-entity__logo-img EntityPhoto-square-4 loaded" alt="San Jose State University" src="https://media.licdn.com/mpr/mpr/shrinknp_100_100/p/5/005/07f/3a1/1e29cff.png">
+							</div>
+
+							<div class="pv-entity__summary-info">
+							  <div class="pv-entity__degree-info">
+								<h3 class="pv-entity__school-name Sans-17px-black-85%-semibold">
+
+                                    <label for="reg-positionheld"><b>Institute Name</b></label>
+                                    <input type="text" ng-model="institutename" name="institutename" class="reg-positionheld" id="reg-positionheld" aria-required="true" tabindex="1" style="width: 30%">
+
+                                </h3>
+
+								  <p class="pv-education-entity__secondary-title pv-entity__degree-name pv-entity__secondary-title Sans-15px-black-55%">
+									<label for="reg-educationdegree"><b>Education Degree</b></label>
+                                    <input type="text" ng-model="educationdegree" name="educationdegree" class="educationdegree" id="reg-educationdegree" aria-required="true" tabindex="1" style="width: 30%">
+								  </p>
+							  </div>
+
+								<h4 class="pv-entity__date-range Sans-15px-black-55%">
+								  <label for=""><b>Dates attended or expected graduation date</b></label>
+								  <span>
+                                            <div style="float:left">
+                                                <input type="text" ng-model="educationstartdate" name="startdate" class="startdate" id="reg-startdate" aria-required="true" tabindex="1" style="float: left">
+                                            </div>
+                                            ---
+
+                                          <div style="float:right">
+                                            <input type="text" ng-model="educationenddate" name="enddate" class="enddate" id="reg-enddate" aria-required="true" tabindex="1" style="float: left">
+                                          </div>
+								  </span>
+								</h4>
+
+
+
+
+                                </div>
+							</a>
+							  <div class="pv-entity__extra-details">
+								<!--<p tabindex="-1" class="pv-entity__description Sans-15px-black-70% mt4">-->
+                                  <!--Graduate Student with dual specialization in 'Enterprise Software Technologies' and 'Cloud Computing and Virtualization'.-->
+                                  <!--</p>-->
+                                  <!---->
+							</div>
+
+						</li>
+
 
 
                 <!----></section>
@@ -343,13 +502,8 @@
                 <div style="" id="ember2814" class="pv-deferred-area ember-view">
                     <div class="pv-deferred-area__content">
                         <section id="ember4419" class="pv-profile-section artdeco-container-card pv-featured-skills-section ember-view">
-                            <a data-control-name="edit_skills" href="/in/darshan009/skills/" id="ember4420" class="pv-profile-section__edit-action pv-profile-section__edit-action--show ember-view"> <span class="svg-icon-wrap"><span class="visually-hidden">Edit skills</span>
-							<li-icon aria-hidden="true" type="pencil-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon"><g class="large-icon" style="fill: currentColor">
-					<path d="M21.71,5L19,2.29a1,1,0,0,0-1.41,0L4,15.85,2,22l6.15-2L21.71,6.45A1,1,0,0,0,22,5.71,1,1,0,0,0,21.71,5ZM6.87,18.64l-1.5-1.5L15.92,6.57l1.5,1.5ZM18.09,7.41l-1.5-1.5,1.67-1.67,1.5,1.5Z"></path>
-				  </g></svg></li-icon>
-							</span>
-                            </a>
-                            <a data-control-name="edit_skills_add" href="/in/darshan009/skills/add/" id="ember4421" class="pv-skills-section__add-label button-tertiary-medium-muted ember-view">  Add a new skill
+
+                            <a data-control-name="edit_skills_add" id="ember4421" class="pv-skills-section__add-label button-tertiary-medium-muted ember-view">  Add a new skill
                             </a>
 
                             <h2 class="pv-profile-section__card-heading Sans-17px-black-85%">
@@ -369,24 +523,57 @@
                                         <div class="pv-skill-entity__header">
                                             <div class="tooltip-container">
 
-                                                <a data-control-name="edit_endorsements" id="ember4671" class="featured-skill-entity-wrapper ember-view">
-                                                    <div class="pv-skill-entity__pill-contents static-pill">
-														<span class="pv-skill-entity__skill-name truncate Sans-15px-black-85%-semibold inline-block ">
+                                                <a data-control-name="edit_endorsements" id="ember4671" class="featured-skill-entity-wrapper">
+                                                    <div class="">
+														<span >
 															{{skill.skill}}
 														</span>
 
 
                                                     </div>
                                                 </a>
-                                                <div role="tooltip" id="pv-skill-entity-name-tooltip" class="tooltip">
-                                                    {{skill.skill}}
-                                                </div>
+                                                <!--<div role="tooltip" id="pv-skill-entity-name-tooltip" class="tooltip">-->
+                                                    <!--{{skill.skill}}-->
+                                                <!--</div>-->
                                             </div>
                                             <!---->
                                         </div>
 
 
+
                                     </li>
+
+                                </ul>
+
+                                <br>
+
+                                <!-- adding new skill -->
+
+                                <li id="ember4670" class="pv-skill-entity--featured pb5 pv-skill-entity relative ember-view">
+
+                                    <!---->
+                                    <div class="pv-skill-entity__header">
+                                        <div class="tooltip-container">
+
+                                            <a data-control-name="edit_endorsements" id="ember4671" class="featured-skill-entity-wrapper">
+                                                <div class="">
+														<span >
+															<input type="text" ng-model="jobseekerskill" name="skill" class="reg-skill" id="reg-skill" aria-required="true" tabindex="1">
+														</span>
+
+
+                                                </div>
+                                            </a>
+                                            <!--<div role="tooltip" id="pv-skill-entity-name-tooltip" class="tooltip">-->
+                                            <!--{{skill.skill}}-->
+                                            <!--</div>-->
+                                        </div>
+                                        <!---->
+                                    </div>
+
+
+
+                                </li>
 
                             </div>
 

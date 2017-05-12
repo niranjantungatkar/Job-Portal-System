@@ -33,21 +33,7 @@
 						<div data-control-name="profile_background_image_edit" id="ember2631" class="bg-img-edit__grid-right-rail bg-img-edit-button ember-view">
 							<div id="ember2636" class="bg-img-edit-button__dropdown dropdown closed ember-view">
 
-								<button type="button" ng-click="updatePage()" aria-controls="ember2636-options" aria-expanded="false" data-control-name="profile_background_image_edit" id="ember2636-trigger" class="bg-img-edit-button__dropdown-trigger dropdown-trigger ember-view">
-									<div class="bg-img-edit-button__action-body bg-img-edit-button__action-body--dropdown-trigger">
-									<span class="bg-img-edit-button__action-icon bg-img-edit-button__action-icon--dropdown-trigger svg-icon-wrap">
-										<li-icon aria-hidden="true" type="image-icon" size="medium">
-											<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon">
-												<g class="large-icon" style="fill: currentColor">
-												</g>
-											</svg>
-										</li-icon>
-									</span>
-									<span class="Sans-17px-white-100%-semibold">
 
-									</span>
-									</div>
-								</button>
 
 							<ul id="ember2636-options" style="display: none;" class="bg-img-edit-button__dropdown-options ember-view" tabindex="-1"><!----></ul>
 						</div></div>
@@ -63,23 +49,17 @@
 		<div>
 			<!---->
 			<section id="ember2673" class="pv-profile-section artdeco-container-card pv-top-card-section ember-view"><!---->
-				<div class="pv-top-card-section__overflow-wrapper pv-top-card-section__right-corner-action pv-top-card-section__overflow-wrapper--self">
-					<div id="ember2682" class="dropdown pv-top-card-overflow closed ember-view"><button type="button" aria-controls="ember2682-options" aria-expanded="false" data-control-name="overflow_view" id="ember2682-trigger" class="pv-top-card-overflow__trigger button-tertiary-medium-round-inverse dropdown-trigger ember-view">
-						<span class="icon svg-icon-wrap">
-							<span class="visually-hidden">More Actions</span>
-							<li-icon aria-hidden="true" type="ellipsis-horizontal-icon">
-								<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon">
-									<g class="large-icon" style="fill: currentColor">
-        <path d="M2,10H6v4H2V10Zm8,4h4V10H10v4Zm8-4v4h4V10H18Z"></path>
-      </g></svg></li-icon></span>
-					</button><!----></div>
-					<!----></div>
+					<div class="pv-top-card-section__overflow-wrapper pv-top-card-section__right-corner-action pv-top-card-section__overflow-wrapper--self">
+
+						<div id="ember2682" class="dropdown pv-top-card-overflow closed ember-view">
+							<button type="button" ng-click="toUpdateProfile()" class=" button-primary-medium org-hover-button ember-view">
+								Update Profile
+							</button>
+							<!---->
+						</div>
+					</div>
 
 
-				<span id="ember2692" style="display: none;" class="pv-member-badge ember-view"><!---->
-<span class="visually-hidden">Darshan has a  account</span>
-
-					<!----></span>
 
 				<!---->
 				<!---->
@@ -94,21 +74,20 @@
 							<button data-control-name="edit_profile_photo" class="profile-photo-edit__edit-btn" data-ember-action="" data-ember-action-2702="2702">
 								<img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAkSAAAAJDY0YmIwODAwLWQxMjAtNDIzNC05ZGFmLWFmZjJiYjYwZjliZA.jpg" class="profile-photo-edit__preview" alt="Edit photo" height="128" width="128">
 								<span class="profile-photo-edit__edit-icon svg-icon-wrap"><li-icon aria-hidden="true" type="pencil-icon" size="small"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon"><g class="small-icon" style="fill-opacity: 1">
-        <path d="M14.71,4L12,1.29a1,1,0,0,0-1.41,0L3,8.85,1,15l6.15-2,7.55-7.55A1,1,0,0,0,15,4.71,1,1,0,0,0,14.71,4Zm-8.84,7.6-1.5-1.5L9.42,5.07l1.5,1.5Zm5.72-5.72-1.5-1.5,1.17-1.17,1.5,1.5Z"></path>
-      </g></svg></li-icon></span>
+							      </g></svg></li-icon></span>
 							</button>
 						</div>
 
 					</div>
 					<!----></div>
 
-				<a data-control-name="edit_top_card" href="/in/darshan009/edit/topcard/" id="ember2713" class="pv-top-card-section__edit pv-top-card-section__right-corner-action button-tertiary-medium-round ember-view">    <span class="svg-icon-wrap"><span class="visually-hidden">Edit Profile</span><li-icon aria-hidden="true" type="pencil-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon"><g class="large-icon" style="fill: currentColor">
+				<a data-control-name="edit_top_card" id="ember2713" class="pv-top-card-section__edit pv-top-card-section__right-corner-action button-tertiary-medium-round ember-view">    <span class="svg-icon-wrap"><span class="visually-hidden">Edit Profile</span><li-icon aria-hidden="true" type="pencil-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon"><g class="large-icon" style="fill: currentColor">
 
       </g></svg></li-icon></span>
 				</a>
 				<div class="pv-top-card-section__body">
 					<div class="pv-top-card-section__information mt3">
-						<h1 class="pv-top-card-section__name Sans-26px-black-85% mb1"> {{firstname}} {{lastname}} </h1>
+						<h1 class="pv-top-card-section__name Sans-26px-black-85% mb1"> {{jobseeker.firstname}} {{jobseeker.lastname}} </h1>
 
 						<!--<h2 class="pv-top-card-section__headline Sans-19px-black-85% mb1">Actively seeking Software Internship for Summer 2017 | Graduate student at San Jose State University</h2>-->
 
@@ -141,12 +120,13 @@
 							</span>
 							<span class="truncate-multiline--last-line-wrapper">
 							<span class="truncate-multiline--last-line">
-								{{description}}
+								{{jobseeker.selfIntroduction}}
 							</span>
 							<button class="truncate-multiline--button-hidden" data-ember-action="" data-ember-action-2723="2723">
 
-  </button></span></div>
+  							</button></span></div>
 
+						<h3 ng-if=" noselfIntroduction " style="color:red">You have no work experience</h3>
 						</p>
 
 
@@ -186,19 +166,20 @@
 
 					  </div>
 
-					<a data-control-name="background_details_company" href="/company-beta/2918603/" id="ember3249" class="ember-view">    <div class="pv-position-entity__logo pv-entity__logo company-logo">
+					<a data-control-name="background_details_company" id="ember3249" class="ember-view">    <div class="pv-position-entity__logo pv-entity__logo company-logo">
 						  <img class="lazy-image pv-position-entity__logo-img pv-entity__logo-img EntityPhoto-square-4 loaded" alt="Bit Brothers" src="https://media.licdn.com/mpr/mpr/shrinknp_100_100/p/3/000/274/177/3c628ba.png">
 						</div>
 						<div class="pv-entity__summary-info">
-						  <h3 class="Sans-17px-black-85%-semibold"> {{experience.positionheld}} </h3>
+						  <h3 class="Sans-17px-black-85%-semibold"> {{experience.positionHeld}} </h3>
+
 
 						  <h4>
 							<span class="visually-hidden">Company Name</span>
-							<span class="pv-position-entity__secondary-title pv-entity__secondary-title Sans-15px-black-55%">{{experience.companyname}}</span>
+							<span class="pv-position-entity__secondary-title pv-entity__secondary-title Sans-15px-black-55%">{{experience.company}}</span>
 						  </h4>
 							<h4 class="pv-entity__date-range Sans-15px-black-55%">
 							<span class="visually-hidden">Dates Employed</span>
-							<span>{{experience.startdate}} – {{experience.enddate}}</span>
+							<span>{{experience.startDate}} – {{experience.endDate}}</span>
 						  </h4>
 							<!--<h4 class="pv-entity__duration Sans-15px-black-55% ml1">-->
 							  <!--<span class="visually-hidden">Employment Duration</span>-->
@@ -222,6 +203,7 @@
 
 			</li>
 		  </ul>
+			  <h3 ng-if=" noworkexperience " style="color:red">You have no work experience</h3>
 
 	<!----></section>
 
@@ -236,31 +218,30 @@
 
 				<!-- education loop section -->
 
-					<ul ng-repeat="education in educations" class="pv-profile-section__section-info section-info pv-profile-section__section-info--has-no-more">
+					<ul ng-repeat="edu in education" class="pv-profile-section__section-info section-info pv-profile-section__section-info--has-no-more">
 						<li id="382448460" class="pv-education-entity pv-profile-section__card-item ember-view">
-							<a data-control-name="edit_education" href="/in/darshan009/edit/education/382448460/" id="ember3295" class="pv-profile-section__edit-action ember-view">    <span class="svg-icon-wrap"><span class="visually-hidden">Edit education San Jose State University</span><li-icon aria-hidden="true" type="pencil-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon"><g class="large-icon" style="fill: currentColor">
-									<path d="M21.71,5L19,2.29a1,1,0,0,0-1.41,0L4,15.85,2,22l6.15-2L21.71,6.45A1,1,0,0,0,22,5.71,1,1,0,0,0,21.71,5ZM6.87,18.64l-1.5-1.5L15.92,6.57l1.5,1.5ZM18.09,7.41l-1.5-1.5,1.67-1.67,1.5,1.5Z"></path>
-								  </g></svg></li-icon></span>
-							</a>
-							<a data-control-name="background_details_school" href="/edu/school/17911/?legacySchoolId=17911" id="ember3296" class="ember-view">
+
+							<a data-control-name="background_details_school" id="ember3296" class="ember-view">
 							<div class="pv-education-entity__logo pv-entity__logo">
 							  <img class="lazy-image pv-education-entity__logo-img pv-entity__logo-img EntityPhoto-square-4 loaded" alt="San Jose State University" src="https://media.licdn.com/mpr/mpr/shrinknp_100_100/p/5/005/07f/3a1/1e29cff.png">
 							</div>
 
 							<div class="pv-entity__summary-info">
 							  <div class="pv-entity__degree-info">
-								<h3 class="pv-entity__school-name Sans-17px-black-85%-semibold">{{experience.institute}}</h3>
+								<h3 class="pv-entity__school-name Sans-17px-black-85%-semibold">
+									{{edu.institute}}
+								</h3>
 
 								  <p class="pv-education-entity__secondary-title pv-entity__degree-name pv-entity__secondary-title Sans-15px-black-55%">
 									<span class="visually-hidden">Degree Name</span>
-									<span class="pv-entity__comma-item">{{education.degree}}</span>
+									<span class="pv-entity__comma-item">{{edu.degree}}</span>
 								  </p>
 							  </div>
 
 								<p class="pv-education-entity__date pv-entity__dates Sans-15px-black-55%">
 								  <span class="visually-hidden">Dates attended or expected graduation</span>
 								  <span>
-										<time>{{experience.startdate}}</time> – <time>{{experience.enddate}}</time>
+										<time>{{edu.startDate}}</time> – <time>{{edu.endDate}}</time>
 								  </span>
 								</p>
 
@@ -278,6 +259,7 @@
 
 
 					</ul>
+					<h3 ng-if=" noeducation " style="color:red">You have no education</h3>
 
 
 	  <!----></section>
@@ -295,14 +277,7 @@
 				<div style="" id="ember2814" class="pv-deferred-area ember-view">
 					<div class="pv-deferred-area__content">
 						<section id="ember4419" class="pv-profile-section artdeco-container-card pv-featured-skills-section ember-view">
-							<a data-control-name="edit_skills" href="/in/darshan009/skills/" id="ember4420" class="pv-profile-section__edit-action pv-profile-section__edit-action--show ember-view"> <span class="svg-icon-wrap"><span class="visually-hidden">Edit skills</span>
-							<li-icon aria-hidden="true" type="pencil-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon"><g class="large-icon" style="fill: currentColor">
-					<path d="M21.71,5L19,2.29a1,1,0,0,0-1.41,0L4,15.85,2,22l6.15-2L21.71,6.45A1,1,0,0,0,22,5.71,1,1,0,0,0,21.71,5ZM6.87,18.64l-1.5-1.5L15.92,6.57l1.5,1.5ZM18.09,7.41l-1.5-1.5,1.67-1.67,1.5,1.5Z"></path>
-				  </g></svg></li-icon>
-							</span>
-							</a>
-							<a data-control-name="edit_skills_add" href="/in/darshan009/skills/add/" id="ember4421" class="pv-skills-section__add-label button-tertiary-medium-muted ember-view">  Add a new skill
-							</a>
+
 
 							<h2 class="pv-profile-section__card-heading Sans-17px-black-85%">
 								Featured Skills &amp; Endorsements
@@ -339,6 +314,8 @@
 
 
 									</li>
+								</ul>
+								<h3 ng-if=" noskills " style="color:red">You have no skills</h3>
 
 							</div>
 
