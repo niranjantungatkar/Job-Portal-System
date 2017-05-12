@@ -164,5 +164,13 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 			//Alert the user if ther email is already in use. Do not make transition to any page.s
 			$scope.invEmail="Email already in use";
 		})
-	} 
+	}
+
+
+	//route to view jobs page
+	$scope.toViewJobs = function(){
+		$state.go("home.viewJobs", { profileDet: { id: userSession.data.id, type: userSession.data.type, verified: userSession.data.verified } });
+	}
+
+
 });

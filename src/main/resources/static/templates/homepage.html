@@ -15,18 +15,20 @@
 			</div>
 		</div>
 	</div>
+
+
 <!-- if user is logged in -->
 <div class="ember-application boot-complete icons-loaded"  ng-if= " header.profile == 'jobseeker' ">
 	<nav id="extended-nav" class="extended-nav nav-main-container global-alert-offset-top" role="banner" tabindex="-1" style="display: block;">
 		<div class="nav-main__content display-flex">
 			<div class="nav-main__inbug-container fl mr3">
 				<div id="inbug-nav-item" class="nav-item--inbug" lang="en">
-					<a href="/feed/" data-alias="" data-link-to="feed" data-resource="feed/badge" data-control-name="" class="nav-item__link js-nav-item-link">
+					<a data-alias="" data-link-to="feed" data-resource="feed/badge" data-control-name="" class="nav-item__link js-nav-item-link">
                <span class="nav-item__icon nav-item__icon--inbug" lang="en" aria-role="presentation">
                </span>
 					</a>
 				</div>
-				<div id="china-branding-nav-item" class="nav-item--china-branding hidden" lang="en"><a href="/feed/" data-alias="" data-link-to="feed" data-control-name="nav.homepage-zh_CN"><span class="nav-item__china-logo" aria-role=""><span class="visually-hidden">LinkedIn领英</span></span></a></div>
+				<div id="china-branding-nav-item" class="nav-item--china-branding hidden" lang="en"><a data-alias="" data-link-to="feed" data-control-name="nav.homepage-zh_CN"><span class="nav-item__china-logo" aria-role=""><span class="visually-hidden">LinkedIn领英</span></span></a></div>
 			</div>
 			<form id="extended-nav-search" class="nav-search">
 				<div class="nav-search-bar">
@@ -69,15 +71,13 @@
 			</form>
 			<ul class="nav-main nav-container" role="navigation" style="width: 10px !important;">
 				<li id="feed-nav-item" class="nav-item nav-item--feed" lang="en" style="margin-right: -20px;">
-					<a href="/feed/" data-alias="" data-link-to="feed" data-resource="feed/badge" data-control-name="" class="nav-item__link js-nav-item-link">
+					<a data-alias="" data-link-to="feed" data-resource="feed/badge" data-control-name="" class="nav-item__link js-nav-item-link">
                <span id="feed-tab-icon" class="nav-item__icon" lang="en" aria-role="presentation">
                   <li-icon aria-hidden="true" type="nav-small-home-icon" color="true">
                      <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
                         <g class="active-item" style="fill-opacity: 1">
-                           <path d="M22,8.45L12.85,2.26a1.5,1.5,0,0,0-1.69,0L2,8.45,3.06,10,4,9.37V19a1,1,0,0,0,1,1h5V15h4v5h5a1,1,0,0,0,1-1V9.37L20.94,10Z"></path>
                         </g>
                         <g class="inactive-item" style="fill: currentColor">
-                           <path d="M22,9.45L12.85,3.26a1.5,1.5,0,0,0-1.69,0L2,9.45,3.06,11,4,10.37V20a1,1,0,0,0,1,1h6V16h2v5h6a1,1,0,0,0,1-1V10.37L20.94,11ZM18,19H15V15a1,1,0,0,0-1-1H10a1,1,0,0,0-1,1v4H6V8.89l6-4,6,4V19Z"></path>
                         </g>
                      </svg>
                   </li-icon>
@@ -86,19 +86,19 @@
 					</a>
 				</li>
 				<li id="jobs-nav-item" class="nav-item nav-item--jobs" lang="en">
-					<a href="/jobs/" data-alias="" data-link-to="jobs" data-resource="" data-control-name="" class="nav-item__link js-nav-item-link">
-               <span id="jobs-tab-icon" class="nav-item__icon" lang="en" aria-role="presentation">
-                  <li-icon aria-hidden="true" type="nav-small-jobs-icon" color="true">
-                     <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
-                        <g class="active-item" style="fill-opacity: 1">
-                           <path d="M2,13H22v6a1,1,0,0,1-1,1H3a1,1,0,0,1-1-1V13ZM22,8v4H2V8A1,1,0,0,1,3,7H7V6a3,3,0,0,1,3-3h4a3,3,0,0,1,3,3V7h4A1,1,0,0,1,22,8ZM15,6a1,1,0,0,0-1-1H10A1,1,0,0,0,9,6V7h6V6Z"></path>
-                        </g>
-                        <g class="inactive-item" style="fill: currentColor">
-                           <path d="M21,7H17V6a3,3,0,0,0-3-3H10A3,3,0,0,0,7,6V7H3A1,1,0,0,0,2,8V19a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V8A1,1,0,0,0,21,7ZM9,6a1,1,0,0,1,1-1h4a1,1,0,0,1,1,1V7H9V6ZM20,18H4V13H20v5Zm0-6H4V9H20v3Z"></path>
-                        </g>
-                     </svg>
-                  </li-icon>
-               </span>
+					<a data-alias="" ng-click="toViewJobs()" data-link-to="jobs" data-resource="" data-control-name="" class="nav-item__link js-nav-item-link">
+					   <span id="jobs-tab-icon" class="nav-item__icon" lang="en" aria-role="presentation">
+						  <li-icon aria-hidden="true" type="nav-small-jobs-icon" color="true">
+							 <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
+								<g class="active-item" style="fill-opacity: 1">
+								   <path d="M2,13H22v6a1,1,0,0,1-1,1H3a1,1,0,0,1-1-1V13ZM22,8v4H2V8A1,1,0,0,1,3,7H7V6a3,3,0,0,1,3-3h4a3,3,0,0,1,3,3V7h4A1,1,0,0,1,22,8ZM15,6a1,1,0,0,0-1-1H10A1,1,0,0,0,9,6V7h6V6Z"></path>
+								</g>
+								<g class="inactive-item" style="fill: currentColor">
+								   <path d="M21,7H17V6a3,3,0,0,0-3-3H10A3,3,0,0,0,7,6V7H3A1,1,0,0,0,2,8V19a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V8A1,1,0,0,0,21,7ZM9,6a1,1,0,0,1,1-1h4a1,1,0,0,1,1,1V7H9V6ZM20,18H4V13H20v5Zm0-6H4V9H20v3Z"></path>
+								</g>
+							 </svg>
+						  </li-icon>
+					   </span>
 						<span class="nav-item__title">Jobs</span>
 					</a>
 				</li>
@@ -137,15 +137,15 @@
 			<div class="nav-main__content display-flex">
 				<div class="nav-main__inbug-container fl mr3">
 					<div id="inbug-nav-item" class="nav-item--inbug" lang="en">
-						<a href="/feed/" data-alias="" data-link-to="feed" data-resource="feed/badge" data-control-name="" class="nav-item__link js-nav-item-link">
+						<a data-alias="" data-link-to="feed" data-resource="feed/badge" data-control-name="" class="nav-item__link js-nav-item-link">
 						</a>
 					</div>
-					<div id="china-branding-nav-item" class="nav-item--china-branding hidden" lang="en"><a href="/feed/" data-alias="" data-link-to="feed" data-control-name="nav.homepage-zh_CN"><span class="nav-item__china-logo" aria-role=""><span class="visually-hidden">LinkedIn领英</span></span></a></div>
+					<div id="china-branding-nav-item" class="nav-item--china-branding hidden" lang="en"><a data-alias="" data-link-to="feed" data-control-name="nav.homepage-zh_CN"><span class="nav-item__china-logo" aria-role=""><span class="visually-hidden">LinkedIn领英</span></span></a></div>
 				</div>
 				
 				<ul class="nav-main nav-container" role="navigation" style="width: 10px !important;">
 					<li id="feed-nav-item" class="nav-item nav-item--feed" lang="en" style="margin-right: -20px;">
-						<a href="/feed/" data-alias="" data-link-to="feed" data-resource="feed/badge" data-control-name="" class="nav-item__link js-nav-item-link">
+						<a data-alias="" data-link-to="feed" data-resource="feed/badge" data-control-name="" class="nav-item__link js-nav-item-link">
                				<span id="feed-tab-icon" class="nav-item__icon" lang="en" aria-role="presentation">
                   				<li-icon aria-hidden="true" type="nav-small-home-icon" color="true">
                      				<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="nav-icon" xmlns="http://www.w3.org/2000/svg">
@@ -316,7 +316,7 @@
 		<div class="legal-nav">
 			<div class="copyright"><img class="logo-copyright lazy-loaded" alt="LinkedIn" src="https://static.licdn.com/sc/h/5koy91fjbrc47yhwyzws65ml7"> © 2017</div>
 			<ul>
-				<li><a href="https://www.linkedin.com/legal/copyright-policy?trk=uno-reg-guest-home-copyright-policy">Copyright Policy</a></li>
+				<li><a>Copyright Policy</a></li>
 			</ul>
 		</div>
 	</footer>

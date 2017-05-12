@@ -38,7 +38,7 @@ jobPortalApp.controller('controllerJobSeekerProfile', function($scope, $state, $
 	//get jobseeker profile from id
     $http({
         method : "GET",
-        url : '/jobseeker/'+$state.params.profileDet.id
+        url : '/jobseeker/'+ JSON.parse(localStorage.getItem('jobseekerid'))
     }).success(function(data) {
 
     	console.log("in get jobseeker");
@@ -53,8 +53,6 @@ jobPortalApp.controller('controllerJobSeekerProfile', function($scope, $state, $
         $scope.education = data.education;
         $scope.skills = data.skills;
 
-        console.log("scope workexperience")
-		console.log($scope.education);
 
         if($scope.workexperience == null || $scope.workexperience.length == 0)
     		$scope.noworkexperience = true;

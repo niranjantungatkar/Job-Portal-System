@@ -52,6 +52,20 @@ jobPortalApp.config(function($stateProvider, $urlRouterProvider){
             	params: {profileDet: null},
             	controller: 'controllerJobSeekerUpdateProfile'
         	})
+        .state('home.viewJobs',
+            {
+                url:'viewJobs',
+                templateUrl: './templates/view.jobseeker.viewJobs.html',
+                params: {profileDet: null},
+                controller: 'controllerViewJobs'
+            })
+        .state('home.viewJob',
+            {
+                url:'viewJob',
+                templateUrl: './templates/view.jobseeker.viewJobs.viewJob.html',
+                params: {jobAndProfile: null},
+                controller: 'controllerViewJob'
+            })
 		.state('home.companyprofile', 
 			{
 				url:'company',
