@@ -15,6 +15,14 @@ jobPortalApp.controller('controllerCompanyUpdate', function($http, $state, $scop
 	$scope.companyid = JSON.parse(localStorage.getItem('updCid'));
 	console.log("company Update");
 	
+	$scope.updateCompanyData = {
+			address:"",
+			companyDesc:"",
+			website:"",
+			companyName: $scope.companyid,
+			logoURL:""
+		}
+	
 	var pathUrl = "/company/"+$scope.companyid
 	$http({
 		method: 'GET',
@@ -22,13 +30,15 @@ jobPortalApp.controller('controllerCompanyUpdate', function($http, $state, $scop
 	}).success(function(data){
 		console.log(data);
 		$scope.company=data;
+		$scope.updateCompanyData = data;
 	})
 	
 	$scope.updateCompanyData = {
 		address:"",
 		companyDesc:"",
 		website:"",
-		companyName: $scope.companyid
+		companyName: $scope.companyid,
+		logoURL:""
 	}
 	
 	$scope.updateCompanyError = "";
