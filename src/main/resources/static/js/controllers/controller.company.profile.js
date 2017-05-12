@@ -1,4 +1,4 @@
-jobPortalApp.controller('controllerCompanyProfile', function($http, $state, $scope, $rootScope, fileUpload, Upload, $timeout){
+jobPortalApp.controller('controllerCompanyProfile', function($http, $state, $scope, $rootScope, Upload, $timeout){
 	
 	if($state.params.companyDet !== null && $state.params.companyDet !== "" && $state.params.companyDet !== undefined) {
 		
@@ -61,30 +61,6 @@ jobPortalApp.controller('controllerCompanyProfile', function($http, $state, $sco
 	}
 	
 	
-	
-	/*$scope.uploadFile = function(){
-        var file = $scope.myFile;
-        console.log('file is ' );
-        console.dir(file);
-        var uploadUrl = "/fileupload";
-        
-        //this.uploadFileToUrl = function(file, uploadUrl){
-            var fd = new FormData();
-            fd.append('file', file);
-            $http.post(uploadUrl, fd, {
-                transformRequest: angular.identity,
-                headers: {'Content-Type': undefined}
-            })
-            .success(function(){
-            })
-            .error(function(){
-            });
-       // }
-        //fileUpload.uploadFileToUrl(file, uploadUrl);
-    };*/
-	
-	
-		
 	$http({
 		method:'POST',
 		url:'/signature'
@@ -103,7 +79,7 @@ jobPortalApp.controller('controllerCompanyProfile', function($http, $state, $sco
                 //data: {file: file},
             	data: {
             		key: file.name, // the key to store the file on S3, could be file name or customized
-            		AWSAccessKeyId: "AKIAJPWE3LFVDSTG5IUQ",
+            		AWSAccessKeyId: "",
             		acl: 'private', // sets the access to the uploaded file in the bucket: private, public-read, ...
             		policy: $scope.policy, // base64-encoded json policy (see article below)
             		signature: $scope.signature, // base64-encoded signature based on policy string (see article below)
@@ -123,8 +99,7 @@ jobPortalApp.controller('controllerCompanyProfile', function($http, $state, $sco
                 if (response.status > 0)
                     $scope.errorMsg = response.status + ': ' + response.data;
             }, function (evt) {
-                file.progress = Math.min(100, parseInt(100.0 * 
-                                         evt.loaded / evt.total));
+                file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
             });
         }   
     }
