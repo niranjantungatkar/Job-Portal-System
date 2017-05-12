@@ -13,8 +13,21 @@ jobPortalApp.controller('controllerCompanyPostings', function($http, $state, $sc
 		}
 	}
 	
+	$scope.status = "o";
+	$scope.statusFilter = function(jobposting) {
+		if($scope.status == "o")
+			return jobposting.status == 0;
+		else if ($scope.status == "c")
+			return jobposting.status == 2;
+		else if ($scope.status == "f")
+			return jobposting.status == 3;
+	  };
+	
+	
+	
 	$scope.jobpostings = {};
 	$scope.jobpostingcid = JSON.parse(localStorage.getItem('jobpostingcid'));
+	console.log($scope.jobpostingcid)
 	var pathUrl = "/jobposting/company/"+$scope.jobpostingcid;
 	$http({
 		method:'GET',
