@@ -12,11 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.sjsu.exceptions.EducationExceptions;
+import edu.sjsu.exceptions.JobPostingException;
 import edu.sjsu.exceptions.JobSeekerExceptions;
 import edu.sjsu.exceptions.SkillExceptions;
 import edu.sjsu.exceptions.WorkExperienceExceptions;
 import edu.sjsu.models.Company;
 import edu.sjsu.models.Education;
+import edu.sjsu.models.JobPosting;
 import edu.sjsu.models.JobSeeker;
 import edu.sjsu.models.Skill;
 import edu.sjsu.models.WorkExperience;
@@ -46,6 +48,9 @@ public class JobSeekerService {
 
 	@Autowired
 	EducationService educationService;
+	
+	@Autowired
+	JobPostingService jobPostingService;
 
 	/**
 	 * Signup the job seeker
@@ -242,4 +247,20 @@ public class JobSeekerService {
 		}
 		return educationList;
 	}
+	
+	public JobSeeker addInterestedJobPosting(Map<String, Object> parameters) throws JobPostingException{
+		
+		JobSeeker jobSeeker = jobSeekerRepository.findByJobseekerid((String)parameters.get("applicant"));
+		JobPosting jobPosting = jobPostingService.getJobPosting((String)parameters.get("jobPostingId"));
+	
+		if(jobSeeker.getInterestedJobs().contains(jobPosting)){
+			jobSeeker.getInterestedJobs().remove(jobPosting);
+		}else{
+			jobSeeker.getInterestedJobs().add(jobPosting);
+		}
+		jobSeekerRepository.save(jobSeeker);
+		return jobSeeker;
+	}
+	
+	
 }

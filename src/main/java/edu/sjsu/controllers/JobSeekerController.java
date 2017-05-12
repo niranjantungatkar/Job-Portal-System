@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.sjsu.exceptions.EducationExceptions;
+import edu.sjsu.exceptions.JobPostingException;
 import edu.sjsu.exceptions.JobSeekerExceptions;
 import edu.sjsu.exceptions.SkillExceptions;
 import edu.sjsu.exceptions.WorkExperienceExceptions;
@@ -111,6 +112,24 @@ public class JobSeekerController {
 			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
 		} catch (Exception ex) {
 			return new ResponseEntity(getErrorResponse("400", ex.getMessage()), responseHeaders,
+					HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/jobseeker/interested", method = RequestMethod.POST)
+	public ResponseEntity interestedJobPosting(@RequestBody Map<String, Object> parameters) {
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+		try {
+			JobSeeker jobSeeker = jobSeekerService.addInterestedJobPosting(parameters);
+			return new ResponseEntity(jobSeeker, responseHeaders, HttpStatus.OK);
+		} catch (JobPostingException ex) {
+			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
+		} catch (Exception ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
 					HttpStatus.BAD_REQUEST);
 		}
 	}
