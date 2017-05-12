@@ -105,7 +105,7 @@ public class JobPostingService {
 	 * @throws JobPostingException
 	 * @throws JobApplicationExceptions 
 	 */
-	public JobPosting updateJobPosting(Map<String, Object> parameters) throws JobPostingException, JobApplicationExceptions {
+	public JobPosting updateJobPosting(Map<String, Object> parameters) throws JobPostingException {
 
 		JobPosting jobPosting = getJobPosting((String) parameters.get("requisitionId"));
 
@@ -162,14 +162,19 @@ public class JobPostingService {
 		
 		// Send the email to all the applicant here
 		if (changed) {
-			List<JobApplication> jobApplications = jobApplicationService.getJobApplicationByJobPosting(jobPosting);
-			for (JobApplication jobApplication : jobApplications) {
-				JobSeeker applicant = jobApplication.getApplicant();
-				String subject = "Job Id " + jobPosting.getRequisitionId() + " has been updated";
-				message.append("has been updated\n");
-				if(details != null)
-					message.append(details);
-				emailService.sendMail(applicant.getEmail(), subject, message.toString());
+			List<JobApplication> jobApplications;
+			try {
+				jobApplications = jobApplicationService.getJobApplicationByJobPosting(jobPosting);
+				for (JobApplication jobApplication : jobApplications) {
+					JobSeeker applicant = jobApplication.getApplicant();
+					String subject = "Job Id " + jobPosting.getRequisitionId() + " has been updated";
+					message.append("has been updated\n");
+					if(details != null)
+						message.append(details);
+					emailService.sendMail(applicant.getEmail(), subject, message.toString());
+				}
+			} catch (JobApplicationExceptions e) {
+				System.out.println("No one has applied for this job");
 			}
 		}
 		return jobPosting;

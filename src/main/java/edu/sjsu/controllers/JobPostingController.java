@@ -54,7 +54,7 @@ public class JobPostingController {
 		try {
 			JobPosting jobPosting = jobPostingService.updateJobPosting(parameters);
 			return new ResponseEntity(jobPosting, responseHeaders, HttpStatus.OK);
-		} catch (JobPostingException | JobApplicationExceptions ex) {
+		} catch (JobPostingException ex) {
 			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
 		} catch (Exception ex) {
 			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
