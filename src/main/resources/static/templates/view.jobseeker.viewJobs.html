@@ -129,18 +129,11 @@
                 <!---->
                 <div class="jobs-search-alerts">
                     <div class="neptune-grid">
+
                         <div id="ember5850" class="shared-search-box is-inline pt3 is-jobs ember-view">
                             <div class="keyword-search-form">
                                 <div class="keyword-search-box">
-                                   <span class="svg-icon-wrap">
-                                      <li-icon aria-hidden="true" type="briefcase-icon" size="medium">
-                                         <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon">
-                                            <g class="large-icon" style="fill: currentColor">
-                                               <path d="M21,7H17V6a3,3,0,0,0-3-3H10A3,3,0,0,0,7,6V7H3A1,1,0,0,0,2,8V19a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V8A1,1,0,0,0,21,7ZM9,6a1,1,0,0,1,1-1h4a1,1,0,0,1,1,1V7H9V6ZM20,18H4V13H20v5Zm0-6H4V9H20v3Z"></path>
-                                            </g>
-                                         </svg>
-                                      </li-icon>
-                                   </span>
+
                                     <section id="ember5863" class="ember-view">
                                         <div id="ember5871" class="ember-view">
                                             <div class="type-ahead-wrapper type-ahead-theme-primary">
@@ -149,7 +142,7 @@
                                                     <div class="type-ahead-input-wrapper">
                                                         <div class="type-ahead-input">
                                                             <label for="a11y-ember5863" class="visually-hidden">
-                                                                Search jobs by title, keyword or company
+                                                                Search jobs by title
                                                             </label>
                                                             <!---->          <input aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Search jobs by title, keyword or company" autocorrect="off" autocapitalize="off" id="a11y-ember5863" role="combobox" class="ember-text-field ember-view"></input>
                                                             <div class="type-ahead-input-icons">
@@ -167,16 +160,9 @@
                                 </div>
                                 <!---->
                             </div>
+
                             <div class="location-search-form location-search-box ">
-                                <span class="location-type-ahead-icon svg-icon-wrap">
-                                   <li-icon aria-hidden="true" type="map-marker-icon" size="medium">
-                                      <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon">
-                                         <g class="large-icon" style="fill: currentColor">
-                                            <path d="M12,6c-1.7,0-3,1.3-3,3s1.3,3,3,3s3-1.3,3-3S13.7,6,12,6z M12,11.1c-1.2,0-2.1-1-2.1-2.1c0-1.2,1-2.1,2.1-2.1c1.2,0,2.1,1,2.1,2.1C14.1,10.2,13.2,11.1,12,11.1z M12,3.9c2.8,0,5.1,2.3,5.1,5.1c0,0.7-0.2,1.5-0.5,2.2L12,20l-4.6-8.8C7,10.5,6.9,9.7,6.9,9C6.9,6.2,9.2,3.9,12,3.9 M12,2C8.1,2,5,5.1,5,9c0,1,0.2,2.1,0.7,3l5.6,10.5c0.2,0.4,0.7,0.6,1.2,0.4c0.2-0.1,0.3-0.2,0.4-0.4L18.3,12C20,8.5,18.5,4.3,15,2.7C14.1,2.2,13,2,12,2L12,2z"></path>
-                                         </g>
-                                      </svg>
-                                   </li-icon>
-                                </span>
+
                                 <section id="ember5877" class="ember-view">
                                     <div id="ember5881" class="ember-view">
                                         <div class="type-ahead-wrapper type-ahead-theme-primary">
@@ -187,7 +173,8 @@
                                                         <label for="a11y-ember5877" class="label-text">
                                                             Please enter a valid location
                                                         </label>
-                                                        <!---->          <input aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="City, state, postal code or country" autocorrect="off" autocapitalize="off" id="a11y-ember5877" role="combobox" class="ember-text-field ember-view"></input>
+                                                        <!---->
+                                                        <input aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Search by location" autocorrect="off" autocapitalize="off" id="a11y-ember5877" role="combobox" class="ember-text-field ember-view"></input>
                                                         <div class="type-ahead-input-icons">
                                                             <!---->
                                                         </div>
@@ -201,17 +188,47 @@
                                     </div>
                                 </section>
                             </div>
+
+                            <!-- select for salary type -->
+
+                            <div class="location-search-form location-search-box " style="background-color: white; height: 40px;">
+
+                                <section id="ember5877" class="ember-view">
+                                    <div id="ember5881" class="ember-view">
+                                        <div class="type-ahead-wrapper type-ahead-theme-primary">
+                                            <!---->
+                                            <div role="search" class="type-ahead-input-container">
+                                                <div class="type-ahead-input-wrapper">
+                                                    <div class="type-ahead-input">
+                                                        <label for="a11y-ember5877" class="label-text">
+                                                            Please enter a valid location
+                                                        </label>
+                                                        <!---->
+                                                        <select ng-model="salaryType" ng-init="salaryType = 'singlevalue' " aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Choose salary range type" class="ember-text-field ember-view" style="height: 40px;">
+                                                            <option value="singlevalue">Single value</option>
+                                                            <option value="salaryrange">Salary range</option>
+                                                        </select>
+                                                        <div class="type-ahead-input-icons">
+                                                            <!---->
+                                                        </div>
+                                                    </div>
+                                                    <!---->
+                                                </div>
+                                            </div>
+                                            <!---->
+                                            <div aria-live="polite" class="live-region visually-hidden"></div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+
+
+                        </div>
+
+                        <div id="ember5850" class="shared-search-box is-inline pt3 is-jobs ember-view">
                             <div class="keyword-search-form">
                                 <div class="keyword-search-box">
-                           <span class="svg-icon-wrap">
-                              <li-icon aria-hidden="true" type="briefcase-icon" size="medium">
-                                 <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon">
-                                    <g class="large-icon" style="fill: currentColor">
-                                       <path d="M21,7H17V6a3,3,0,0,0-3-3H10A3,3,0,0,0,7,6V7H3A1,1,0,0,0,2,8V19a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V8A1,1,0,0,0,21,7ZM9,6a1,1,0,0,1,1-1h4a1,1,0,0,1,1,1V7H9V6ZM20,18H4V13H20v5Zm0-6H4V9H20v3Z"></path>
-                                    </g>
-                                 </svg>
-                              </li-icon>
-                           </span>
+
                                     <section id="ember5863" class="ember-view">
                                         <div id="ember5871" class="ember-view">
                                             <div class="type-ahead-wrapper type-ahead-theme-primary">
@@ -220,9 +237,9 @@
                                                     <div class="type-ahead-input-wrapper">
                                                         <div class="type-ahead-input">
                                                             <label for="a11y-ember5863" class="visually-hidden">
-                                                                Search jobs by title, keyword or company
+                                                                Search jobs by company name
                                                             </label>
-                                                            <!---->          <input aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Search jobs by title, keyword or company" autocorrect="off" autocapitalize="off" id="a11y-ember5863" role="combobox" class="ember-text-field ember-view"></input>
+                                                            <!---->          <input aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Search jobs by company name" autocorrect="off" autocapitalize="off" id="a11y-ember5863" role="combobox" class="ember-text-field ember-view"></input>
                                                             <div class="type-ahead-input-icons">
                                                                 <!---->
                                                             </div>
@@ -238,10 +255,101 @@
                                 </div>
                                 <!---->
                             </div>
+
+                            <!-- salary range choice -->
+
+                            <div class="location-search-form location-search-box " ng-if=" salaryType == 'singlevalue' ">
+
+                                <section id="ember5877" class="ember-view">
+                                    <div id="ember5881" class="ember-view">
+                                        <div class="type-ahead-wrapper type-ahead-theme-primary">
+                                            <!---->
+                                            <div role="search" class="type-ahead-input-container">
+                                                <div class="type-ahead-input-wrapper">
+                                                    <div class="type-ahead-input">
+                                                        <label for="a11y-ember5877" class="label-text">
+                                                            Search jobs by salary range
+                                                        </label>
+                                                        <!---->
+                                                        <input aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="City, state, postal code or country" autocorrect="off" autocapitalize="off" id="a11y-ember5877" role="combobox" class="ember-text-field ember-view"></input>
+                                                        <div class="type-ahead-input-icons">
+                                                            <!---->
+                                                        </div>
+                                                    </div>
+                                                    <!---->
+                                                </div>
+                                            </div>
+                                            <!---->
+                                            <div aria-live="polite" class="live-region visually-hidden"></div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+
+                            <!-- for salary range -->
+                            <div class="location-search-form location-search-box " ng-if=" salaryType == 'salaryrange' ">
+
+                                <section id="ember5877" class="ember-view">
+                                    <div id="ember5881" class="ember-view">
+                                        <div class="type-ahead-wrapper type-ahead-theme-primary">
+                                            <!---->
+                                            <div role="search" class="type-ahead-input-container">
+                                                <div class="type-ahead-input-wrapper">
+                                                    <div class="type-ahead-input">
+                                                        <label for="a11y-ember5877" class="label-text">
+                                                            Search jobs by salary range
+                                                        </label>
+                                                        <!---->
+                                                        <input aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Lowest range" autocorrect="off" autocapitalize="off" id="a11y-ember5877" role="combobox" class="ember-text-field ember-view"></input>
+                                                        <div class="type-ahead-input-icons">
+                                                            <!---->
+                                                        </div>
+                                                    </div>
+                                                    <!---->
+                                                </div>
+                                            </div>
+                                            <!---->
+                                            <div aria-live="polite" class="live-region visually-hidden"></div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        <div class="location-search-form location-search-box " ng-if=" salaryType == 'salaryrange' ">
+
+                                <section id="ember5877" class="ember-view">
+                                    <div id="ember5881" class="ember-view">
+                                        <div class="type-ahead-wrapper type-ahead-theme-primary">
+                                            <!---->
+                                            <div role="search" class="type-ahead-input-container">
+                                                <div class="type-ahead-input-wrapper">
+                                                    <div class="type-ahead-input">
+                                                        <label for="a11y-ember5877" class="label-text">
+                                                            Search jobs by salary range
+                                                        </label>
+                                                        <!---->
+                                                        <input aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Highest range" autocorrect="off" autocapitalize="off" id="a11y-ember5877" role="combobox" class="ember-text-field ember-view"></input>
+                                                        <div class="type-ahead-input-icons">
+                                                            <!---->
+                                                        </div>
+                                                    </div>
+                                                    <!---->
+                                                </div>
+                                            </div>
+                                            <!---->
+                                            <div aria-live="polite" class="live-region visually-hidden"></div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+
+
                             <button class="submit-button button-secondary-large-inverse">
                                 Search
                             </button>
                         </div>
+
+
+
                     </div>
                 </div>
 

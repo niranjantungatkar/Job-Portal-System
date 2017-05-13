@@ -31,6 +31,9 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
 
     $scope.searchJobs = function(){
 
+        var skipwords = ['in', 'at', 'to', 'from', 'with', 'like'];
+
+
     }
 
 

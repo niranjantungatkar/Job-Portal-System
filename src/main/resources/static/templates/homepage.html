@@ -4,13 +4,13 @@
 	<div class="header" id="header" ng-if= "!header.session">
 		<div class="wrapper">
 			<h1>
-				<img class="lazy-loaded" alt="LinkedIn" src="">
+				<!--<img class="lazy-loaded" src="">-->
 			</h1>
 			<div class="login-form" data-smartlock-autologin="true" data-smartlock-unmediated="" data-smartlock-save-signin="true">
 				<label for="login-email">Email</label>
-				<input type="email" name="session_key" ng-model="signindata.email" class="login-email" autocapitalize="off" tabindex="1" id="login-email" placeholder="Email" autofocus="autofocus" dir="ltr">
+				<input type="email" name="session_key" ng-model="signindata.email" class="login-email" autocapitalize="off" tabindex="1" id="login-email" placeholder="Email" autofocus="autofocus" dir="ltr" style="background-color: white">
 				<label for="login-password"></label>
-				<input type="password" name="session_password" ng-model="signindata.password" class="login-password" id="login-password" aria-required="true" tabindex="1" placeholder="Password">
+				<input type="password" name="session_password" ng-model="signindata.password" class="login-password" id="login-password" aria-required="true" tabindex="1" placeholder="Password" style="background-color: white">
 				<input tabindex="1" id="login-submit" class="login submit-button" type="submit" value="Sign in" ng-click="login()">
 			</div>
 		</div>
