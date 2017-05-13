@@ -117,6 +117,23 @@ public class JobPostingController {
 		}
 	}
 
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/jobposting/search", method = RequestMethod.POST)
+	public ResponseEntity getJobPostingSearch(@RequestBody Map<String, Object> parameters, Pageable pageable) {
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+		
+		try {
+			Page<JobPosting> jobPostings = jobPostingService.getJobPostingSearch(pageable, parameters);
+			return new ResponseEntity(jobPostings, responseHeaders, HttpStatus.OK);
+		} catch (Exception ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	public HashMap<String, String> getErrorResponse(String errorcode, String error) {
 		HashMap<String, String> errorMap = new HashMap<String, String>();
 		errorMap.put("code", errorcode);

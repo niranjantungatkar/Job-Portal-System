@@ -2,15 +2,21 @@ package edu.sjsu.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import com.jayway.jsonpath.Criteria;
 
 import edu.sjsu.exceptions.CompanyExceptions;
 import edu.sjsu.exceptions.JobApplicationExceptions;
@@ -20,7 +26,9 @@ import edu.sjsu.models.JobApplication;
 import edu.sjsu.models.JobPosting;
 import edu.sjsu.models.JobSeeker;
 import edu.sjsu.models.Skill;
+import edu.sjsu.repositories.CompanyRepository;
 import edu.sjsu.repositories.JobPostingRepository;
+import edu.sjsu.repositories.SkillRepository;
 
 @Service
 @Transactional
@@ -37,6 +45,12 @@ public class JobPostingService {
 
 	@Autowired
 	JobApplicationService jobApplicationService;
+
+	@Autowired
+	CompanyRepository companyRepository;
+
+	@Autowired
+	SkillRepository skillRepository;
 
 	@Autowired
 	EmailService emailService;
@@ -100,11 +114,101 @@ public class JobPostingService {
 		return jobPosting;
 	}
 
+	/**
+	 * Get all open positions
+	 * 
+	 * @param pageable
+	 * @return
+	 * @throws JobPostingException
+	 */
 	public Page<JobPosting> getJobPostingOpen(Pageable pageable) throws JobPostingException {
 		Page<JobPosting> jobPostings = jobPostingRepository.findByStatus(0, pageable);
 		if (jobPostings.getSize() == 0)
 			throw new JobPostingException("No Jobs found");
 		return jobPostings;
+	}
+
+	/**
+	 * 
+	 * @param pageable
+	 * @param parameters
+	 * @return
+	 */
+	public Page<JobPosting> getJobPostingSearch(Pageable pageable, Map<String, Object> parameters) {
+
+		String freeText = parameters.get("freeText").toString().trim();
+
+		int counter = 0;
+		List<String> criteria;
+		if (freeText.equals("")) {
+			criteria = new ArrayList<>();
+		} else {
+			criteria = new ArrayList<>(Arrays.asList(freeText.split("\\s*\\s\\s*")));
+		}
+
+		List<String> keyWord = new ArrayList<>();
+		keyWord.add("at");
+		keyWord.add("in");
+		keyWord.add("with");
+		keyWord.add("where");
+		keyWord.add("near");
+		keyWord.add("about");
+		keyWord.add("around");
+
+		criteria.removeAll(keyWord);
+
+		String companiesStr = (String) parameters.get("companies");
+		if (companiesStr.equals("")) {
+			counter++;
+		}
+		List<String> items = new ArrayList<>(Arrays.asList(companiesStr.split("\\s*,\\s*")));
+		items.addAll(criteria);
+		List<Company> companies = companyRepository.findByCompanyNameIn(items);
+
+		String locationsStr = (String) parameters.get("location");
+		if (locationsStr.equals("")) {
+			counter++;
+		}
+		List<String> locations = new ArrayList<>(Arrays.asList(locationsStr.split("\\s*,\\s*")));
+		locations.addAll(criteria);
+
+		if (freeText.equals(" ")) {
+			int salaryMin = Integer.parseInt((String) parameters.get("minSalary"));
+			int salaryMax = Integer.parseInt((String) parameters.get("maxSalary"));
+			if (salaryMin == -1) {
+				Page<JobPosting> jobPostings = jobPostingRepository.findByStatusAndCompanyInAndLocationInAndSalary(0,
+						companies, locations, salaryMax, pageable);
+				return jobPostings;
+			}
+
+			Page<JobPosting> jobPostings = jobPostingRepository
+					.findByStatusAndCompanyInAndLocationInAndSalaryGreaterThanAndSalaryLessThan(0, companies, locations,
+							salaryMin, salaryMax, pageable);
+			return jobPostings;
+		} else {
+			List<Skill> skills = skillRepository.findBySkillIn(criteria);
+			Set<JobPosting> freeTextSet = new HashSet<>();
+			Set<JobPosting> filterSet = new HashSet<>();
+			filterSet.addAll(jobPostingRepository.findByStatusAndCompanyInAndLocationIn(0, companies, locations));
+			for (String blindSearch : criteria) {
+
+				freeTextSet.addAll(jobPostingRepository
+						.findByStatusAndSkillsInOrJobDescriptionContainingIgnoreCaseOrResponsibilitiesContainingIgnoreCaseOrTitleContainingIgnoreCase(
+								0, skills, blindSearch, blindSearch, blindSearch, pageable));
+
+			}
+
+			Set<JobPosting> output = new HashSet<>(filterSet);
+			output.retainAll(freeTextSet);
+			List<JobPosting> jobsList = new ArrayList<>();
+			if (counter == 2) {
+				jobsList.addAll(freeTextSet);
+			} else {
+				jobsList.addAll(output);
+			}
+			Page<JobPosting> jobPostings = new PageImpl<>(jobsList);
+			return jobPostings;
+		}
 	}
 
 	/**
