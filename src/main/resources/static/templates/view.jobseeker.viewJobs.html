@@ -100,7 +100,7 @@
                                                             Please enter a valid location
                                                         </label>
                                                         <!---->
-                                                        <select ng-model="salaryType" ng-init="salaryType = 'singlevalue' " aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Choose salary range type" class="ember-text-field ember-view" style="height: 40px;">
+                                                        <select ng-model="salaryType" ng-init="salaryType = 'salaryrange' " aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Choose salary range type" class="ember-text-field ember-view" style="height: 40px;">
                                                             <option value="singlevalue">Single value</option>
                                                             <option value="salaryrange">Salary range</option>
                                                         </select>
@@ -117,7 +117,9 @@
                                     </div>
                                 </section>
                             </div>
-
+                            <button class="submit-button button-secondary-large-inverse" style="visibility: hidden;">
+                                Search
+                            </button>
 
                         </div>
 

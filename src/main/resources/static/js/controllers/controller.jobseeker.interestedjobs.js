@@ -10,11 +10,7 @@ jobPortalApp.controller('controllerInterestedJobs',function($scope, $http, $stat
         url : '/jobseeker/'+ $state.params.profileDet.id
     }).success(function(data) {
 
-        console.log("in get jobseeker from interested jobs");
-        console.log(data);
-
-        $scope.interestedJobs = data;
-
+        $scope.interestedJobs = data.interestedJobs;
 
     }).error(function(error) {
         console.log("Error in get jobseeker from view jobs");
