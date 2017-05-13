@@ -1,5 +1,6 @@
 package edu.sjsu.services;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +49,7 @@ public class JobSeekerService {
 
 	@Autowired
 	EducationService educationService;
-	
+
 	@Autowired
 	JobPostingService jobPostingService;
 
@@ -101,7 +102,8 @@ public class JobSeekerService {
 		}
 	}
 
-	/** Update the profile of jobSeeker
+	/**
+	 * Update the profile of jobSeeker
 	 * 
 	 * @param parameters
 	 * @return UpdatedJobseeker
@@ -132,7 +134,13 @@ public class JobSeekerService {
 			jobSeeker.setSelfIntroduction((String) parameters.get("selfIntroduction"));
 		}
 		if (parameters.containsKey("picture")) {
-			jobSeeker.setPicture((URL) parameters.get("picture"));
+			URL pictureUrl;
+			try {
+				pictureUrl = new URL((String) parameters.get("picture"));
+				jobSeeker.setPicture(pictureUrl);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		// Update the skills
@@ -159,7 +167,7 @@ public class JobSeekerService {
 			}
 		}
 
-		//Update the education
+		// Update the education
 		if (parameters.containsKey("education")) {
 			List<Education> oldEducationList = jobSeeker.getEducation();
 			try {
@@ -231,7 +239,8 @@ public class JobSeekerService {
 		return workExpList;
 	}
 
-	/** Update the education
+	/**
+	 * Update the education
 	 * 
 	 * @param parameters
 	 * @return List of Updated education
@@ -247,20 +256,19 @@ public class JobSeekerService {
 		}
 		return educationList;
 	}
-	
-	public JobSeeker addInterestedJobPosting(Map<String, Object> parameters) throws JobPostingException{
-		
-		JobSeeker jobSeeker = jobSeekerRepository.findByJobseekerid((String)parameters.get("applicant"));
-		JobPosting jobPosting = jobPostingService.getJobPosting((String)parameters.get("jobPostingId"));
-	
-		if(jobSeeker.getInterestedJobs().contains(jobPosting)){
+
+	public JobSeeker addInterestedJobPosting(Map<String, Object> parameters) throws JobPostingException {
+
+		JobSeeker jobSeeker = jobSeekerRepository.findByJobseekerid((String) parameters.get("applicant"));
+		JobPosting jobPosting = jobPostingService.getJobPosting((String) parameters.get("jobPostingId"));
+
+		if (jobSeeker.getInterestedJobs().contains(jobPosting)) {
 			jobSeeker.getInterestedJobs().remove(jobPosting);
-		}else{
+		} else {
 			jobSeeker.getInterestedJobs().add(jobPosting);
 		}
 		jobSeekerRepository.save(jobSeeker);
 		return jobSeeker;
 	}
-	
-	
+
 }
