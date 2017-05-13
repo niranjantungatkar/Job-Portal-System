@@ -156,17 +156,12 @@
                 <!---->
                 <div class="pv-top-card-section__header">
                     <div class="pv-top-card-section__photo-wrapper EntityPhoto-circle-8">
-                        <label for="member-photo-edit-upload-input" class="visually-hidden">
-                            Profile photo
-                        </label>
 
                         <div id="ember2701" class="pv-top-card-section__edit-photo profile-photo-edit ember-view">
 
 
-                            <button class="input-file" onclick="uploadcarepopup()" type="hidden" id="propImage" name="propImage" ng-model="propImage"
-                                    accept="image/jpg, image/jpeg, image/png, image/gif"
-                                    multiple data-control-name="edit_profile_photo" class="profile-photo-edit__edit-btn" data-ember-action="" data-ember-action-2702="2702">
-                                <img src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAkSAAAAJDY0YmIwODAwLWQxMjAtNDIzNC05ZGFmLWFmZjJiYjYwZjliZA.jpg" class="profile-photo-edit__preview" alt="Edit photo" height="128" width="128">
+                            <button type="file" ngf-select="uploadFiles($file, $invalidFiles)" accept="image/jpg, image/jpeg, image/png, image/gif" ngf-max-height="1000" ngf-max-size="5MB"  type="hidden" id="propImage" name="propImage" ng-model="propImage" >
+                                <img src="{{jobseeker.picture}}" class="profile-photo-edit__preview" alt="Edit photo" height="128" width="128">
 
                             </button>
 

@@ -1,4 +1,4 @@
-jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $state, $stateParams, $http) {
+jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $state, $stateParams, Upload, $timeout, $http) {
 
 
 
@@ -61,6 +61,57 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
 
 
 
+    //for image upload file
+    $http({
+        method:'POST',
+        url:'/signature'
+    }).success(function(data){
+        $scope.policy = data.policy;
+        $scope.signature = data.signature;
+        console.log($scope.policy+" "+$scope.signature);
+    })
+
+
+    //for upload photo
+    $scope.uploadFiles = function(file, errFiles) {
+        $scope.f = file;
+        var newFileName = file.name+'-'+$state.params.profileDet.id;
+        $scope.errFile = errFiles && errFiles[0];
+        if (file) {
+            file.upload = Upload.upload({
+                url: 'https://angular-file-upload.s3-us-west-2.amazonaws.com/',
+                //data: {file: file},
+                data: {
+                    key: newFileName, // the key to store the file on S3, could be file name or customized
+                    AWSAccessKeyId: "AKIAJPWE3LFVDSTG5IUQ",
+                    acl: 'public-read-write', // sets the access to the uploaded file in the bucket: private, public-read, ...
+                    policy: $scope.policy, // base64-encoded json policy (see article below)
+                    signature: $scope.signature, // base64-encoded signature based on policy string (see article below)
+                    "Content-Type": file.type != '' ? file.type : 'application/octet-stream', // content type of the file (NotEmpty)
+                    filename: file.name, // this is needed for Flash polyfill IE8-9
+                    file: file
+                }
+            });
+
+            //set resume url
+            $scope.pictureUrl = 'https://angular-file-upload.s3-us-west-2.amazonaws.com/'+newFileName;
+
+            file.upload.then(function (response) {
+                console.log(response)
+                $timeout(function () {
+                    file.result = response.data;
+                });
+            }, function (response) {
+                console.log(response)
+                if (response.status > 0)
+                    $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+                file.progress = Math.min(100, parseInt(100.0 *
+                    evt.loaded / evt.total));
+            });
+        }
+    }
+
 
 
     $scope.updateJobseekerProfile = function() {
@@ -93,6 +144,7 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
             "id" : $scope.jobseeker.jobseekerid,
             "firstname" : $scope.jobseeker.firstname,
             "lastname" : $scope.jobseeker.lastname,
+            "picture" : $scope.pictureUrl,
             "email" : $scope.jobseeker.email,
             "password" : $scope.jobseeker.password,
             "selfIntroduction" : $scope.selfIntroduction,
@@ -123,15 +175,6 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
 
     }
 
-
-
-
-
-
-    $scope.getImages = function(){
-        images = $window.images;
-
-    }
 
 
 
