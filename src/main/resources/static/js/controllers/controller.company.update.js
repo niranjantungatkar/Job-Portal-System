@@ -12,6 +12,9 @@ jobPortalApp.controller('controllerCompanyUpdate', function($http, $state, $scop
 		}
 	}
 	
+	$scope.sMsg=false;
+	$scope.fMsg=false;
+	
 	$scope.companyid = JSON.parse(localStorage.getItem('updCid'));
 	console.log("company Update");
 	
@@ -44,14 +47,20 @@ jobPortalApp.controller('controllerCompanyUpdate', function($http, $state, $scop
 	$scope.updateCompanyError = "";
 	
 	$scope.updateCompany = function() {
+		$scope.sMsg=false;
+		$scope.fMsg=false;
 		$http({
 			method:'PUT',
 			url: '/company',
 			data : $scope.updateCompanyData
 		}).success(function(data){
 			console.log("asfasdfasdfasd");
+			$scope.sMsg=true;
+			$scope.fMsg=false;
 		}).error(function(data){
 			$scope.updateCompanyError=true;
+			$scope.sMsg=false;
+			$scope.fMsg=true;
 		})	
 	}
 	

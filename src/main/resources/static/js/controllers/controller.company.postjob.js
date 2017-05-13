@@ -11,7 +11,8 @@ jobPortalApp.controller('controllerCompanyPostJob', function($scope, $stateParam
 		}
 	}
 	
-	
+	$scope.sMsg=false;
+	$scope.fMsg=false;
 	
 	$scope.postCid = JSON.parse(localStorage.getItem('postCid'));
 	console.log("company post job");
@@ -37,6 +38,8 @@ jobPortalApp.controller('controllerCompanyPostJob', function($scope, $stateParam
 	}
 	
 	$scope.postJob = function() {
+		$scope.sMsg=false;
+		$scope.fMsg=false;
 		console.log($scope.jobpostingData)
 		$http({
 			method:'POST',
@@ -44,8 +47,10 @@ jobPortalApp.controller('controllerCompanyPostJob', function($scope, $stateParam
 			data:$scope.jobpostingData
 		}).success(function(data){
 			console.log("job created");
+			$scope.sMsg=true;
 		}).error(function(data){
 			console.log("errro");
+			$scope.fMsg=true;
 		})
 	}
 	

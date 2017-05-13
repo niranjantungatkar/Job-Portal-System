@@ -14,13 +14,29 @@ jobPortalApp.controller('controllerCompanyPostings', function($http, $state, $sc
 	}
 	
 	$scope.status = "o";
+	$scope.count = 0;
+	
+	$scope.changeJobCount = function(){
+		$scope.count = 0;
+	}
+	
 	$scope.statusFilter = function(jobposting) {
-		if($scope.status == "o")
+		if($scope.status == "o") {
+			$scope.count++;
 			return jobposting.status == 0;
-		else if ($scope.status == "c")
+		}
+		else if ($scope.status == "c") {
+			$scope.count++;
 			return jobposting.status == 1;
-		else if ($scope.status == "f")
+		}
+		else if ($scope.status == "f") {
+			$scope.count++;
 			return jobposting.status == 2;
+		}
+		if($scope.count == 0)
+			$scope.jobCount = true;
+		else 
+			$scope.jobCount = false;
 	  };
 	
 	

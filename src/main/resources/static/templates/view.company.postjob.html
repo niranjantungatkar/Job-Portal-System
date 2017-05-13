@@ -1,5 +1,5 @@
 <div>
-	<section id="ember7552" class="org-top-card-module org-top-card-module--lcp-page ember-view">
+	<section id="ember7552" class="org-top-card-module org-top-card-module--lcp-page ember-view" style="margin-left: 25%;width:50%">
     	<div class="org-top-card-module__container container-with-shadow clearfix" style="margin-top: 80px; margin-left:1%">
                             <!---->
         	<img class="lazy-image org-top-card-module__logo loaded" alt="Company Logo" height="120" width="120" ng-src={{company.logoURL}}>
@@ -19,9 +19,12 @@
                         </div>
                     </div>
                 </div>
+                <h3 ng-show="sMsg" style="color: green">Job posted successfully</h3>
+        		<h3 ng-show="fMsg" style="color: red">Error in posting the job</h3>
         </div>
+        
       </section>
-      <div class="pe-s-form__body pe-form-body">
+      <div class="pe-s-form__body pe-form-body" style="margin-left: 25%;width:50%">
       	<div data-form-elem-focus="true" class="pe-form-field pe-top-card-form__headline-field floating-label  ">
 			<label for="topcard-headline" class="pe-form-field__label label-text required">
     			Job Title
