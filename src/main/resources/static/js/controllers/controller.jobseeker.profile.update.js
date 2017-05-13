@@ -35,10 +35,17 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
 
 
         //format workexperience date
-        for(var i=0; i<data.workExp.length; i++) {
-            $scope.workexperience[i].startDate = timeConverter($scope.workexperience[i].startDate);
-            $scope.workexperience[i].endDate = timeConverter($scope.workexperience[i].endDate);
-        }
+        if(data.workExp)
+            for(var i=0; i<data.workExp.length; i++) {
+                $scope.workexperience[i].startDate = timeConverter($scope.workexperience[i].startDate);
+                $scope.workexperience[i].endDate = timeConverter($scope.workexperience[i].endDate);
+            }
+
+        if(data.education)
+            for(var i=0; i<data.education.length; i++){
+                $scope.education[i].startDate = timeConverter($scope.education[i].startDate);
+                $scope.education[i].endDate = timeConverter($scope.education[i].endDate);
+            }
 
 
         if ($scope.workexperience == null || $scope.workexperience.length == 0)

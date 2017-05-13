@@ -48,6 +48,17 @@ jobPortalApp.controller('controllerJobSeekerProfile', function($scope, $state, $
         $scope.education = data.education;
         $scope.skills = data.skills;
 
+        //format workexperience date
+        for(var i=0; i<data.workExp.length; i++) {
+            $scope.workexperience[i].startDate = timeConverter($scope.workexperience[i].startDate);
+            $scope.workexperience[i].endDate = timeConverter($scope.workexperience[i].endDate);
+        }
+
+        for(var i=0; i<data.education.length; i++){
+            $scope.education[i].startDate = timeConverter($scope.education[i].startDate);
+            $scope.education[i].endDate = timeConverter($scope.education[i].endDate);
+        }
+
 
         if($scope.workexperience == null || $scope.workexperience.length == 0)
     		$scope.noworkexperience = true;
@@ -89,6 +100,15 @@ jobPortalApp.controller('controllerJobSeekerProfile', function($scope, $state, $
         }
 
 	}
+
+    function timeConverter(date){
+        var a = new Date(date * 1000);
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var year = a.getFullYear();
+        var month = months[a.getMonth()];
+        var time = month + ' ' + year;
+        return time;
+    }
 
 
 })
