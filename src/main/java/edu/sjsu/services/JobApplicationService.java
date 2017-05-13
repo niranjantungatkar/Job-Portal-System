@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.batch.JobLauncherCommandLineRunner;
 import org.springframework.stereotype.Service;
 
 import edu.sjsu.exceptions.JobApplicationExceptions;
@@ -17,6 +16,7 @@ import edu.sjsu.models.JobApplication;
 import edu.sjsu.models.JobPosting;
 import edu.sjsu.models.JobSeeker;
 import edu.sjsu.repositories.JobApplicationRepository;
+import edu.sjsu.utils.JobApplicationStatus;
 
 @Service
 @Transactional
@@ -121,6 +121,96 @@ public class JobApplicationService {
 			throw new JobApplicationExceptions("No Job application found");
 		}
 		return jobApplications;
+	}
+
+	/** Updates the job application status accessed by company
+	 * 
+	 * @param parameters
+	 * @return JobApplication
+	 * @throws JobApplicationExceptions
+	 */
+	public JobApplication updateStatusByCompany(Map<String, Object> parameters) throws JobApplicationExceptions {
+
+		String jobApplicationId = (String) parameters.get("jobApplicationId");
+		int status = Integer.parseInt(parameters.get("status").toString());
+
+		JobApplication jobApplication = jobApplicationRepository.findByApplicationId(jobApplicationId);
+		JobSeeker applicant = jobApplication.getApplicant();
+		int oldStatus = jobApplication.getApplicationStatus();
+
+		if (jobApplication.getJobPosting().getStatus() == 0) {
+			jobApplication.setApplicationStatus(status);
+		} else {
+			if (oldStatus > status) {
+				throw new JobApplicationExceptions(
+						"Application status can not be set to '" + JobApplicationStatus.getStatus(status) + "' from '"
+								+ JobApplicationStatus.getStatus(oldStatus) + "'");
+			}
+			throw new JobApplicationExceptions("Job posting has been filled or cancelled");
+		}
+
+		jobApplicationRepository.save(jobApplication);
+
+		// Send the mail about the status change
+		StringBuilder subject = new StringBuilder();
+		subject.append("Your application status has been changed");
+		StringBuilder message = new StringBuilder();
+		message.append("Dear " + applicant.getFirstname());
+		message.append("\n\nYour job application status has been updated from '"
+				+ JobApplicationStatus.getStatus(oldStatus) + "' to '" + JobApplicationStatus.getStatus(status) + "'.");
+		message.append("\n\nCompany : " + jobApplication.getJobPosting().getCompany().getCompanyName());
+		message.append("\nPosition : " + jobApplication.getJobPosting().getTitle());
+		message.append("\nRequisition Id : " + jobApplication.getJobPosting().getRequisitionId());
+		message.append("\nApplication Id : " + jobApplication.getApplicationId());
+		message.append("\n\nBest Regards,");
+		message.append("\nTalent Acquisition Team " + jobApplication.getJobPosting().getCompany().getCompanyName());
+
+		emailService.sendMail(applicant.getEmail(), subject.toString(), message.toString());
+
+		return jobApplication;
+	}
+
+	/**Updates the status of job application when accessed by the job applicant
+	 * 
+	 * @param parameters
+	 * @return JobApplication
+	 * @throws JobApplicationExceptions
+	 */
+	public JobApplication updateStatusByApplicant(Map<String, Object> parameters) throws JobApplicationExceptions {
+
+		String jobApplicationId = (String) parameters.get("jobApplicationId");
+		int status = Integer.parseInt(parameters.get("status").toString());
+
+		JobApplication jobApplication = jobApplicationRepository.findByApplicationId(jobApplicationId);
+		JobSeeker applicant = jobApplication.getApplicant();
+		int oldStatus = jobApplication.getApplicationStatus();
+
+		if (jobApplication.getApplicationStatus() == 3) {
+			jobApplication.setApplicationStatus(status);
+		} else {
+			if(jobApplication.getApplicationStatus() == 4){
+				throw new JobApplicationExceptions("You have already accepted the job offer");
+			}
+			throw new JobApplicationExceptions("You can not accept job offer unless you have been offered a job");
+		}
+		jobApplicationRepository.save(jobApplication);
+
+		StringBuilder subject = new StringBuilder();
+		subject.append("Your application status has been changed");
+		StringBuilder message = new StringBuilder();
+		message.append("Dear " + applicant.getFirstname());
+		message.append("\n\nYour job application status has been updated from '"
+				+ JobApplicationStatus.getStatus(oldStatus) + "' to '" + JobApplicationStatus.getStatus(status) + "'.");
+		message.append("\n\nCompany : " + jobApplication.getJobPosting().getCompany().getCompanyName());
+		message.append("\nPosition : " + jobApplication.getJobPosting().getTitle());
+		message.append("\nRequisition Id : " + jobApplication.getJobPosting().getRequisitionId());
+		message.append("\nApplication Id : " + jobApplication.getApplicationId());
+		message.append("\n\nBest Regards,");
+		message.append("\nTalent Acquisition Team " + jobApplication.getJobPosting().getCompany().getCompanyName());
+
+		emailService.sendMail(applicant.getEmail(), subject.toString(), message.toString());
+
+		return jobApplication;
 	}
 
 	public HashMap<String, String> getErrorResponse(String errorcode, String error) {

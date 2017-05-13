@@ -101,6 +101,42 @@ public class JobApplicationController {
 		}
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/jobapplication/company/updatestatus", method = RequestMethod.POST)
+	public ResponseEntity updateStatusByCompany(@RequestBody Map<String, Object> parameters) {
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+		try {
+			JobApplication jobApplication = jobApplicationService.updateStatusByCompany(parameters);
+			return new ResponseEntity(jobApplication, responseHeaders, HttpStatus.OK);
+		} catch (JobApplicationExceptions ex) {
+			return new ResponseEntity(getErrorResponse("200", ex.getMessage()), responseHeaders, HttpStatus.OK);
+		} catch (Exception ex) {
+			return new ResponseEntity(getErrorResponse("501", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/jobapplication/jobseeker/updatestatus", method = RequestMethod.POST)
+	public ResponseEntity updateStatusByApplicant(@RequestBody Map<String, Object> parameters) {
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+		try {
+			JobApplication jobApplication = jobApplicationService.updateStatusByApplicant(parameters);
+			return new ResponseEntity(jobApplication, responseHeaders, HttpStatus.OK);
+		} catch (JobApplicationExceptions ex) {
+			return new ResponseEntity(getErrorResponse("200", ex.getMessage()), responseHeaders, HttpStatus.OK);
+		} catch (Exception ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
 	public HashMap<String, String> getErrorResponse(String errorcode, String error) {
 		HashMap<String, String> errorMap = new HashMap<String, String>();
 		errorMap.put("code", errorcode);

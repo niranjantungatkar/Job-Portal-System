@@ -121,6 +121,38 @@ public class JobPostingService {
 		int statusChanged = -1;
 		StringBuilder message = new StringBuilder();
 
+		if (parameters.containsKey("status")) {
+			jobPosting.setStatus((Integer) parameters.get("status"));
+			statusChanged = (Integer) parameters.get("status");
+			try {
+				List<JobApplication> jobApplications1 = jobApplicationService.getJobApplicationByJobPosting(jobPosting);
+				if (statusChanged == 1) {
+					Boolean markedFilled = false;
+					for (JobApplication jobApp : jobApplications1) {
+						if (jobApp.getApplicationStatus() == 4) {
+							markedFilled = true;
+						}
+					}
+					if (markedFilled == false) {
+						throw new JobPostingException(
+								"Position can not be marked as Filled unless applicant accepts the job offer");
+					}
+				} else if (statusChanged == 2) {
+					Boolean markedAccepted = false;
+					for (JobApplication jobApp : jobApplications1) {
+						if (jobApp.getApplicationStatus() == 4) {
+							markedAccepted = true;
+						}
+					}
+					if (markedAccepted == true) {
+						throw new JobPostingException(
+								"Position can not be Cancelled as applicant has accepted the offer");
+					}
+				}
+			} catch (JobApplicationExceptions ex) {
+			}
+			jobPosting.setStatus(statusChanged);
+		}
 		if (parameters.containsKey("jobDescription")) {
 			jobPosting.setJobDescription((String) parameters.get("jobDescription"));
 			changed = true;
@@ -139,11 +171,6 @@ public class JobPostingService {
 			List<Skill> skills = getSkillList(skillsInputList);
 			jobPosting.setSkills(skills);
 			changed = true;
-		}
-		if (parameters.containsKey("status")) {
-			jobPosting.setStatus((Integer) parameters.get("status"));
-			statusChanged = (Integer) parameters.get("status");
-			jobPosting.setStatus(statusChanged);
 		}
 		if (parameters.containsKey("salary")) {
 			jobPosting.setSalary(Integer.valueOf(String.valueOf(parameters.get("salary"))));
