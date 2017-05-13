@@ -1,7 +1,6 @@
 jobPortalApp.controller('controllerAppliedJobs',function($scope, $http, $state, userSession) {
 
 
-    console.log("in applied jobs");
 
 
     //get all applied jobs
@@ -20,6 +19,10 @@ jobPortalApp.controller('controllerAppliedJobs',function($scope, $http, $state, 
         console.log("Error in get jobseeker applied jobs");
         console.log(error);
     });
+
+    $scope.toViewJob = function(requisitionId){
+        $state.go("home.viewJob", {jobAndProfile: {profileDet: $state.params.profileDet, requisitionId: requisitionId}} );
+    }
 
 
 

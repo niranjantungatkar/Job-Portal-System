@@ -2,6 +2,10 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
 
     $scope.jobisapplied = false;
     $scope.jobisinterested = false;
+    $scope.jobisoffered = false;
+    $scope.jobisrejected = false;
+    $scope.offeraccepted = false;
+    $scope.offerrejected = false;
 
     //check whether user is verified
     if($state.params.jobAndProfile.profileDet.verified == true)
@@ -29,10 +33,27 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
         url : '/jobapplication/jobseeker/'+ $state.params.jobAndProfile.profileDet.id
     }).success(function(data) {
 
+        console.log("check if job application is applied");
+        console.log(data);
+
         for(var i=0; i<data.length; i++){
 
             if(data[i].jobPosting.requisitionId == $state.params.jobAndProfile.requisitionId) {
             	$scope.jobisapplied = true
+
+                //check if offered
+                if(data[i].applicationStatus == 1)
+                    $scope.jobisoffered = true;
+
+            	//check for rejected
+                if(data[i].applicationStatus == 2)
+                    $scope.jobisrejected = true;
+
+                if(data[i].applicationStatus == 4)
+                    $scope.offeraccepted = true;
+
+                if(data[i].applicationStatus == 5)
+                    $scope.offerrejected = true;
             }        
         }
     }).error(function(error) {
@@ -177,6 +198,49 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
             console.log(error);
         });
 
+
+    }
+
+
+    $scope.acceptOffer = function(applicationId) {
+
+        $http({
+            method: 'POST',
+            url: '/jobapplication/jobseeker/updateStatus',
+            data : {
+                jobApplicationId : applicationId,
+                status : 4
+            }
+
+        }).success(function(data){
+
+            $state.go('home.viewJobs', {profileDet: $state.params.jobAndProfile.profileDet} );
+
+        }).error(function(error){
+            console.log("Error in positing accept offer");
+            console.log(error);
+        });
+
+    }
+
+    $scope.rejectOffer = function(applicationId) {
+
+        $http({
+            method: 'POST',
+            url: '/rejectOffer/',
+            data : {
+                jobApplicationId : applicationId,
+                status : 5
+            }
+
+        }).success(function(data){
+
+            $state.go('home.viewJobs', {profileDet: $state.params.jobAndProfile.profileDet} );
+
+        }).error(function(error){
+            console.log("Error in positing reject offer");
+            console.log(error);
+        });
 
     }
 

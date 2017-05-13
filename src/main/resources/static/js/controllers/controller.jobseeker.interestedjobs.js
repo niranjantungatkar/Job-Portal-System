@@ -18,6 +18,11 @@ jobPortalApp.controller('controllerInterestedJobs',function($scope, $http, $stat
     });
 
 
+    $scope.toViewJob = function(requisitionId){
+        $state.go("home.viewJob", {jobAndProfile: {profileDet: $state.params.profileDet, requisitionId: requisitionId}} );
+    }
+
+
 
 
 })
