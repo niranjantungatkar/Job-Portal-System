@@ -14,11 +14,9 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
     }).success(function(data){
 
         console.log("in get open job posting");
-        console.log(data);
+        console.log(data.content);
 
-        if(data != null && data.length > 0) {
-            $scope.jobs = data;
-        }
+        $scope.jobs = data.content;
 
     }).error(function(error){
         console.log("Error in getting all jobs");
@@ -26,8 +24,59 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
     });
 
 
+    $scope.pageChanged = function(page) {
 
 
+        $http({
+            method: 'GET',
+            url: '/jobposting/open/'+page
+        }).success(function(data){
+
+            console.log("in get open job posting after page change");
+            console.log(data);
+
+            if(data != null && data.length > 0) {
+                $scope.jobs = data;
+            }else{
+                $scope.jobs = null;
+            }
+
+        }).error(function(error){
+            console.log("Error in getting all jobs after page change");
+            console.log(error);
+        });
+
+
+    }
+
+
+
+
+    // var skipwords = ['in', 'at', 'to', 'from', 'with', 'like'];
+    // $scope.locationSearch = "";
+    //
+    // $scope.locationFilter = function(job) {
+    //     console.log("filter by location");
+    //     var words = $scope.locationSearch;
+    //
+    //     if(words == null || words == "")
+    //         return job;
+    //     else {
+    //         console.log("in else");
+    //         for (var i = 0; i < words.length; i++) {
+    //             console.log("words found");
+    //             console.log(words[i]);
+    //             console.log("object values");
+    //             console.log(Object.values);
+    //             if ( (Object.values(job)).indexOf(words[i]) ) {
+    //                 console.log("object value found");
+    //                 return job;
+    //             }
+    //
+    //         }
+    //         return null;
+    //     }
+    // }
 
     $scope.searchJobs = function(){
 
