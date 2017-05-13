@@ -3,8 +3,6 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
     $scope.jobisapplied = false;
     $scope.jobisinterested = false;
 
-    console.log("in controller view job");
-    console.log($state.params);
 
     //check whether user is verified
     if($state.params.jobAndProfile.profileDet.verified == true)
@@ -33,8 +31,6 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
         url : '/jobapplication/jobseeker/'+ $state.params.jobAndProfile.profileDet.id
     }).success(function(data) {
 
-        console.log("in get jobseeker applied jobs");
-        console.log(data);
 
         for(var i=0; i<data.length; i++){
 
@@ -56,8 +52,6 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
         url : '/jobseeker/'+ JSON.parse(localStorage.getItem('jobseekerid'))
     }).success(function(data) {
 
-        console.log("in get jobseeker from view jobs");
-        console.log(data);
 
         for(var i=0; i<data.interestedJobs.length; i++){
             if(data.interestedJobs[i].requisitionId == $state.params.jobAndProfile.requisitionId)
@@ -98,8 +92,6 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
             }
         }).success(function(data){
 
-            console.log("success in adding job application to interested list");
-            console.log(data);
             $state.go('home.viewJobs', {profileDet: $state.params.jobAndProfile.profileDet} );
 
         }).error(function(error){
@@ -125,8 +117,6 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
             }
         }).success(function(data){
 
-            console.log("success in job application");
-            console.log(data);
             $state.go('home.viewJobs', {profileDet: $state.params.jobAndProfile.profileDet} );
 
         }).error(function(error){
@@ -141,15 +131,16 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
     //for apply with resume
     $scope.uploadFiles = function(file, errFiles) {
         $scope.f = file;
+        var newFileName = file.name+'-'+$state.params.jobAndProfile.profileDet.id;
         $scope.errFile = errFiles && errFiles[0];
         if (file) {
             file.upload = Upload.upload({
                 url: 'https://angular-file-upload.s3-us-west-2.amazonaws.com/',
                 //data: {file: file},
                 data: {
-                    key: file.name, // the key to store the file on S3, could be file name or customized
+                    key: newFileName, // the key to store the file on S3, could be file name or customized
                     AWSAccessKeyId: "AKIAJPWE3LFVDSTG5IUQ",
-                    acl: 'private', // sets the access to the uploaded file in the bucket: private, public-read, ...
+                    acl: 'public-read-write', // sets the access to the uploaded file in the bucket: private, public-read, ...
                     policy: $scope.policy, // base64-encoded json policy (see article below)
                     signature: $scope.signature, // base64-encoded signature based on policy string (see article below)
                     "Content-Type": file.type != '' ? file.type : 'application/octet-stream', // content type of the file (NotEmpty)
@@ -159,7 +150,7 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
             });
 
             //set resume url
-            $scope.resumeUrl = 'https://angular-file-upload.s3-us-west-2.amazonaws.com/'+file.name;
+            $scope.resumeUrl = 'https://angular-file-upload.s3-us-west-2.amazonaws.com/'+newFileName;
 
             file.upload.then(function (response) {
                 console.log(response)
@@ -180,9 +171,6 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
     $scope.applywithresume = function(){
 
 
-        console.log("in apply with resume");
-        console.log($scope.resumeUrl);
-
         //post job application
         $http({
             method: 'POST',
@@ -194,8 +182,6 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
             }
         }).success(function(data){
 
-            console.log("success in job application with resume");
-            console.log(data);
             $state.go('home.viewJobs', {profileDet: $state.params.jobAndProfile.profileDet} );
 
         }).error(function(error){

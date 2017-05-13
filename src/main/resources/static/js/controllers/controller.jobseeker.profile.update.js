@@ -1,8 +1,6 @@
 jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $state, $stateParams, $http) {
 
 
-    console.log("in jobseeker update profile controller");
-    console.log($stateParams.profileDet);
 
     if($state.params.profileDet !== null && $state.params.profileDet !== "" && $state.params.profileDet !== undefined) {
 
@@ -20,8 +18,6 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
         url: '/jobseeker/' + JSON.parse(localStorage.getItem('jobseekerid'))
     }).success(function (data) {
 
-        console.log("in get jobseeker");
-        console.log(data);
         $scope.jobseeker = data;
 
         //also store in localstorage
@@ -44,7 +40,6 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
             $scope.workexperience[i].endDate = timeConverter($scope.workexperience[i].endDate);
         }
 
-        console.log("scope workexperience" + $scope.workexperience);
 
         if ($scope.workexperience == null || $scope.workexperience.length == 0)
             $scope.noworkexperience = true;
@@ -70,11 +65,6 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
 
     $scope.updateJobseekerProfile = function() {
 
-        console.log("in updateJobseeker profile");
-        console.log($scope.firstname);
-        console.log($scope.lastname);
-        console.log($scope.email);
-        console.log($scope.selfIntroduction);
 
         if($scope.positionHeld != undefined && $scope.positionHeld != null && $scope.positionHeld != "" && $scope.companyname != undefined && $scope.companyname != null && $scope.companyname != "" )
             $scope.workexperience.push({
@@ -118,11 +108,9 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
             data : dataSend
         }).success(function(data) {
 
-            console.log("update jobseeker success");
-            console.log(data);
 
             //if success
-            $state.go("home.signin");
+            $state.go("home.jobseekerprofile", {profileDet: {id: JSON.parse(localStorage.getItem('jobseekerid'))} });
 
 
         }).error(function(error) {
@@ -141,9 +129,7 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
 
 
     $scope.getImages = function(){
-        console.log("in get images");
         images = $window.images;
-        console.log(images);
 
     }
 

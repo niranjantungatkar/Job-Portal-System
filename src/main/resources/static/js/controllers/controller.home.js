@@ -3,7 +3,7 @@
  */
 
 jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSession) {
-	
+
 	
 	//for storing the type of profile of the current user.
 	$scope.profile = {
@@ -169,11 +169,13 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 
 	//route to view jobs page
 	$scope.toViewJobs = function(){
+		console.log("in to view jobs");
+		console.log(userSession.data.id);
 		$state.go("home.viewJobs", { profileDet: { id: userSession.data.id, type: userSession.data.type, verified: userSession.data.verified } });
 	}
 
-	$scope.gotohomepage = function(){
-		$state.go("home");
+	$scope.gotoprofilepage = function(){
+		$state.go("home.jobseekerprofile", { profileDet: { id: userSession.data.id, type: userSession.data.type, verified: userSession.data.verified } });
 	}
 
 	$scope.tointerestedjobs = function(){

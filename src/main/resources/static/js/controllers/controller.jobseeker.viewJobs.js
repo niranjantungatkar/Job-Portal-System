@@ -2,6 +2,8 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
 
 
     $scope.nojobsfound = false;
+    console.log("in controller view jobs");
+    console.log($state.params.profileDet);
 
 
 
@@ -33,6 +35,7 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
 
 
     $scope.toViewJob = function(requisitionId){
+
         $state.go("home.viewJob", {jobAndProfile: {profileDet: $state.params.profileDet, requisitionId: requisitionId}} );
     }
 
