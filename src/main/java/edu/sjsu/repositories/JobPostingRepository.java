@@ -2,6 +2,8 @@ package edu.sjsu.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import edu.sjsu.models.Company;
@@ -13,5 +15,5 @@ public interface JobPostingRepository extends PagingAndSortingRepository<JobPost
 	
 	public List<JobPosting> findByCompany(Company company);
 	
-	public List<JobPosting> findByStatus(int status);
+	public Page<JobPosting> findByStatus(int status, Pageable pageable);
 }

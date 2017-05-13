@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.sjsu.exceptions.CompanyExceptions;
-import edu.sjsu.exceptions.JobApplicationExceptions;
 import edu.sjsu.exceptions.JobPostingException;
 import edu.sjsu.models.JobPosting;
 import edu.sjsu.services.JobPostingService;
@@ -100,13 +101,13 @@ public class JobPostingController {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/jobposting/open", method = RequestMethod.GET)
-	public ResponseEntity getJobPostingOpen() {
+	public ResponseEntity getJobPostingOpen(Pageable pageable) {
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
 
 		try {
-			List<JobPosting> jobPostings = jobPostingService.getJobPostingOpen();
+			Page<JobPosting> jobPostings = jobPostingService.getJobPostingOpen(pageable);
 			return new ResponseEntity(jobPostings, responseHeaders, HttpStatus.OK);
 		} catch (JobPostingException ex) {
 			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);

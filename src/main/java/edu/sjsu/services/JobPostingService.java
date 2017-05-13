@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import edu.sjsu.exceptions.CompanyExceptions;
@@ -98,9 +100,9 @@ public class JobPostingService {
 		return jobPosting;
 	}
 
-	public List<JobPosting> getJobPostingOpen() throws JobPostingException {
-		List<JobPosting> jobPostings = jobPostingRepository.findByStatus(0);
-		if (jobPostings.size() == 0)
+	public Page<JobPosting> getJobPostingOpen(Pageable pageable) throws JobPostingException {
+		Page<JobPosting> jobPostings = jobPostingRepository.findByStatus(0, pageable);
+		if (jobPostings.getSize() == 0)
 			throw new JobPostingException("No Jobs found");
 		return jobPostings;
 	}
