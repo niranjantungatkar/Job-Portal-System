@@ -3,7 +3,6 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
     $scope.jobisapplied = false;
     $scope.jobisinterested = false;
 
-
     //check whether user is verified
     if($state.params.jobAndProfile.profileDet.verified == true)
         $scope.jobseekerverified = true;
@@ -16,7 +15,6 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
         url: '/jobposting/'+$state.params.jobAndProfile.requisitionId
     }).success(function(data){
 
-        console.log(data);
         $scope.job = data;
 
     }).error(function(error){
@@ -31,14 +29,12 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
         url : '/jobapplication/jobseeker/'+ $state.params.jobAndProfile.profileDet.id
     }).success(function(data) {
 
-
         for(var i=0; i<data.length; i++){
 
-            if(data[i].jobPosting.requisitionId == $state.params.jobAndProfile.requisitionId)
-                $scope.jobisapplied = true;
+            if(data[i].jobPosting.requisitionId == $state.params.jobAndProfile.requisitionId) {
+            	$scope.jobisapplied = true
+            }        
         }
-
-
     }).error(function(error) {
         console.log("Error in get jobseeker applied jobs");
         console.log(error);
@@ -64,7 +60,6 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
         console.log(error);
     });
 
-
     //for resume upload file
     $http({
         method:'POST',
@@ -75,12 +70,8 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
         console.log($scope.policy+" "+$scope.signature);
     })
 
-
-
-
     $scope.interestedJob = function(){
 
-        console.log("in interestedJob");
 
         //add to interested list of jobseeker
         $http({
@@ -103,9 +94,6 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
 
 
     $scope.applywithprofile = function(){
-
-
-        console.log("in apply with profile");
 
         //get job data
         $http({

@@ -40,7 +40,7 @@
                                                             <label for="a11y-ember5863" class="visually-hidden">
                                                                 Search jobs by title
                                                             </label>
-                                                            <!---->          <input aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Search jobs by title, keyword or company" autocorrect="off" autocapitalize="off" id="a11y-ember5863" role="combobox" class="ember-text-field ember-view"></input>
+                                                            <!---->          <input aria-autocomplete="list" ng-model="mainSearch" autocomplete="off" spellcheck="false" placeholder="Search jobs by title, keyword or company" autocorrect="off" autocapitalize="off" id="a11y-ember5863" role="combobox" class="ember-text-field ember-view"></input>
                                                             <div class="type-ahead-input-icons">
                                                                 <!---->
                                                             </div>
@@ -259,7 +259,7 @@
 
                         </div>
                         <ul class="card-list card-list--tile jobs-jymbii__list">
-                            <li ng-repeat="job in jobs" id="ember5969" class="jobs-jymbii__list-item jobs-jymbii__list-item--fadein card-list__item job-card job-card--tile ember-view">
+                            <li ng-repeat="job in jobs |filter:mainFilter" id="ember5969" class="jobs-jymbii__list-item jobs-jymbii__list-item--fadein card-list__item job-card job-card--tile ember-view">
                                 <a href="" ng-click="toViewJob(job.requisitionId)" data-control-name="A_jobshome_job_link_click"  id="ember5983" class="job-card__link-wrapper js-focusable-card ember-view">
                                     <div class="job-card__image-and-sponsored-container">
                                         <figure class="job-card__logo-wrapper">

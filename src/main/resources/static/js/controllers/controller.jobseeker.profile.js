@@ -6,10 +6,7 @@ jobPortalApp.controller('controllerJobSeekerProfile', function($scope, $state, $
 	$scope.noskills = false;
     $scope.noselfIntroduction = false;
 
-
-    console.log("in jobseeker controller");
-    console.log($stateParams.profileDet);
-
+    
     if($state.params.profileDet !== null && $state.params.profileDet !== "" && $state.params.profileDet !== undefined) {
 
         if (typeof(Storage) !== "undefined") {
@@ -41,8 +38,6 @@ jobPortalApp.controller('controllerJobSeekerProfile', function($scope, $state, $
         url : '/jobseeker/'+ JSON.parse(localStorage.getItem('jobseekerid'))
     }).success(function(data) {
 
-    	console.log("in get jobseeker");
-    	console.log(data);
     	$scope.jobseeker = data;
 
     	if(data.selfIntroduction == null)

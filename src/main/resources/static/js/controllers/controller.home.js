@@ -43,11 +43,29 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 	/* Check for user session or company session.
 	 * If valid company or user session redirect to correct state.
 	 */
-	if(userSession.data != null && userSession.data != "" && userSession != undefined) {
+	if(userSession.data !== null && userSession.data !== "" && userSession !== undefined) {
 		$scope.header.session=true;
 		$scope.header.verified=userSession.data.verified;
+		
+		if (typeof(Storage) !== "undefined") {
+		   	if(userSession.data.id !== null && userSession.data.id !== "" && userSession.data.id !== undefined)
+		   	{
+		   		
+		   		localStorage.setItem('sessionId',JSON.stringify(userSession.data.id));
+		   	}
+		   	if(userSession.data.verified !== null && userSession.data.verified !== "" && userSession.data.verified !== undefined)
+		   	{
+		   		
+		   		localStorage.setItem('sessionVerified',JSON.stringify(userSession.data.verified));
+		   	}
+		   	if(userSession.data.type !== null && userSession.data.type !== "" && userSession.data.type !== undefined)
+		   	{
+		   		
+		   		localStorage.setItem('sessionType',JSON.stringify(userSession.data.type));
+		   	}
+		}
+		
 		if(userSession.data.type == "company") {
-			console.log(userSession);
 			$scope.header.profile = "company";
 			$state.go('home.companyprofile', { companyDet: { id: userSession.data.id, type : userSession.data.type, verified: userSession.data.verified } })
 		} else if (userSession.data.type == "jobseeker") {
@@ -55,6 +73,10 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 			$state.go('home.jobseekerprofile', { profileDet: { id: userSession.data.id, type: userSession.data.type, verified: userSession.data.verified } }) 
 		}
 	} 
+	
+	$scope.sessionId = JSON.parse(localStorage.getItem('sessionId'));
+	$scope.sessionVerified = JSON.parse(localStorage.getItem('sessionVerified'));
+	$scope.sessionType = JSON.parse(localStorage.getItem('sessionType'));
 	
 	/*
 	 * login function
@@ -70,6 +92,21 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 			}
 		}).success(function(data) {
 			if(data.type == "jobseeker") {
+				if (typeof(Storage) !== "undefined") {
+					if(data.id !== null && data.id !== "" && data.id !== undefined)
+					{
+						localStorage.setItem('sessionId',JSON.stringify(data.id));
+					}
+					if(data.verified !== null && data.verified !== "" && data.verified !== undefined)
+					{
+			   			localStorage.setItem('sessionVerified',JSON.stringify(data.verified));
+					}
+					if(data.type !== null && data.type !== "" && data.type !== undefined)
+					{
+						localStorage.setItem('sessionType',JSON.stringify(data.type));
+					}
+				}
+				 
 				$scope.header.profile="jobseeker";
 				$scope.header.verified=data.verified;
 				$scope.header.session=true;
@@ -146,7 +183,6 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 			$scope.userdata.uemail="";
 		}
 
-		console.log(data)
 		//make http request
 		$http({
 				
@@ -169,21 +205,29 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 
 	//route to view jobs page
 	$scope.toViewJobs = function(){
-		console.log("in to view jobs");
-		console.log(userSession.data.id);
-		$state.go("home.viewJobs", { profileDet: { id: userSession.data.id, type: userSession.data.type, verified: userSession.data.verified } });
+				
+		$state.go("home.viewJobs", { profileDet: { id: JSON.parse(localStorage.getItem('sessionId')),
+												   type: JSON.parse(localStorage.getItem('sessionType')),
+												   verified: JSON.parse(localStorage.getItem('sessionVerified')) } });
 	}
 
 	$scope.gotoprofilepage = function(){
-		$state.go("home.jobseekerprofile", { profileDet: { id: userSession.data.id, type: userSession.data.type, verified: userSession.data.verified } });
+		$state.go("home.jobseekerprofile", { profileDet: { id: JSON.parse(localStorage.getItem('sessionId')),
+			   type: JSON.parse(localStorage.getItem('sessionType')),
+			   verified: JSON.parse(localStorage.getItem('sessionVerified'))    } }); 
+			   
 	}
 
 	$scope.tointerestedjobs = function(){
-		$state.go("home.interestedjobs", {profileDet: { id: userSession.data.id, type: userSession.data.type, verified: userSession.data.verified } });
+		$state.go("home.interestedjobs", {profileDet: { id: JSON.parse(localStorage.getItem('sessionId')),
+			   type: JSON.parse(localStorage.getItem('sessionType')),
+			   verified: JSON.parse(localStorage.getItem('sessionVerified')) } });
 	}
 
 	$scope.toappliedjobs = function(){
-		$state.go("home.appliedjobs", {profileDet: { id: userSession.data.id, type: userSession.data.type, verified: userSession.data.verified } });
+		$state.go("home.appliedjobs", {profileDet: { id: JSON.parse(localStorage.getItem('sessionId')),
+			   type: JSON.parse(localStorage.getItem('sessionType')),
+			   verified: JSON.parse(localStorage.getItem('sessionVerified')) } });
 	}
 
 });

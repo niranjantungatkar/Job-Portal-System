@@ -2,19 +2,12 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
 
 
     $scope.nojobsfound = false;
-    console.log("in controller view jobs");
-    console.log($state.params.profileDet);
-
-
-
+   
     //get all jobs
     $http({
         method: 'GET',
         url: '/jobposting/open'
     }).success(function(data){
-
-        console.log("in get open job posting");
-        console.log(data.content);
 
         $scope.jobs = data.content;
 
@@ -23,7 +16,6 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
         console.log(error);
     });
 
-
     $scope.pageChanged = function(page) {
 
 
@@ -31,9 +23,6 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
             method: 'GET',
             url: '/jobposting/open/'+page
         }).success(function(data){
-
-            console.log("in get open job posting after page change");
-            console.log(data);
 
             if(data != null && data.length > 0) {
                 $scope.jobs = data;
@@ -49,40 +38,30 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
 
     }
 
+    $scope.mainSearch = "";
+    
+    function findString(obj, regexp) {
+    	  let found = false;
 
+    	  JSON.stringify(obj, (k, v) => {
+    	    if (typeof v === 'string' && v.includes(regexp)) found = true;
+    	    else return v;
+    	  });
 
-
-    // var skipwords = ['in', 'at', 'to', 'from', 'with', 'like'];
-    // $scope.locationSearch = "";
-    //
-    // $scope.locationFilter = function(job) {
-    //     console.log("filter by location");
-    //     var words = $scope.locationSearch;
-    //
-    //     if(words == null || words == "")
-    //         return job;
-    //     else {
-    //         console.log("in else");
-    //         for (var i = 0; i < words.length; i++) {
-    //             console.log("words found");
-    //             console.log(words[i]);
-    //             console.log("object values");
-    //             console.log(Object.values);
-    //             if ( (Object.values(job)).indexOf(words[i]) ) {
-    //                 console.log("object value found");
-    //                 return job;
-    //             }
-    //
-    //         }
-    //         return null;
-    //     }
-    // }
-
-    $scope.searchJobs = function(){
-
-        var skipwords = ['in', 'at', 'to', 'from', 'with', 'like'];
-
-
+    	  return found;
+    	}
+    
+    $scope.mainFilter = function(job) {
+    	if($scope.mainSearch === null || $scope.mainSearch === "" || $scope.mainSearch === undefined)
+    		return true;
+    	var matchString = JSON.stringify(job);
+    
+    	var words = $scope.mainSearch.split(" ");
+    	
+    	for(var i=0; i<words.length; i++) {
+    		return findString(job, words[i]);		
+    	}
+    	return false;
     }
 
 
