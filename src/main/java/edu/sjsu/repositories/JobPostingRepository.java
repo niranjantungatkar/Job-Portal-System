@@ -21,10 +21,10 @@ public interface JobPostingRepository extends PagingAndSortingRepository<JobPost
 
 	public Page<JobPosting> findByStatus(int status, Pageable pageable);
 
-	public Page<JobPosting> findByStatusAndCompanyInAndLocationInAndSalaryGreaterThanAndSalaryLessThan(int status,
+	public List<JobPosting> findByStatusAndCompanyInAndLocationInAndSalaryGreaterThanAndSalaryLessThan(int status,
 			List<Company> company, List<String> locations, int salaryMin, int salaryMax, Pageable pageable);
 
-	public Page<JobPosting> findByStatusAndCompanyInAndLocationInAndSalary(int status, List<Company> company,
+	public List<JobPosting> findByStatusAndCompanyInAndLocationInAndSalary(int status, List<Company> company,
 			List<String> locations, int salary, Pageable pageable);
 
 	public List<JobPosting> findByStatusAndCompanyInAndLocationInAndSkillsInAndJobDescriptionContainingIgnoreCaseOrResponsibilitiesContainingIgnoreCaseOrTitleContainingIgnoreCase(
@@ -36,4 +36,8 @@ public interface JobPostingRepository extends PagingAndSortingRepository<JobPost
 
 	public List<JobPosting> findByStatusAndSkillsInOrJobDescriptionContainingIgnoreCaseOrResponsibilitiesContainingIgnoreCaseOrTitleContainingIgnoreCase(
 			int status, List<Skill> skills, String jobDescription, String responsibilities, String title, Pageable pageable);
+	
+//	@Query("select j.location from job_posting j")
+//	public List<String> getLocation();
+	
 }

@@ -163,7 +163,6 @@ public class JobPostingService {
 		}
 		List<String> items = new ArrayList<>(Arrays.asList(companiesStr.split("\\s*,\\s*")));
 		items.addAll(criteria);
-		List<Company> companies = companyRepository.findByCompanyNameIn(items);
 
 		String locationsStr = (String) parameters.get("location");
 		if (locationsStr.equals("")) {
@@ -172,24 +171,46 @@ public class JobPostingService {
 		List<String> locations = new ArrayList<>(Arrays.asList(locationsStr.split("\\s*,\\s*")));
 		locations.addAll(criteria);
 
-		if (freeText.equals(" ")) {
-			int salaryMin = Integer.parseInt((String) parameters.get("minSalary"));
-			int salaryMax = Integer.parseInt((String) parameters.get("maxSalary"));
-			if (salaryMin == -1) {
-				Page<JobPosting> jobPostings = jobPostingRepository.findByStatusAndCompanyInAndLocationInAndSalary(0,
-						companies, locations, salaryMax, pageable);
-				return jobPostings;
+		int salaryMin = 0;
+		int salaryMax = 99999999;
+		if (!parameters.get("minSalary").toString().equals("")) {
+			salaryMin = Integer.parseInt((String) parameters.get("minSalary"));
+		}
+		if (!parameters.get("maxSalary").toString().equals("")) {
+			salaryMax = Integer.parseInt((String) parameters.get("maxSalary"));
+		}
+		if (parameters.get("location").equals("")) {
+			List<JobPosting> temp = (List<JobPosting>) jobPostingRepository.findAll();
+			for (JobPosting tempJob : temp) {
+				locations.add(tempJob.getLocation());
 			}
+		}
+		if (parameters.get("companies").equals("")) {
+			List<Company> temp = (List<Company>) companyRepository.findAll();
+			for (Company tempComp : temp) {
+				items.add(tempComp.getCompanyName());
+			}
+		}
 
-			Page<JobPosting> jobPostings = jobPostingRepository
+		List<Company> companies = companyRepository.findByCompanyNameIn(items);
+
+		List<JobPosting> jobPostings = new ArrayList<>();
+		List<JobPosting> jobPostings1 = new ArrayList<>();
+		if (salaryMin == -1) {
+			jobPostings = jobPostingRepository.findByStatusAndCompanyInAndLocationInAndSalary(0, companies, locations,
+					salaryMax, pageable);
+
+		} else {
+			jobPostings = jobPostingRepository
 					.findByStatusAndCompanyInAndLocationInAndSalaryGreaterThanAndSalaryLessThan(0, companies, locations,
 							salaryMin, salaryMax, pageable);
-			return jobPostings;
-		} else {
+		}
+
+		if (!freeText.equals("")) {
 			List<Skill> skills = skillRepository.findBySkillIn(criteria);
 			Set<JobPosting> freeTextSet = new HashSet<>();
 			Set<JobPosting> filterSet = new HashSet<>();
-			filterSet.addAll(jobPostingRepository.findByStatusAndCompanyInAndLocationIn(0, companies, locations));
+			filterSet.addAll(jobPostings);
 			for (String blindSearch : criteria) {
 
 				freeTextSet.addAll(jobPostingRepository
@@ -201,15 +222,14 @@ public class JobPostingService {
 			Set<JobPosting> output = new HashSet<>(filterSet);
 			output.retainAll(freeTextSet);
 			List<JobPosting> jobsList = new ArrayList<>();
-			if (counter == 2) {
-				jobsList.addAll(freeTextSet);
-			} else {
-				jobsList.addAll(output);
-			}
-			Page<JobPosting> jobPostings = new PageImpl<>(jobsList);
-			return jobPostings;
+			jobsList.addAll(output);
+			Page<JobPosting> jobPostingsPage = new PageImpl<>(jobsList);
+			return jobPostingsPage;
 		}
+		Page<JobPosting> jobPostingsPage = new PageImpl<>(jobPostings);
+		return jobPostingsPage;
 	}
+	
 
 	/**
 	 * Update the JobPosting
