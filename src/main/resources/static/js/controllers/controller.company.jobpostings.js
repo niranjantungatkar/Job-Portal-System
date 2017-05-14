@@ -60,9 +60,10 @@ jobPortalApp.controller('controllerCompanyPostings', function($http, $state, $sc
 		$state.go('home.updateJobPosting', {companyDet: { id : $scope.jobpostingcid, reqId : reqId }})
 	}
 	
-	$scope.viewApplicationsJobPosting = function() {
+/*	$scope.viewApplicationsJobPosting = function(reqId) {
 		console.log("Transition to be added");
-	}
+		$state.go('home.applications',{job:{id:reqId}});
+	}*/
 	
 	
 })

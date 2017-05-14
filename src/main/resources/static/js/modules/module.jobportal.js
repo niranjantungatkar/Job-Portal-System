@@ -115,6 +115,13 @@ jobPortalApp.config(function($stateProvider, $urlRouterProvider){
 				controller: 'controllerCompanyPostings',
 				params: {companyDet: null}
 			})
+		.state('home.applications', 
+			{
+				url:'applications',
+				templateUrl: './templates/view.jobposting.applications.html',
+				controller:'controllerApplications',
+				params:{job:null}
+			})
 	
 }).controller('mainController', function(){
 });

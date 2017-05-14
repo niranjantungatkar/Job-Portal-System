@@ -89,7 +89,7 @@ jobPortalApp.controller('controllerUpdateJobPosting', function($http, $state, $s
 	
 	
 	$scope.viewApplications = function() {
-		$state.go('home.vieApplications',{jobDet:{requisitionId: $scope.reqId}})
+		$state.go('home.applications',{job:{id: $scope.reqId}})
 	}
 	
 })

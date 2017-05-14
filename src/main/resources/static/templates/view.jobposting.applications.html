@@ -1,0 +1,91 @@
+<div>
+	<section id="ember7552" class="org-top-card-module org-top-card-module--lcp-page ember-view" style="margin-left: 25%;width:50%">
+    	<div class="org-top-card-module__container container-with-shadow clearfix" style="margin-top: 80px; margin-left:1%">
+                            <!---->
+        	<img class="lazy-image org-top-card-module__logo loaded" alt="Company Logo" height="120" width="120" ng-src={{company.logoURL}}>
+            	<div class="org-top-card-module__details">
+                	<div class="org-top-card-module__main-column">
+                    	<h1 dir="ltr" class="org-top-card-module__name mb1 Sans-26px-black-85%-light">
+                        	{{company.companyName}}
+                        </h1>
+                        <div class="org-top-card-module__summary-company-info">
+                        	<span class="Sans-15px-black-55%">
+                             	{{company.address}}
+                            </span>
+                        </div>
+                        <div class="org-top-card-module__company-actions-bar">
+                        	<div id="ember7609" class="inline-block org-top-card-actions ember-view">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        
+      </section>
+	<ul class="card-list card-list--tile jobs-jymbii__list" ng-repeat="application in applications" style="margin-left: 25%;width:50%">
+		<li id="ember6302" class="jobs-jymbii__list-item jobs-jymbii__list-item--fadein card-list__item job-card job-card--tile ember-view">          
+			<a data-control-name="A_jobshome_job_link_click" ng-click="" id="ember6351" class="job-card__link-wrapper js-focusable-card ember-view">  
+			<div class="job-card__image-and-sponsored-container">
+    			<figure class="job-card__logo-wrapper">
+      				<img class="lazy-image job-card__logo-image loaded" title="Job application" alt="" height="64" width="64" src="images/application.png">
+    			</figure>
+        		<button data-control-name="jobshome_delete_job_click" class="job-card__dismiss-button" data-ember-action="" data-ember-action-6352="6352">
+          			<span class="job-card__dismiss-icon svg-icon-wrap">
+          				<li-icon aria-hidden="true" type="cancel-icon" size="small">
+          					<svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon">
+          						<g class="small-icon" style="fill-opacity: 1">
+        							<path d="M13,4.32L9.31,8,13,11.69,11.69,13,8,9.31,4.31,13,3,11.69,6.69,8,3,4.31,4.31,3,8,6.69,11.68,3Z"></path>
+      							</g>
+      						</svg>
+      					</li-icon>
+      				</span>
+          			<span class="visually-hidden">Dismiss job Java Developer</span>
+        		</button>
+        	</div>
+
+  			<div class="job-card__content-wrapper">
+				<span class="visually-hidden">Job Title</span>
+      			<div class="job-card__title-line">
+        			<h3 id="ember6353" class="job-card__title ember-view">
+        				<div class="truncate-multiline--truncation-target">
+        					<span class="truncate-multiline--last-line-wrapper">
+        						<span>{{application.jobPosting.title}}</span>
+        							<button class="truncate-multiline--button-hidden" data-ember-action="" data-ember-action-8544="8544">
+    								</button>
+    							</span>
+    							<h4 class="job-card__company-name">{{application.applicationId}}</h4>
+    					</div>
+  
+					</h3>
+      			</div>
+      			
+    			<span class="visually-hidden">Company Name</span>
+    			<h4 class="job-card__company-name">{{application.applicant.firstname+' '+application.applicant.lastname}}</h4>
+    			<div class="jobs-details-top-card__actions mt4">
+      				<button ng-if=" !jobisinterested " ng-click="viewProfile(application.applicant.jobseekerid)" data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
+                		<span aria-hidden="true">View Profile</span>
+                	</button>
+                
+                	<button ng-if=" application.resume !== null " data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
+	                	<a target="_blank" href="https://s3-us-west-2.amazonaws.com/angular-file-upload/Build+Integrity+In+week%234+Journal+Entry.pdf">
+	                	<span aria-hidden="true">Download Resume</span>
+    	            	</a>
+    	            </button>
+    	           
+    	            <button ng-if ="application.applicationStatus != 1 && application.applicationStatus != 2 && application.applicationStatus != 3" " ng-click="offer(application.applicationId, 3)" data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
+	                	<span aria-hidden="true">Offer</span>
+    	            </button>
+    	            </a>
+    	           
+    	            
+    	            <button ng-click="reject(application.applicationId, 1)"  ng-if ="application.applicationStatus != 1 && application.applicationStatus != 2 && application.applicationStatus != 3" data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
+	                	<span aria-hidden="true">Reject</span>
+    	            </button>
+      			</div>
+    			
+  			</div>
+		</a>
+		</li>   		
+	</ul>  
+</div>
+</div>
