@@ -5,7 +5,7 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
     if($state.params.profileDet !== null && $state.params.profileDet !== "" && $state.params.profileDet !== undefined) {
 
         if (typeof(Storage) !== "undefined") {
-            if($state.params.profileDet.id != null && $state.params.profileDet.id != "" && $state.params.profileDet.id != undefined)
+            if($state.params.profileDet.id !== null && $state.params.profileDet.id !== "" && $state.params.profileDet.id !== undefined)
             {
                 localStorage.setItem('jobseekerid',JSON.stringify($state.params.profileDet.id));
             }
@@ -23,10 +23,8 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
         //also store in localstorage
         localStorage.setItem("jobseeker", $scope.jobseeker);
 
-        if (data.selfIntroduction == null)
+        if (data.selfIntroduction === null)
             $scope.noselfIntroduction = true;
-
-
 
         //keeping workexperience, education, skills seperate
         $scope.workexperience = data.workExp;
@@ -35,6 +33,7 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
 
 
         //format workexperience date
+
         if(data.workExp)
             for(var i=0; i<data.workExp.length; i++) {
                 $scope.workexperience[i].startDate = timeConverter($scope.workexperience[i].startDate);
@@ -47,18 +46,17 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
                 $scope.education[i].endDate = timeConverter($scope.education[i].endDate);
             }
 
-
-        if ($scope.workexperience == null || $scope.workexperience.length == 0)
+        if ($scope.workexperience === null || $scope.workexperience.length === 0)
             $scope.noworkexperience = true;
 
-        if ($scope.education == null || $scope.education.length == 0)
+        if ($scope.education === null || $scope.education.length === 0)
             $scope.noeducation = true;
 
         //check condition if education is null
-        if ($scope.education == null)
+        if ($scope.education === null)
             $scope.education = [];
 
-        if ($scope.skills == null || $scope.skills.length == 0)
+        if ($scope.skills === null || $scope.skills.length == 0)
             $scope.noskills = true;
 
 
@@ -75,7 +73,6 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
     }).success(function(data){
         $scope.policy = data.policy;
         $scope.signature = data.signature;
-        console.log($scope.policy+" "+$scope.signature);
     })
 
 
@@ -124,27 +121,24 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
     $scope.updateJobseekerProfile = function() {
 
 
-        if($scope.positionHeld != undefined && $scope.positionHeld != null && $scope.positionHeld != "" && $scope.companyname != undefined && $scope.companyname != null && $scope.companyname != "" )
+        if($scope.positionHeld !== undefined && $scope.positionHeld !== null && $scope.positionHeld !== "" && $scope.companyname !== undefined && $scope.companyname !== null && $scope.companyname !== "" )
             $scope.workexperience.push({
                 positionHeld: $scope.positionHeld,
                 company : $scope.companyname,
                 startDate : $scope.workexperiencestartdate,
                 endDate : $scope.workexperienceenddate
             });
-        if($scope.institutename != undefined && $scope.institutename != null && $scope.institutename != "" && $scope.educationdegree != undefined && $scope.educationdegree != null && $scope.educationdegree != "" )
+        if($scope.institutename !== undefined && $scope.institutename !== null && $scope.institutename !== "" && $scope.educationdegree !== undefined && $scope.educationdegree !== null && $scope.educationdegree !== "" )
             $scope.education.push({
                 institute: 	$scope.institutename,
                 degree : $scope.educationdegree,
                 startDate : $scope.educationstartdate,
                 endDate : $scope.educationenddate
             });
-        if($scope.jobseekerskill != undefined && $scope.jobseekerskill != null && $scope.jobseekerskill != "")
+        if($scope.jobseekerskill !== undefined && $scope.jobseekerskill !== null && $scope.jobseekerskill !== "")
             $scope.skills.push({
                 skill : $scope.jobseekerskill
             });
-
-
-
 
 
         var dataSend = {
@@ -181,8 +175,6 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
 
 
     }
-
-
 
 
     function timeConverter(date){

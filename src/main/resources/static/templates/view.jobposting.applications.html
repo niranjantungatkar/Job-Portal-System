@@ -67,7 +67,7 @@
                 	</button>
                 
                 	<button ng-if=" application.resume !== null " data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
-	                	<a target="_blank" href="https://s3-us-west-2.amazonaws.com/angular-file-upload/Build+Integrity+In+week%234+Journal+Entry.pdf">
+	                	<a target="_blank" ng-href={{application.resume}}>
 	                	<span aria-hidden="true">Download Resume</span>
     	            	</a>
     	            </button>
@@ -80,6 +80,12 @@
     	            
     	            <button ng-click="reject(application.applicationId, 1)"  ng-if ="application.applicationStatus != 1 && application.applicationStatus != 2 && application.applicationStatus != 3" data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
 	                	<span aria-hidden="true">Reject</span>
+    	            </button>
+    	            <button ng-if ="application.applicationStatus == 3 " data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
+	                	<span aria-hidden="true">Offered</span>
+    	            </button>
+    	            <button ng-if ="application.applicationStatus == 1" data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
+	                	<span aria-hidden="true">Rejected</span>
     	            </button>
       			</div>
     			
