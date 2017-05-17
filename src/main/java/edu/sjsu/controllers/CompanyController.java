@@ -47,7 +47,7 @@ public class CompanyController {
 		
 		try {
 			Company company = companyService.createCompany(parameters);
-			emailService.sendMail(company.getEmail(), "Test Email", company.getVerificationCode());
+			emailService.sendMail(company.getEmail(), "One More step - Verification!!", "Please use the code below to verify your account: \n " + company.getVerificationCode());
 			HashMap<String, Object> result = new HashMap<>();
 			result.put("result", true);
 			result.put("id", company.getCompanyName());

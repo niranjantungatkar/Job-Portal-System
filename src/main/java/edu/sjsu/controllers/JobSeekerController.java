@@ -50,7 +50,7 @@ public class JobSeekerController {
 
 		try {
 			JobSeeker jobSeeker = jobSeekerService.createJobSeeker(parameters);
-			emailService.sendMail(jobSeeker.getEmail(), "Test Email", jobSeeker.getVerificationCode());
+			emailService.sendMail(jobSeeker.getEmail(), "One More step - Verification!!","Please use the code below to verify your account: \n " + jobSeeker.getVerificationCode());
 			HashMap<String, Object> response = new HashMap<>();
 			response.put("result", true);
 			response.put("id", jobSeeker.getJobseekerid());
