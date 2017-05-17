@@ -186,7 +186,15 @@ public class JobApplicationService {
 		JobApplication jobApplication = jobApplicationRepository.findByApplicationId(jobApplicationId);
 		JobSeeker applicant = jobApplication.getApplicant();
 		int oldStatus = jobApplication.getApplicationStatus();
-
+		
+		if(status == 2){
+			if(oldStatus > 2){
+				throw new JobApplicationExceptions("You can not cancel the application once you have offered a job");
+			}else{
+				jobApplication.setApplicationStatus(status);
+			}
+		}
+		
 		if (jobApplication.getApplicationStatus() == 3) {
 			jobApplication.setApplicationStatus(status);
 
