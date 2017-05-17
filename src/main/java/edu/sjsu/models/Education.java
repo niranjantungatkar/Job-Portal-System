@@ -9,6 +9,8 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Education {
 
@@ -23,8 +25,10 @@ public class Education {
 
 	private String institute;
 
+	@JsonFormat(pattern="yyyy-MM")
 	private Date startDate;
 
+	@JsonFormat(pattern="yyyy-MM")
 	private Date endDate;
 
 	private String degree;
