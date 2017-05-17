@@ -123,7 +123,8 @@ public class JobApplicationService {
 		return jobApplications;
 	}
 
-	/** Updates the job application status accessed by company
+	/**
+	 * Updates the job application status accessed by company
 	 * 
 	 * @param parameters
 	 * @return JobApplication
@@ -170,7 +171,8 @@ public class JobApplicationService {
 		return jobApplication;
 	}
 
-	/**Updates the status of job application when accessed by the job applicant
+	/**
+	 * Updates the status of job application when accessed by the job applicant
 	 * 
 	 * @param parameters
 	 * @return JobApplication
@@ -187,8 +189,37 @@ public class JobApplicationService {
 
 		if (jobApplication.getApplicationStatus() == 3) {
 			jobApplication.setApplicationStatus(status);
+
+			if (status == 4) {
+				// send email to all remaining applicants
+				List<JobApplication> jobsApps = jobApplicationRepository
+						.findByJobPosting(jobApplication.getJobPosting());
+				for (JobApplication app1 : jobsApps) {
+					if (app1.getApplicant() != jobApplication.getApplicant()) {
+						app1.setApplicationStatus(2);
+
+						StringBuilder subject = new StringBuilder();
+						subject.append("Your application status has been changed");
+						StringBuilder message = new StringBuilder();
+						message.append("Dear " + app1.getApplicant().getFirstname());
+						message.append("\n\nYour job application status has been updated from '"
+								+ JobApplicationStatus.getStatus(oldStatus) + "' to '"
+								+ JobApplicationStatus.getStatus(2) + "' as position has been filled");
+						message.append("\n\nCompany : " + app1.getJobPosting().getCompany().getCompanyName());
+						message.append("\nPosition : " + app1.getJobPosting().getTitle());
+						message.append("\nRequisition Id : " + app1.getJobPosting().getRequisitionId());
+						message.append("\nApplication Id : " + app1.getApplicationId());
+						message.append("\n\nBest Regards,");
+						message.append("\nTalent Acquisition Team "
+								+ app1.getJobPosting().getCompany().getCompanyName());
+
+						emailService.sendMail(app1.getApplicant().getEmail(), subject.toString(), message.toString());
+					}
+				}
+			}
+
 		} else {
-			if(jobApplication.getApplicationStatus() == 4){
+			if (jobApplication.getApplicationStatus() == 4) {
 				throw new JobApplicationExceptions("You have already accepted the job offer");
 			}
 			throw new JobApplicationExceptions("You can not accept job offer unless you have been offered a job");
