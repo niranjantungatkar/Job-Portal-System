@@ -116,7 +116,10 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 				$scope.header.verified=data.verified;
 				$scope.header.session=true;
 				$state.go('home.companyprofile', { companyDet: { id: data.id, type: data.type, verified: data.verified } })
+				
 			}
+		}).error(function(data){
+			alert("Invalid username and password");
 		})
 	}
 	
