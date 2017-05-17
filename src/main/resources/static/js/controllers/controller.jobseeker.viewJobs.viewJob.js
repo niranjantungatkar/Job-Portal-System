@@ -6,6 +6,7 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
     $scope.jobisrejected = false;
     $scope.offeraccepted = false;
     $scope.offerrejected = false;
+    $scope.applicationispending = false;
 
     //check whether user is verified
     if($state.params.jobAndProfile.profileDet.verified == true)
@@ -40,20 +41,32 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
 
             if(data[i].jobPosting.requisitionId == $state.params.jobAndProfile.requisitionId) {
             	$scope.jobisapplied = true
+                $scope.applicationId = data[i].applicationId;
 
                 //check if offered
-                if(data[i].applicationStatus == 1)
+                if(data[i].applicationStatus == 1) {
                     $scope.jobisoffered = true;
+                    $scope.applicationispending = false;
+                }
 
             	//check for rejected
-                if(data[i].applicationStatus == 2)
+                if(data[i].applicationStatus == 2) {
                     $scope.jobisrejected = true;
+                    $scope.applicationispending = false;
+                }
 
-                if(data[i].applicationStatus == 4)
+                if(data[i].applicationStatus == 4) {
                     $scope.offeraccepted = true;
+                    $scope.applicationispending = false;
+                }
 
-                if(data[i].applicationStatus == 5)
+                if(data[i].applicationStatus == 5) {
                     $scope.offerrejected = true;
+                    $scope.applicationispending = false;
+                }
+
+                if(data[i].applicationStatus == 0)
+                    $scope.applicationispending = true;
             }        
         }
     }).error(function(error) {
@@ -202,13 +215,13 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
     }
 
 
-    $scope.acceptOffer = function(applicationId) {
+    $scope.acceptOffer = function() {
 
         $http({
             method: 'POST',
-            url: '/jobapplication/jobseeker/updateStatus',
+            url: '/jobapplication/jobseeker/updatestatus',
             data : {
-                jobApplicationId : applicationId,
+                jobApplicationId : $scope.applicationId,
                 status : 4
             }
 
@@ -223,13 +236,13 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
 
     }
 
-    $scope.rejectOffer = function(applicationId) {
+    $scope.rejectOffer = function() {
 
         $http({
             method: 'POST',
             url: '/rejectOffer/',
             data : {
-                jobApplicationId : applicationId,
+                jobApplicationId : $scope.applicationId,
                 status : 5
             }
 
@@ -239,6 +252,28 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
 
         }).error(function(error){
             console.log("Error in positing reject offer");
+            console.log(error);
+        });
+
+    }
+
+    $scope.cancelApplication = function() {
+
+
+        $http({
+            method: 'POST',
+            url: '/jobapplication/jobseeker/updatestatus',
+            data : {
+                jobApplicationId : $scope.applicationId,
+                status : 2
+            }
+
+        }).success(function(data){
+
+            $state.go('home.viewJobs', {profileDet: $state.params.jobAndProfile.profileDet} );
+
+        }).error(function(error){
+            console.log("Error in positing cancel application");
             console.log(error);
         });
 
