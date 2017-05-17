@@ -221,13 +221,13 @@
 							<label for="reg-positionheld"><b>Dates Employed</b></label>
 							<span>
                                 <div style="float:left">
-                                    <input type="text" ng-model="workexperiencestartdate" name="startdate" class="reg-startdate" id="reg-startdate" aria-required="true" tabindex="1" style="float: left">
+                                    <input type="date" ng-model="workexperiencestartdate" name="startdate" class="reg-startdate" id="reg-startdate" aria-required="true" tabindex="1" style="float: left">
                                 </div>
 
                                     ---
 
                                 <div style="float: right">
-                                    <input type="text" ng-model="workexperienceenddate" name="enddate" class="enddate" id="reg-enddate" aria-required="true" tabindex="1" style="float: right">
+                                    <input type="date" ng-model="workexperienceenddate" name="enddate" class="enddate" id="reg-enddate" aria-required="true" tabindex="1" style="float: right">
                                 </div>
                             </span>
 						  </h4>
@@ -285,14 +285,7 @@
 								<h4 class="pv-entity__date-range Sans-15px-black-55%">
 								  <label><b>Dates attended or expected graduation date</b></label>
 								  <span>
-                                            <div style="float:left">
-                                                <span>{{edu.startDate}}</span>
-                                            </div>
-                                            ---
-
-                                          <div style="float:right">
-                                            <span>{{edu.endDate}}</span>
-                                          </div>
+                                         <time>{{edu.startDate}}</time> – <time>{{edu.endDate}}</time>
 								  </span>
 								</h4>
 
@@ -342,12 +335,12 @@
 								  <label for=""><b>Dates attended or expected graduation date</b></label>
 								  <span>
                                             <div style="float:left">
-                                                <input type="text" ng-model="educationstartdate" name="startdate" class="startdate" id="reg-startdate" aria-required="true" tabindex="1" style="float: left">
+                                                <input type="date" ng-model="educationstartdate" name="startdate" class="startdate" id="reg-startdate" aria-required="true" tabindex="1" style="float: left">
                                             </div>
                                             ---
 
                                           <div style="float:right">
-                                            <input type="text" ng-model="educationenddate" name="enddate" class="enddate" id="reg-enddate" aria-required="true" tabindex="1" style="float: left">
+                                            <input type="date" ng-model="educationenddate" name="enddate" class="enddate" id="reg-enddate" aria-required="true" tabindex="1" style="float: left">
                                           </div>
 								  </span>
 								</h4>

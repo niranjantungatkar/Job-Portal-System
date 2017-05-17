@@ -18,6 +18,9 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
         url: '/jobseeker/' + JSON.parse(localStorage.getItem('jobseekerid'))
     }).success(function (data) {
 
+        console.log("in get jobseeker update profile");
+        console.log(data);
+
         $scope.jobseeker = data;
 
         //also store in localstorage
@@ -36,17 +39,19 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
 
         if(data.workExp)
             for(var i=0; i<data.workExp.length; i++) {
-                $scope.workexperience[i].startDate = timeConverter($scope.workexperience[i].startDate);
-                $scope.workexperience[i].endDate = timeConverter($scope.workexperience[i].endDate);
+                $scope.workexperience[i].startDate = $scope.workexperience[i].startDate;
+                $scope.workexperience[i].endDate = $scope.workexperience[i].endDate;
             }
 
         if(data.education)
             for(var i=0; i<data.education.length; i++){
-                $scope.education[i].startDate = timeConverter($scope.education[i].startDate);
-                $scope.education[i].endDate = timeConverter($scope.education[i].endDate);
+                $scope.education[i].startDate = $scope.education[i].startDate;
+                $scope.education[i].endDate = $scope.education[i].endDate;
             }
 
         if ($scope.workexperience === null || $scope.workexperience.length === 0)
+        console.log($scope.education);
+
             $scope.noworkexperience = true;
 
         if ($scope.education === null || $scope.education.length === 0)
@@ -125,15 +130,15 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
             $scope.workexperience.push({
                 positionHeld: $scope.positionHeld,
                 company : $scope.companyname,
-                startDate : $scope.workexperiencestartdate,
-                endDate : $scope.workexperienceenddate
+                startDate : moment($scope.workexperiencestartdate).format('YYYY-MM'),
+                endDate : moment($scope.workexperienceenddate).format('YYYY-MM')
             });
         if($scope.institutename !== undefined && $scope.institutename !== null && $scope.institutename !== "" && $scope.educationdegree !== undefined && $scope.educationdegree !== null && $scope.educationdegree !== "" )
             $scope.education.push({
                 institute: 	$scope.institutename,
                 degree : $scope.educationdegree,
-                startDate : $scope.educationstartdate,
-                endDate : $scope.educationenddate
+                startDate : moment($scope.educationstartdate).format('YYYY-MM'),
+                endDate : moment($scope.educationenddate).format('YYYY-MM')
             });
         if($scope.jobseekerskill !== undefined && $scope.jobseekerskill !== null && $scope.jobseekerskill !== "")
             $scope.skills.push({
@@ -148,19 +153,17 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
             "picture" : $scope.pictureUrl,
             "email" : $scope.jobseeker.email,
             "password" : $scope.jobseeker.password,
-            "selfIntroduction" : $scope.selfIntroduction,
+            "selfIntroduction" : $scope.jobseeker.selfIntroduction,
             "workExperience" : $scope.workexperience,
             "education" : $scope.education,
             "skills" : $scope.skills
         }
-        console.log(dataSend);
 
         $http({
             method : "PUT",
             url : '/jobseeker',
             data : dataSend
         }).success(function(data) {
-
 
             //if success
             $state.go("home.jobseekerprofile", {profileDet: {id: JSON.parse(localStorage.getItem('jobseekerid'))} });
@@ -177,14 +180,6 @@ jobPortalApp.controller('controllerJobSeekerUpdateProfile', function($scope, $st
     }
 
 
-    function timeConverter(date){
-        var a = new Date(date * 1000);
-        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        var year = a.getFullYear();
-        var month = months[a.getMonth()];
-        var time = month + ' ' + year;
-        return time;
-    }
 
 
 })

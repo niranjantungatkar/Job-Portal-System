@@ -38,6 +38,9 @@ jobPortalApp.controller('controllerJobSeekerProfile', function($scope, $state, $
         url : '/jobseeker/'+ JSON.parse(localStorage.getItem('jobseekerid'))
     }).success(function(data) {
 
+        console.log("in get jobseeker");
+        console.log(data)
+
     	$scope.jobseeker = data;
 
     	if(data.selfIntroduction == null)
@@ -50,13 +53,13 @@ jobPortalApp.controller('controllerJobSeekerProfile', function($scope, $state, $
 
         //format workexperience date
         for(var i=0; i<data.workExp.length; i++) {
-            $scope.workexperience[i].startDate = timeConverter($scope.workexperience[i].startDate);
-            $scope.workexperience[i].endDate = timeConverter($scope.workexperience[i].endDate);
+            $scope.workexperience[i].startDate = $scope.workexperience[i].startDate;
+            $scope.workexperience[i].endDate = $scope.workexperience[i].endDate;
         }
 
         for(var i=0; i<data.education.length; i++){
-            $scope.education[i].startDate = timeConverter($scope.education[i].startDate);
-            $scope.education[i].endDate = timeConverter($scope.education[i].endDate);
+            $scope.education[i].startDate = $scope.education[i].startDate;
+            $scope.education[i].endDate = $scope.education[i].endDate;
         }
 
 
@@ -106,7 +109,7 @@ jobPortalApp.controller('controllerJobSeekerProfile', function($scope, $state, $
         var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         var year = a.getFullYear();
         var month = months[a.getMonth()];
-        var time = month + ' ' + year;
+        var time = month+'-'+year;
         return time;
     }
 
