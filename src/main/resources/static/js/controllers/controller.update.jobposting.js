@@ -19,6 +19,9 @@ jobPortalApp.controller('controllerUpdateJobPosting', function($http, $state, $s
 	$scope.reqId = JSON.parse(localStorage.getItem('reqId'));
 	$scope.company={}
 	
+	$scope.fMsg = "Error while updating job posting! Please check the status and other details.";
+	$scope.sMsg = "Job Posting updated Successfully";
+	
 	var pathUrl = "/company/"+$scope.updJobpostingCid
 	$http({
 		method: 'GET',
@@ -68,13 +71,16 @@ jobPortalApp.controller('controllerUpdateJobPosting', function($http, $state, $s
 	
 	$scope.updateJPDetails = function() {
 		
+		$scope.fMsg = false;
+		$scope.sMsg = false;
+		
 		console.log($scope.updateJobPosting);
 		if($scope.updateJobPosting.status == "o")
 			$scope.updateJobPosting.status=0;
 		else if($scope.updateJobPosting.status == "c")
-			$scope.updateJobPosting.status=1;
-		else if($scope.updateJobPosting.status == "f")
 			$scope.updateJobPosting.status=2;
+		else if($scope.updateJobPosting.status == "f")
+			$scope.updateJobPosting.status=1;
 			
 		$http({
 			method:'PUT',
@@ -82,8 +88,12 @@ jobPortalApp.controller('controllerUpdateJobPosting', function($http, $state, $s
 			data:$scope.updateJobPosting
 		}).success(function(data){
 			console.log("Job Posting successfully updated");
+			$scope.sMsg = true;
+			$scope.fMsg = false;
 		}).error(function(data){
 			console.log("Job posting error");
+			$scope.sMsg = false;
+			$scope.fMsg = true;
 		})
 	}
 	

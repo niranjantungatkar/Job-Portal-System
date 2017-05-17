@@ -119,6 +119,7 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
     		{
     			$scope.jobs= data.content;
     		}
+    		console.log($scope.jobs);
      	})
     	console.log($scope.sendSearchData);
     	
