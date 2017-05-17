@@ -44,13 +44,13 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
                 $scope.applicationId = data[i].applicationId;
 
                 //check if offered
-                if(data[i].applicationStatus == 1) {
+                if(data[i].applicationStatus == 3) {
                     $scope.jobisoffered = true;
                     $scope.applicationispending = false;
                 }
 
             	//check for rejected
-                if(data[i].applicationStatus == 2) {
+                if(data[i].applicationStatus == 1) {
                     $scope.jobisrejected = true;
                     $scope.applicationispending = false;
                 }
