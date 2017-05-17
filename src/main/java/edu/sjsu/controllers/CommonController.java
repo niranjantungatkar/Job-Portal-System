@@ -44,6 +44,10 @@ public class CommonController {
 		try {
 			HashMap<String, Object> response = commonService.checkCredential((String) parameterMap.get("email"),
 					(String) parameterMap.get("password"));
+			if((boolean) response.get("verified") == false){
+				return new ResponseEntity(getErrorResponse("401", "User not verified"), responseHeaders,
+						HttpStatus.UNAUTHORIZED);
+			}
 			if (response != null) {
 				session.setAttribute("id", response.get("id"));
 				session.setAttribute("type", response.get("type"));
