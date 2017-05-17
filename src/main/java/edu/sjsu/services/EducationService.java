@@ -23,7 +23,7 @@ public class EducationService {
 
 	public Education createEducation(LinkedHashMap<String, String> educationMap) {
 
-		SimpleDateFormat formatter = new SimpleDateFormat("MMM-yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM");
 
 		Education education = new Education();
 

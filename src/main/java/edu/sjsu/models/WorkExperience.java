@@ -10,6 +10,8 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class WorkExperience {
 
@@ -22,8 +24,10 @@ public class WorkExperience {
 	
 	private String positionHeld;
 	
+	@JsonFormat(pattern="yyyy-MM")
 	private Date startDate;
 	
+	@JsonFormat(pattern="yyyy-MM")
 	private Date endDate;
 	
 	public WorkExperience() {

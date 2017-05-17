@@ -23,7 +23,7 @@ public class WorkExperienceService {
 	public WorkExperience createWorkExperience(LinkedHashMap<String, String> parameters){
 		
 		
-		SimpleDateFormat formatter = new SimpleDateFormat("MMM-YYYY");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM");
 		
 		WorkExperience workExperience = new WorkExperience();
 		workExperience.setCompany(parameters.get("company"));
