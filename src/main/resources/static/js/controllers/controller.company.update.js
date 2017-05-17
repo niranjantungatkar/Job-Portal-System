@@ -120,9 +120,4 @@ jobPortalApp.controller('controllerCompanyUpdate', function($http, $state, $scop
             });
         }
     }
-
-	
-	
-	
-	
 })
