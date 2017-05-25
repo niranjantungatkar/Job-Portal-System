@@ -98,7 +98,7 @@
                                                 <div class="type-ahead-input-wrapper">
                                                     <div class="type-ahead-input">
                                                         <label for="a11y-ember5877" class="label-text">
-                                                            Please enter a valid location
+                                                            Please select salary filter type
                                                         </label>
                                                         <!---->
                                                         <select ng-model="salaryType" ng-init="salaryType = 'salaryrange' " aria-autocomplete="list" autocomplete="off" spellcheck="false" placeholder="Choose salary range type" class="ember-text-field ember-view" style="height: 40px;">
@@ -118,10 +118,6 @@
                                     </div>
                                 </section>
                             </div>
-                            <button class="submit-button button-secondary-large-inverse" style="visibility: hidden;">
-                                Search
-                            </button>
-
                         </div>
 
                         <div id="ember5850" class="shared-search-box is-inline pt3 is-jobs ember-view">
@@ -241,15 +237,10 @@
                                     </div>
                                 </section>
                             </div>
-
-
-                            <button class="submit-button button-secondary-large-inverse" ng-click="search()">
+                            <button class="submit-button button-secondary-large-inverse" ng-click="search(0)">
                                 Search
                             </button>
                         </div>
-
-
-
                     </div>
                 </div>
 
@@ -280,13 +271,11 @@
                                                         <span>
                                                             {{job.title}}
                                                         </span>
-
                                                 </div>
                                             </h3>
                                         </div>
                                         <span class="visually-hidden">Company Name</span>
                                         <h4 class="job-card__company-name">{{job.company.companyName}}</h4>
-
                                         <div class="job-card__footer">
 
                                             <button>
@@ -320,16 +309,9 @@
                                 </ol>
                             </section>
                         </div>
-
-
-
-
-
                         <div id="ember6134" class="fetch-more-items cta-wrap ember-view">
                             <button >
                                 End of job results
-
-                        </span>
                             </button>
                         </div>
                     </div>
@@ -343,10 +325,7 @@
         </div>
     </div>
     <div id="li-modal-container"></div>
-    <!---->
-    <!---->
-    <!---->
-    <!---->
+
     <div id="type-ahead-wormhole" class="type-ahead type-ahead-wormhole">
     </div>
     <div id="toast-wormhole" class="toast-wormhole">

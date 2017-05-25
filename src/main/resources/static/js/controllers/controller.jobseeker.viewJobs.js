@@ -16,11 +16,11 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
      * open range low range = value && max salary - high value - open range.
      */
     $scope.sendSearchData = {
-    		freeText:"",
-    		companies:"",
-    		location:"",
-    		minSalary:"",
-    		maxSalary:"",
+    		"freeText":"",
+    		"companies":"",
+    		"location":"",
+    		"minSalary":"",
+    		"maxSalary":""
     }
     $scope.nojobsfound = false;
    
@@ -63,10 +63,11 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
     
     
     $scope.search = function(page) {
+    	console.log(page)
     	console.log($scope.salaryType)
     	if($scope.salaryType == "singlevalue") {
     		
-    		$scope.sendSearchData.minSalary = -1;
+    		$scope.sendSearchData.minSalary = "-1";
     		
     		$scope.sendSearchData.maxSalary = $scope.jobSearch.singleValue;
     		
@@ -109,49 +110,20 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
     	$scope.sendSearchData.location = $scope.jobSearch.location;
     	$scope.sendSearchData.freeText = $scope.jobSearch.freeText;
     	
-    	
+    	var PathUrl = '/jobposting/search?page='+page+'&size=2'
     	$http({
     		method:'POST',
-    		url:'/jobposting/search?page='+page+'&size=2',
+    		url:PathUrl,
     		data : $scope.sendSearchData
     	}).success(function(data){
-    		if(data.content !== null && data.content.length > 0)
-    		{
-    			$scope.jobs= data.content;
-    		}
-    		console.log($scope.jobs);
+
+    		$scope.jobs = data.content;
      	})
     	console.log($scope.sendSearchData);
+    	console.log(PathUrl);
     	
     }
     
-    /*$scope.mainSearch = "";
-    
-    function findString(obj, regexp) {
-    	  let found = false;
-
-    	  JSON.stringify(obj, (k, v) => {
-    	    if (typeof v === 'string' && v.includes(regexp)) found = true;
-    	    else return v;
-    	  });
-
-    	  return found;
-    	}*/
-    
-    /*$scope.mainFilter = function(job) {
-    	if($scope.mainSearch === null || $scope.mainSearch === "" || $scope.mainSearch === undefined)
-    		return true;
-    	var matchString = JSON.stringify(job);
-    
-    	var words = $scope.mainSearch.split(" ");
-    	
-    	for(var i=0; i<words.length; i++) {
-    		return findString(job, words[i]);		
-    	}
-    	return false;
-    }*/
-
-
     $scope.toViewJob = function(requisitionId){
 
         $state.go("home.viewJob", {jobAndProfile: {profileDet: $state.params.profileDet, requisitionId: requisitionId}} );
