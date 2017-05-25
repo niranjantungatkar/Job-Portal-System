@@ -72,17 +72,25 @@
     	            	</a>
     	            </button>
 
-					<button ng-if ="application.applicationStatus == 3 " ng-click=" showSetInterview() " data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
+					<!-- <button ng-if ="application.applicationStatus == 0 " 
+							ng-click=" showSetInterview() " 
+							data-control-name="jobdetails_topcard_save" 
+							id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
 						<span aria-hidden="true">Set Interview</span>
-					</button>
+					</button> -->
     	           
-    	            <button ng-if ="application.applicationStatus != 1 && application.applicationStatus != 2 && application.applicationStatus != 3" " ng-click="offer(application.applicationId, 3)" data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
+    	            <button ng-if ="application.applicationStatus == 0"  
+    	            		ng-click="offer(application.applicationId, 3)" 
+    	            		data-control-name="jobdetails_topcard_save" 
+    	            		id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
 	                	<span aria-hidden="true">Offer</span>
     	            </button>
     	            </a>
     	           
     	            
-    	            <button ng-click="reject(application.applicationId, 1)"  ng-if ="application.applicationStatus != 1 && application.applicationStatus != 2 && application.applicationStatus != 3" data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
+    	            <button ng-click="reject(application.applicationId, 1)" 
+    	            		ng-if ="application.applicationStatus == 0" 
+    	            		data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
 	                	<span aria-hidden="true">Reject</span>
     	            </button>
     	            <button ng-if ="application.applicationStatus == 3 " data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
@@ -91,10 +99,16 @@
     	            <button ng-if ="application.applicationStatus == 1" data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
 	                	<span aria-hidden="true">Rejected</span>
     	            </button>
+    	            <button ng-if ="application.applicationStatus == 4 " data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
+	                	<span aria-hidden="true">Offer Accepted</span>
+    	            </button>
+    	            <button ng-if ="application.applicationStatus == 5" data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
+	                	<span aria-hidden="true">Offer Rejected</span>
+    	            </button>
       			</div>
 
 
-				<div ng-if="showSetInterviewSection">
+				<!-- <div ng-if="showSetInterviewSection">
 					</br></br></br>
 					<h3> Interview details </h3>
 					<input type="datetime-local" name="time" ng-model="interview.time" maxlength="200" id="topcard-time" class="ember-text-field pe-form-field__text-input ember-view" placeholder="Interview date and time">
@@ -104,7 +118,7 @@
 					<button ng-click="setInterview()" data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
 						<span aria-hidden="true">Set Interview</span>
 					</button>
-				</div>
+				</div> -->
   			</div>
 		</a>
 		</li>   		

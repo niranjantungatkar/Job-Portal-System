@@ -27,11 +27,11 @@ jobPortalApp.controller('controllerCompanyPostings', function($http, $state, $sc
 		}
 		else if ($scope.status == "c") {
 			$scope.count++;
-			return jobposting.status == 1;
+			return jobposting.status == 2;
 		}
 		else if ($scope.status == "f") {
 			$scope.count++;
-			return jobposting.status == 2;
+			return jobposting.status == 1;
 		}
 		if($scope.count == 0)
 			$scope.jobCount = true;

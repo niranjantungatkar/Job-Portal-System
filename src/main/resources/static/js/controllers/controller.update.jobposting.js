@@ -69,10 +69,12 @@ jobPortalApp.controller('controllerUpdateJobPosting', function($http, $state, $s
 		
 	})
 	
+	$scope.fError = "";
 	$scope.updateJPDetails = function() {
 		
 		$scope.fMsg = false;
 		$scope.sMsg = false;
+		$scope.fError = "";
 		
 		console.log($scope.updateJobPosting);
 		if($scope.updateJobPosting.status == "o")
@@ -94,6 +96,7 @@ jobPortalApp.controller('controllerUpdateJobPosting', function($http, $state, $s
 			console.log("Job posting error");
 			$scope.sMsg = false;
 			$scope.fMsg = true;
+			$scope.fError = data.msg;
 		})
 	}
 	
