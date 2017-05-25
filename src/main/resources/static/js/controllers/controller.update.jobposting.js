@@ -19,8 +19,8 @@ jobPortalApp.controller('controllerUpdateJobPosting', function($http, $state, $s
 	$scope.reqId = JSON.parse(localStorage.getItem('reqId'));
 	$scope.company={}
 	
-	$scope.fMsg = "Error while updating job posting! Please check the status and other details.";
-	$scope.sMsg = "Job Posting updated Successfully";
+	$scope.fMsg = false
+	$scope.sMsg = false
 	
 	var pathUrl = "/company/"+$scope.updJobpostingCid
 	$http({
