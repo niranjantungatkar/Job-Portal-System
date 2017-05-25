@@ -16,8 +16,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.jayway.jsonpath.Criteria;
-
 import edu.sjsu.exceptions.CompanyExceptions;
 import edu.sjsu.exceptions.JobApplicationExceptions;
 import edu.sjsu.exceptions.JobPostingException;
