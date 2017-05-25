@@ -55,7 +55,7 @@ public class JobApplicationService {
 		List<JobApplication> jobApplications = jobApplicationRepository.findByApplicantAndApplicationStatus(jobSeeker,
 				0);
 		if (jobApplications.size() >= 5) {
-			return null;
+			throw new JobApplicationExceptions("You already have 5 pending job applications");
 		}
 
 		JobApplication jobApplicationExist = jobApplicationRepository.findByApplicantAndJobPosting(jobSeeker,

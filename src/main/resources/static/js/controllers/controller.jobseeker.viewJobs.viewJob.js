@@ -139,7 +139,13 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
             }
         }).success(function(data){
 
-            $state.go('home.viewJobs', {profileDet: $state.params.jobAndProfile.profileDet} );
+
+            if(data.msg == "You already have 5 pending job applications") {
+                alert("You cannot apply for this job. You have already 5 pending job applications.");
+            }else{
+                $state.go('home.viewJobs', {profileDet: $state.params.jobAndProfile.profileDet} );
+            }
+
 
         }).error(function(error){
             console.log("Error in positing apply with profile");
@@ -204,7 +210,11 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
             }
         }).success(function(data){
 
-            $state.go('home.viewJobs', {profileDet: $state.params.jobAndProfile.profileDet} );
+            if(data.msg == "You already have 5 pending job applications") {
+                alert("You cannot apply for this job. You have already 5 pending job applications.");
+            }else {
+                $state.go('home.viewJobs', {profileDet: $state.params.jobAndProfile.profileDet});
+            }
 
         }).error(function(error){
             console.log("Error in positing apply with resume");
@@ -240,7 +250,7 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
 
         $http({
             method: 'POST',
-            url: '/rejectOffer/',
+            url: '/jobapplication/jobseeker/updatestatus',
             data : {
                 jobApplicationId : $scope.applicationId,
                 status : 5

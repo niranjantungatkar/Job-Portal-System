@@ -166,6 +166,20 @@
                                             </button>
                                         </div>
 
+                                        <!-- Offer accepted -->
+                                        <div ng-if="jobseekerverified && offeraccepted" id="ember22625" class="jobs-s-apply--top-card jobs-s-apply--fadein mr2 jobs-s-apply ember-view">
+                                            <button class="jobs-s-apply__button">
+                                                <span aria-hidden="true">Offer Accepted</span>
+                                            </button>
+                                        </div>
+
+                                        <!-- Offer rejected -->
+                                        <div ng-if="jobseekerverified && offerrejected" id="ember22625" class="jobs-s-apply--top-card jobs-s-apply--fadein mr2 jobs-s-apply ember-view">
+                                            <button class="jobs-s-apply__button">
+                                                <span aria-hidden="true">Offer Rejected</span>
+                                            </button>
+                                        </div>
+
                                         <!-- for offered application -->
                                         <div ng-if="jobseekerverified && jobisoffered && !offeraccepted && !offerrejected" id="ember22625" class="jobs-s-apply--top-card jobs-s-apply--fadein mr2 jobs-s-apply ember-view">
                                             <button ng-click="acceptOffer(job.applicationId)" class="jobs-s-apply__button">
@@ -212,9 +226,17 @@
                                             </p>
                                             </br>
                                             Skills required for this position
-                                            <p>
-                                                {{job.responsibilities}}
-                                            </p>
+                                            <div class="pv-skill-entity__header" ng-repeat="skill in job.skills">
+                                                <div class="tooltip-container">
+                                                    <a data-control-name="edit_endorsements" id="ember4671" class="featured-skill-entity-wrapper ember-view">
+                                                        <div class="pv-skill-entity__pill-contents static-pill">
+                                                            <span class="pv-skill-entity__skill-name truncate Sans-15px-black-85%-semibold inline-block ">
+                                                                {{skill.skill}}
+                                                            </span>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
 
                                     </div>
