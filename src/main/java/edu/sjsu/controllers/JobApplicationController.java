@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.sjsu.exceptions.InterviewException;
 import edu.sjsu.exceptions.JobApplicationExceptions;
 import edu.sjsu.exceptions.JobPostingException;
 import edu.sjsu.exceptions.JobSeekerExceptions;
 import edu.sjsu.models.JobApplication;
 import edu.sjsu.models.JobPosting;
 import edu.sjsu.models.JobSeeker;
+import edu.sjsu.services.InterviewService;
 import edu.sjsu.services.JobApplicationService;
 import edu.sjsu.services.JobPostingService;
 import edu.sjsu.services.JobSeekerService;
@@ -36,6 +38,9 @@ public class JobApplicationController {
 
 	@Autowired
 	JobSeekerService jobSeekerService;
+
+	@Autowired
+	InterviewService interviewService;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/jobapplication", method = RequestMethod.POST)
@@ -131,6 +136,49 @@ public class JobApplicationController {
 			return new ResponseEntity(jobApplication, responseHeaders, HttpStatus.OK);
 		} catch (JobApplicationExceptions ex) {
 			return new ResponseEntity(getErrorResponse("200", ex.getMessage()), responseHeaders, HttpStatus.OK);
+		} catch (Exception ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/jobapplication/interview/schedule", method = RequestMethod.POST)
+	public ResponseEntity scheduleInterview(@RequestBody Map<String, Object> params) throws JobApplicationExceptions {
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+		try {
+			JobApplication jobApplication = interviewService.scheduleInterview(params);
+			if (jobApplication != null) {
+				interviewService.sendInterviewInvitation(params);
+			}
+			return new ResponseEntity(jobApplication, responseHeaders, HttpStatus.OK);
+		} catch (JobApplicationExceptions ex) {
+			return new ResponseEntity(getErrorResponse("404", ex.getMessage()), responseHeaders, HttpStatus.NOT_FOUND);
+		} catch (Exception ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/jobapplication/interview/update", method = RequestMethod.POST)
+	public ResponseEntity getInterviews(@RequestBody Map<String, Object> params) {
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+		try {
+			interviewService.updateInterview(params);
+			HashMap<String, String> result = new HashMap<>();
+			result.put("code", "200");
+			result.put("msg", "true");
+			return new ResponseEntity(result, responseHeaders, HttpStatus.OK);
+		} catch (InterviewException ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception ex) {
 			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
 					HttpStatus.INTERNAL_SERVER_ERROR);

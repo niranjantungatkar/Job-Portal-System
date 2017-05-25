@@ -1,8 +1,11 @@
 package edu.sjsu.models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -29,7 +32,17 @@ public class JobApplication {
 									// 4, 5 - changed by job seeker
 	
 	//private Interview interview; -- to be updated - logic not clear & it's bonus
+	@OneToMany
+	private List<Interview> interviews;
 	
+	public List<Interview> getInterviews() {
+		return interviews;
+	}
+
+	public void setInterviews(List<Interview> interviews) {
+		this.interviews = interviews;
+	}
+
 	public JobApplication() {
 		super();
 	}
