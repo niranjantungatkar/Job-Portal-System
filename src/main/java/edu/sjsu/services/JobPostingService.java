@@ -141,7 +141,7 @@ public class JobPostingService {
 		if (freeText.equals("")) {
 			criteria = new ArrayList<>();
 		} else {
-			criteria = new ArrayList<>(Arrays.asList(freeText.split("\\s*\\s\\s*")));
+			criteria = new ArrayList<>(Arrays.asList(freeText.split("\\s(,|\\s)\\s*")));
 		}
 
 		List<String> keyWord = new ArrayList<>();
@@ -152,6 +152,10 @@ public class JobPostingService {
 		keyWord.add("near");
 		keyWord.add("about");
 		keyWord.add("around");
+		keyWord.add("similar");
+		keyWord.add("show");
+		keyWord.add("on");
+		keyWord.add("the");
 
 		criteria.removeAll(keyWord);
 
@@ -159,14 +163,14 @@ public class JobPostingService {
 		if (companiesStr.equals("")) {
 			counter++;
 		}
-		List<String> items = new ArrayList<>(Arrays.asList(companiesStr.split("\\s*,\\s*")));
+		List<String> items = new ArrayList<>(Arrays.asList(companiesStr.split("\\s*(,|\\s)\\s*")));
 		items.addAll(criteria);
 
 		String locationsStr = (String) parameters.get("location");
 		if (locationsStr.equals("")) {
 			counter++;
 		}
-		List<String> locations = new ArrayList<>(Arrays.asList(locationsStr.split("\\s*,\\s*")));
+		List<String> locations = new ArrayList<>(Arrays.asList(locationsStr.split("\\s*(,|\\s)\\s*")));
 		locations.addAll(criteria);
 
 		int salaryMin = 0;
@@ -212,8 +216,8 @@ public class JobPostingService {
 			for (String blindSearch : criteria) {
 
 				freeTextSet.addAll(jobPostingRepository
-						.findByStatusAndSkillsInOrJobDescriptionContainingIgnoreCaseOrResponsibilitiesContainingIgnoreCaseOrTitleContainingIgnoreCase(
-								0, skills, blindSearch, blindSearch, blindSearch, pageable));
+						.findByStatusAndSkillsInOrJobDescriptionContainingIgnoreCaseOrResponsibilitiesContainingIgnoreCaseOrTitleContainingIgnoreCaseOrLocationContainingIgnoreCase(
+								0, skills, blindSearch, blindSearch, blindSearch, blindSearch, pageable));
 
 			}
 
