@@ -27,7 +27,7 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
     //get all jobs
     $http({
         method: 'POST',
-        url: '/jobposting/search?page='+0+'&size=5',
+        url: '/jobposting/search?page='+0+'&size=10',
         data: $scope.sendSearchData
     }).success(function(data){
     	console.log(data);
@@ -43,7 +43,7 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
 
         $http({
             method: 'GET',
-            url: '/jobposting/search?page='+page+'&size=2'
+            url: '/jobposting/search?page='+page+'&size=10'
         }).success(function(data){
         	console.log(data)
             if(data.content !== null && data.content.length > 0) {
@@ -110,7 +110,7 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
     	$scope.sendSearchData.location = $scope.jobSearch.location;
     	$scope.sendSearchData.freeText = $scope.jobSearch.freeText;
     	
-    	var PathUrl = '/jobposting/search?page='+page+'&size=2'
+    	var PathUrl = '/jobposting/search?page='+page+'&size=10'
     	$http({
     		method:'POST',
     		url:PathUrl,
@@ -118,6 +118,7 @@ jobPortalApp.controller('controllerViewJobs', function($scope, $state, $statePar
     	}).success(function(data){
 
     		$scope.jobs = data.content;
+    		console.log(data.content);
      	})
     	console.log($scope.sendSearchData);
     	console.log(PathUrl);
