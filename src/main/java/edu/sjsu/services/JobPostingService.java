@@ -163,14 +163,14 @@ public class JobPostingService {
 		if (companiesStr.equals("")) {
 			counter++;
 		}
-		List<String> items = new ArrayList<>(Arrays.asList(companiesStr.split("\\s*(,|\\s)\\s*")));
+		List<String> items = new ArrayList<>(Arrays.asList(companiesStr.split("\\s*(,)\\s*")));
 		items.addAll(criteria);
 
 		String locationsStr = (String) parameters.get("location");
 		if (locationsStr.equals("")) {
 			counter++;
 		}
-		List<String> locations = new ArrayList<>(Arrays.asList(locationsStr.split("\\s*(,|\\s)\\s*")));
+		List<String> locations = new ArrayList<>(Arrays.asList(locationsStr.split("\\s*(,)\\s*")));
 		locations.addAll(criteria);
 
 		int salaryMin = 0;
