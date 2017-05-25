@@ -1,5 +1,6 @@
 package edu.sjsu.services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -117,10 +118,16 @@ public class JobApplicationService {
 	 */
 	public List<JobApplication> getJobApplicationByJobSeeker(JobSeeker jobseeker) throws JobApplicationExceptions {
 		List<JobApplication> jobApplications = jobApplicationRepository.findByApplicant(jobseeker);
-		if (jobApplications.size() == 0) {
+		List<JobApplication> openJobApplication = new ArrayList<>();
+		for (JobApplication jobApp : jobApplications) {
+			if (jobApp.getJobPosting().getStatus() == 0) {
+				openJobApplication.add(jobApp);
+			}
+		}
+		if (openJobApplication.size() == 0) {
 			throw new JobApplicationExceptions("No Job application found");
 		}
-		return jobApplications;
+		return openJobApplication;
 	}
 
 	/**
@@ -186,15 +193,15 @@ public class JobApplicationService {
 		JobApplication jobApplication = jobApplicationRepository.findByApplicationId(jobApplicationId);
 		JobSeeker applicant = jobApplication.getApplicant();
 		int oldStatus = jobApplication.getApplicationStatus();
-		
-		if(status == 2){
-			if(oldStatus > 2){
+
+		if (status == 2) {
+			if (oldStatus > 2) {
 				throw new JobApplicationExceptions("You can not cancel the application once you have offered a job");
-			}else{
+			} else {
 				jobApplication.setApplicationStatus(status);
 			}
 		}
-		
+
 		if (jobApplication.getApplicationStatus() == 3) {
 			jobApplication.setApplicationStatus(status);
 
@@ -218,8 +225,8 @@ public class JobApplicationService {
 						message.append("\nRequisition Id : " + app1.getJobPosting().getRequisitionId());
 						message.append("\nApplication Id : " + app1.getApplicationId());
 						message.append("\n\nBest Regards,");
-						message.append("\nTalent Acquisition Team "
-								+ app1.getJobPosting().getCompany().getCompanyName());
+						message.append(
+								"\nTalent Acquisition Team " + app1.getJobPosting().getCompany().getCompanyName());
 
 						emailService.sendMail(app1.getApplicant().getEmail(), subject.toString(), message.toString());
 					}
