@@ -46,17 +46,20 @@ public class InterviewService {
 
 	@Autowired
 	JobApplicationRepository jobApplicationRepository;
-	
+
 	@Autowired
 	InterviewRepository interviewRepository;
 
-	public JobApplication scheduleInterview(Map<String, Object> params) throws JobApplicationExceptions{
-	
+	@Autowired
+	EmailService emailService;
+
+	public JobApplication scheduleInterview(Map<String, Object> params) throws JobApplicationExceptions {
+
 		String jobApplicationId = (String) params.get("jobApplicationId");
-		String startTimeString = (String)params.get("startTime");
+		String startTimeString = (String) params.get("startTime");
 		String endTimeString = (String) params.get("endTime");
 		Date startTime = null;
-		Date endTime=  null;
+		Date endTime = null;
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd:hh-mm-ss");
 		try {
 			startTime = formatter.parse(startTimeString);
@@ -66,30 +69,47 @@ public class InterviewService {
 		}
 
 		JobApplication jobApplication = jobApplicationRepository.findByApplicationId(jobApplicationId);
-		if(null == jobApplication){
+		if (null == jobApplication) {
 			throw new JobApplicationExceptions("No job Application found");
 		}
 		Interview interview = new Interview();
 		interview.setStartTime(startTime);
 		interview.setEndTime(endTime);
-		interview.setStatus(0);		// 0- status pending
+		interview.setStatus(0); // 0- status pending
 		interviewRepository.save(interview);
 		jobApplication.getInterviews().add(interview);
 		jobApplicationRepository.save(jobApplication);
 		return jobApplication;
 	}
-	
-	
-	public Boolean updateInterview(Map<String, Object> params) throws InterviewException{
-		int interviewNo = Integer.parseInt((String)params.get("interviewNo"));
-		int status = Integer.parseInt((String)params.get("status"));
+
+	public Boolean updateInterview(Map<String, Object> params) throws InterviewException {
+
+		String applicationId = (String) params.get("jobApplicationId");
+		int interviewNo = Integer.parseInt((String) params.get("interviewNo"));
+		int status = Integer.parseInt((String) params.get("status"));
 		Interview interview = interviewRepository.findByInterviewNo(interviewNo);
-		if(status == 3){
+		if (status == 3) {
 			interview.setStatus(status);
-		}else{
-			if(interview.getStatus() != 0){
+		} else {
+			if (interview.getStatus() != 0) {
 				throw new InterviewException("You can not update the status of interview at this stage");
 			}
+			JobApplication jobApp = jobApplicationRepository.findByApplicationId(applicationId);
+			StringBuilder message = new StringBuilder();
+			if (status == 1) {
+				message.append("The applicant has 'ACCEPTED' the interview.\n");
+			}
+			if (status == 2) {
+				message.append("The applicant has 'REJECTED' the interview.\n");
+			}
+			message.append("\nPosition : " + jobApp.getJobPosting().getTitle());
+			message.append("\nJob Requisition Id : " + jobApp.getJobPosting().getRequisitionId());
+			message.append("\nApplication Id : " + jobApp.getApplicationId());
+			message.append("\nCandidate Name : " + jobApp.getApplicant().getFirstname() + " "
+					+ jobApp.getApplicant().getLastname());
+			message.append("\n\nBest Regards, \nJob Portal Team");
+			emailService.sendMail(jobApp.getJobPosting().getCompany().getEmail(), "Interview Process update",
+					message.toString());
 			interview.setStatus(status);
 		}
 		interviewRepository.save(interview);
@@ -143,7 +163,7 @@ public class InterviewService {
 
 		FileOutputStream fout = null;
 		try {
-			fout = new FileOutputStream("mycalendar.ics");
+			fout = new FileOutputStream("./mycalendar.ics");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -163,7 +183,7 @@ public class InterviewService {
 		try {
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
 			StringBuilder messageBody = new StringBuilder();
-			
+
 			helper.setTo(jobApplication.getApplicant().getEmail());
 			helper.setSubject("Your Interview Schedule for " + jobApplication.getJobPosting().getTitle() + " position");
 			messageBody.append("Hi " + jobApplication.getApplicant().getFirstname() + ",\n\n");
@@ -178,7 +198,7 @@ public class InterviewService {
 			messageBody.append(
 					"\nTalent Acquisition Team at " + jobApplication.getJobPosting().getCompany().getCompanyName());
 			helper.setText(messageBody.toString());
-			file = new FileSystemResource("/home/ajay/Spring/Job-Portal-System/mycalendar.ics");
+			file = new FileSystemResource("./mycalendar.ics");
 			helper.addAttachment(file.getFilename(), file);
 		} catch (MessagingException e) {
 			throw new MailParseException(e);
