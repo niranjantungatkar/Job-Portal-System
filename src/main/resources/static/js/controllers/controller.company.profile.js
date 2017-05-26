@@ -59,6 +59,10 @@ jobPortalApp.controller('controllerCompanyProfile', function($http, $state, $sco
 	$rootScope.viewJobPostings = function() {
 		$state.go('home.viewjobpostings', { companyDet: {  id: $scope.cid } })
 	}
+
+    $rootScope.gotoCompanyInterviews = function() {
+        $state.go("home.companyInterviews", {companyDet: {id: $scope.cid} });
+    }
 	
 	
 	/*$http({

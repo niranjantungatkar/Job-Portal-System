@@ -80,6 +80,13 @@ jobPortalApp.config(function($stateProvider, $urlRouterProvider){
                 params: {profileDet: null},
                 controller: 'controllerAppliedJobs'
             })
+        .state('home.jobseekerInterviews',
+            {
+                url:'interviews',
+                templateUrl: './templates/view.jobseeker.interviews.html',
+                params: {profileDet: null},
+                controller: 'controllerJobseekerInterviews'
+            })
 		.state('home.companyprofile', 
 			{
 				url:'company',
@@ -122,6 +129,13 @@ jobPortalApp.config(function($stateProvider, $urlRouterProvider){
 				controller:'controllerApplications',
 				params:{job:null}
 			})
+        .state('home.companyInterviews',
+            {
+                url:'allInterviews',
+                templateUrl: './templates/view.company.interviews.html',
+                params: {companyDet: null},
+                controller: 'controllerCompanyInterviews'
+            })
 	
 }).controller('mainController', function(){
 });

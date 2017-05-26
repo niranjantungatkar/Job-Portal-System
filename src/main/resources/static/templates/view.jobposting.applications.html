@@ -72,12 +72,9 @@
     	            	</a>
     	            </button>
 
-					<!-- <button ng-if ="application.applicationStatus == 0 " 
-							ng-click=" showSetInterview() " 
-							data-control-name="jobdetails_topcard_save" 
-							id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
+					<button ng-if ="application.applicationStatus == 0 " ng-click=" showSetInterview() " data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary">
 						<span aria-hidden="true">Set Interview</span>
-					</button> -->
+					</button>
     	           
     	            <button ng-if ="application.applicationStatus == 0"  
     	            		ng-click="offer(application.applicationId, 3)" 
@@ -105,20 +102,25 @@
     	            <button ng-if ="application.applicationStatus == 5" data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
 	                	<span aria-hidden="true">Offer Rejected</span>
     	            </button>
+					<h3 ng-show="interviewScheduled" style="color: green">Interview scheduled successfull</h3>
       			</div>
 
 
-				<!-- <div ng-if="showSetInterviewSection">
+				<div ng-if="showSetInterviewSection">
 					</br></br></br>
 					<h3> Interview details </h3>
-					<input type="datetime-local" name="time" ng-model="interview.time" maxlength="200" id="topcard-time" class="ember-text-field pe-form-field__text-input ember-view" placeholder="Interview date and time">
-					</br>
+					<hr>
+					From:
+					<input type="datetime-local" name="datetime-local" ng-model="interview.from" maxlength="200" id="topcard-time" class="ember-text-field pe-form-field__text-input ember-view" placeholder="Interview date and time">
+					To:
+					<input type="datetime-local" name="datetime-local" ng-model="interview.to" maxlength="200" id="topcard-time" class="ember-text-field pe-form-field__text-input ember-view" placeholder="Interview date and time">
+					Location:
 					<input type="text" name="location" ng-model="interview.location" maxlength="200" id="topcard-location" class="ember-text-field pe-form-field__text-input ember-view" placeholder="Interview location">
 
-					<button ng-click="setInterview()" data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
+					<button ng-click="setInterview(application.applicationId)" data-control-name="jobdetails_topcard_save" id="ember22596" class="jobs-s-save--large-secondary mr2 jobs-s-save ember-view">
 						<span aria-hidden="true">Set Interview</span>
 					</button>
-				</div> -->
+				</div>
   			</div>
 		</a>
 		</li>   		

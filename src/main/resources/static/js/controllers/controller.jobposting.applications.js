@@ -12,6 +12,9 @@ jobPortalApp.controller('controllerApplications', function($http, $state, $scope
 	 * make request to get all applications
 	 */
 	$scope.company = {}
+	$scope.interview = {};
+    $scope.showSetInterviewSection = false;
+    $scope.interviewScheduled = false;
 	
 	console.log("in applications")
 	$http({
@@ -52,6 +55,30 @@ jobPortalApp.controller('controllerApplications', function($http, $state, $scope
 		}).success(function(data){
 			$state.reload();
 		})
+	}
+
+	$scope.showSetInterview = function() {
+		$scope.showSetInterviewSection = true;
+	}
+
+	$scope.setInterview = function(id) {
+        var data = {
+		   	jobApplicationId : id,
+			startTime : moment($scope.interview.from).format("YYYY-MM-DD:HH-mm-ss"),
+			endTime : moment($scope.interview.to).format("YYYY-MM-DD:HH-mm-ss")
+		}
+        $http({
+            method: 'POST',
+            url: '/jobapplication/interview/schedule',
+            data : data
+        }).success(function(data){
+
+            $scope.showSetInterviewSection = false;
+            $scope.interviewScheduled = true;
+
+        }).error(function(err){
+        	alert("There was some error in setting an interview. Please refresh and try again");
+		});
 	}
 	
 })

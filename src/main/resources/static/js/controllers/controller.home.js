@@ -239,10 +239,17 @@ jobPortalApp.controller('controllerHome',function($scope, $http, $state, userSes
 			   verified: JSON.parse(localStorage.getItem('sessionVerified')) } });
 	}
 
+    $scope.gotoInterviews = function() {
+        $state.go("home.jobseekerInterviews", {profileDet: {id: JSON.parse(localStorage.getItem('sessionId')),
+            type: JSON.parse(localStorage.getItem('sessionType')),
+            verified: JSON.parse(localStorage.getItem('sessionVerified'))}})
+    }
+
 	
 	$scope.gotoHome = function() {
 		$state.go("home.companyprofile", {companyDet: {id: JSON.parse(localStorage.getItem('sessionId')),
 			   type: JSON.parse(localStorage.getItem('sessionType')),
 			   verified: JSON.parse(localStorage.getItem('sessionVerified'))}})
 	}
+
 });

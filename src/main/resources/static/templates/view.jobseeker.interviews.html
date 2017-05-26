@@ -1,0 +1,121 @@
+<link rel="stylesheet" href="https://static.licdn.com/sc/h/br/e5f7dey6qd6ogtlcygkj2j7zt">
+<link rel="stylesheet" href="https://static.licdn.com/sc/h/br/7wwsuzq8ypctt24b973gr089n">
+<link rel="stylesheet" href="https://static.licdn.com/sc/h/br/6x2ymwyjoslvfumll21syppf7">
+
+
+<div id="ember2108" class="ember-view">
+    <div aria-live="polite" role="status" id="ember2130" class="notification-container ember-view">
+        <!---->
+    </div>
+    <!---->
+    <div class="application-outlet ">
+        <!---->
+        <!---->
+        <aside id="msg-overlay" class="msg-overlay-container ember-view">
+            <!---->
+            <!---->
+            <!---->
+
+            <!---->
+            <!---->
+        </aside>
+        <div class="authentication-outlet">
+            <div id="careers" class=" ghost-animate-in">
+                <!---->
+
+                <section role="main" class="jobs-boxes pt4">
+                    <!---->
+                    <div id="ember5933" class="jobs-jymbii jobs-box jobs-box--full-width jobs-box--with-cta-large ember-view">
+                        <div class="pt5 ph5 pb0">
+                            <h2 class="jobs-box__title jobs-box__title--no-bottom">
+                                Your interviews
+                            </h2>
+
+                        </div>
+                        <ul class="card-list card-list--tile jobs-jymbii__list">
+                            <li ng-repeat="interview in interviews" id="ember5969" class="jobs-jymbii__list-item jobs-jymbii__list-item--fadein card-list__item job-card job-card--tile ember-view">
+                                <a href="" data-control-name="A_jobshome_job_link_click"  id="ember5983" class="job-card__link-wrapper js-focusable-card ember-view">
+                                    <div class="job-card__image-and-sponsored-container">
+                                        <figure class="job-card__logo-wrapper">
+                                            <img class="lazy-image job-card__logo-image loaded" title="" alt="" height="64" width="64" src="{{interview.companyLogo}}">
+                                        </figure>
+
+                                    </div>
+                                    <div class="job-card__content-wrapper">
+                                        <!---->    <span class="visually-hidden">Job Title</span>
+                                        <div class="job-card__title-line">
+                                            <h3 id="ember5993" class="job-card__title ember-view">
+                                                <div class="truncate-multiline--truncation-target">
+                                                    <span class="truncate-multiline--last-line-wrapper">
+                                                        <span>
+                                                            {{interview.jobTitle}}
+                                                        </span>
+
+                                                </div>
+                                            </h3>
+                                        </div>
+                                        <span class="visually-hidden">Company Name</span>
+                                        <h4 class="job-card__company-name">{{interview.companyName}}</h4>
+
+                                        <!--interview date-time-->
+                                        <span class="visually-hidden">Start time : </span>
+                                        <h4 class="job-card__company-name">From : {{interview.startTime}}</h4>
+
+                                        <span class="visually-hidden">End time : </span>
+                                        <h4 class="job-card__company-name">To : {{interview.endTime}}</h4>
+
+                                        <div class="job-card__footer">
+
+                                            <div id="ember22625" class="jobs-s-apply--top-card jobs-s-apply--fadein mr2 jobs-s-apply ember-view">
+                                                <button ng-click="acceptInterview(interview.applicationId, interview.interviewNo)" ng-if=" interview.status == '0' " data-control-name="jobdetails_topcard_apply_starters" class="jobs-s-save--large-secondary" data-ember-action="" data-ember-action-22626="22626" style="width: 100px; height: 35px;">
+                                                    <span aria-hidden="true">Accept</span>
+                                                </button>
+                                                <button ng-if=" interview.status == '1' " data-control-name="jobdetails_topcard_apply_starters" class="jobs-s-save--large-secondary" data-ember-action="" data-ember-action-22626="22626">
+                                                    <span aria-hidden="true">Accepted</span>
+                                                </button>
+                                                <button ng-click="rejectInterview(interview.applicationId, interview.interviewNo)" ng-if=" interview.status == '0' " data-control-name="jobdetails_topcard_apply_starters" class="jobs-s-save--large-secondary" data-ember-action="" data-ember-action-22626="22626" style="width: 100px; height: 35px;">
+                                                    <span aria-hidden="true">Reject</span>
+                                                </button>
+                                                <button ng-if=" interview.status == '2' " data-control-name="jobdetails_topcard_apply_starters" class="jobs-s-save--large-secondary" data-ember-action="" data-ember-action-22626="22626">
+                                                    <span aria-hidden="true">Rejected</span>
+                                                </button>
+                                                <button ng-if=" interview.status == '3' " data-control-name="jobdetails_topcard_apply_starters" class="jobs-s-save--large-secondary" data-ember-action="" data-ember-action-22626="22626">
+                                                    <span aria-hidden="true">Cancelled</span>
+                                                </button>
+                                            </div>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+
+                        </ul>
+                        <div id="ember6134" class="fetch-more-items cta-wrap ember-view">
+                            <button >
+                                End of interview results
+
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                </section>
+                <!---->
+                <div id="ember6139" class="jobs-box--generic-occludable-area-small ember-view">
+                    <!---->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="li-modal-container"></div>
+    <!---->
+    <!---->
+    <!---->
+    <!---->
+    <div id="type-ahead-wormhole" class="type-ahead type-ahead-wormhole">
+    </div>
+    <div id="toast-wormhole" class="toast-wormhole">
+    </div>
+    <iframe sandbox="allow-scripts" style="display:none;" src="//radar.cedexis.com/1/11326/radar.html">
+    </iframe>
+</div>
