@@ -98,7 +98,7 @@
                             <!---->
                             <div id="ember22582" class="jobs-box jobs-box--fadein jobs-box--full-width jobs-details-top-card ember-view">
                                 <div class="jobs-details-top-card__company-logo-container EntityPhoto-square-5">
-                                    <a data-control-name="company_link" href="/company-beta/21836/life/" id="ember22583" class="ember-view">      <img class="lazy-image jobs-details-top-card__company-logo loaded" alt="" height="122" width="122" src="https://media.licdn.com/mpr/mpr/shrink_200_200/AAEAAQAAAAAAAAjVAAAAJGM0ZDU2YWIyLThlNmUtNGFkZC04ZmVmLTEwNzc3MzQ4ZTgxOA.png">
+                                    <a data-control-name="company_link" id="ember22583" class="ember-view">      <img class="lazy-image jobs-details-top-card__company-logo loaded" alt="" height="122" width="122" src="{{job.company.logoURL}}">
                                     </a>
                                 </div>
 
@@ -146,16 +146,17 @@
                                                 <span aria-hidden="true">Cancel</span>
                                             </button>
                                         </div>
+                                        <div ng-if="jobisapplied && applicationiscancelled" id="ember22625" class="jobs-s-apply--top-card jobs-s-apply--fadein mr2 jobs-s-apply ember-view">
+
+                                            <button data-control-name="jobdetails_topcard_apply_starters" class="jobs-s-apply__button" data-ember-action="" data-ember-action-22626="22626">
+                                                <span aria-hidden="true">Cancelled</span>
+                                            </button>
+                                        </div>
 
                                         <div ng-if="jobseekerverified && !jobisapplied" id="ember22625" class="jobs-s-apply--top-card jobs-s-apply--fadein mr2 jobs-s-apply ember-view">
 
                                             <button ng-click="applywithprofile()" data-control-name="jobdetails_topcard_apply_starters" class="jobs-s-apply__button" data-ember-action="" data-ember-action-22626="22626">
                                                 <span aria-hidden="true">Apply with profile</span>
-                                            </button>
-                                        </div>
-                                        <div ng-if="jobseekerverified && !jobisapplied" id="ember22625" class="jobs-s-apply--top-card jobs-s-apply--fadein mr2 jobs-s-apply ember-view">
-                                            <button ng-click="applywithresume()" data-control-name="jobdetails_topcard_apply_starters" class="jobs-s-apply__button" data-ember-action="" data-ember-action-22626="22626">
-                                                <span aria-hidden="true">Apply with resume</span>
                                             </button>
                                         </div>
 
@@ -165,6 +166,12 @@
                                                 <span aria-hidden="true">Upload resume</span>
                                             </button>
                                         </div>
+                                        <div ng-if="jobseekerverified && !jobisapplied" id="ember22625" class="jobs-s-apply--top-card jobs-s-apply--fadein mr2 jobs-s-apply ember-view">
+                                            <button ng-click="applywithresume()" data-control-name="jobdetails_topcard_apply_starters" class="jobs-s-apply__button" data-ember-action="" data-ember-action-22626="22626">
+                                                <span aria-hidden="true">Apply with resume</span>
+                                            </button>
+                                        </div>
+
 
                                         <!-- Offer accepted -->
                                         <div ng-if="jobseekerverified && offeraccepted" id="ember22625" class="jobs-s-apply--top-card jobs-s-apply--fadein mr2 jobs-s-apply ember-view">

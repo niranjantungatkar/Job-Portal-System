@@ -1,4 +1,4 @@
-jobPortalApp.controller('controllerUpdateJobPosting', function($http, $state, $scope, $rootScope) {
+jobPortalApp.controller('controllerUpdateJobPosting', function($http, $state, $scope, $rootScope, $window) {
 	
 	if($state.params.companyDet !== null && $state.params.companyDet !== "" && $state.params.companyDet !== undefined) {
 		
@@ -92,6 +92,7 @@ jobPortalApp.controller('controllerUpdateJobPosting', function($http, $state, $s
 			console.log("Job Posting successfully updated");
 			$scope.sMsg = true;
 			$scope.fMsg = false;
+            $window.scrollTo(0,0);
 		}).error(function(data){
 			console.log("Job posting error");
 			$scope.sMsg = false;

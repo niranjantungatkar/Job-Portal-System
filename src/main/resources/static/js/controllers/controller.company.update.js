@@ -1,4 +1,4 @@
-jobPortalApp.controller('controllerCompanyUpdate', function($http, $state, $scope, Upload, $timeout) {
+jobPortalApp.controller('controllerCompanyUpdate', function($http, $state, $scope, Upload, $timeout, $window) {
 	
 	if($state.params.companyDet !== null && $state.params.companyDet !== "" && $state.params.companyDet !== undefined) {
 		
@@ -64,6 +64,7 @@ jobPortalApp.controller('controllerCompanyUpdate', function($http, $state, $scop
 			console.log("asfasdfasdfasd");
 			$scope.sMsg=true;
 			$scope.fMsg=false;
+			$window.scrollTo(0,0);
 		}).error(function(data){
 			$scope.updateCompanyError=true;
 			$scope.sMsg=false;

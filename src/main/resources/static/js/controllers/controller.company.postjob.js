@@ -1,4 +1,4 @@
-jobPortalApp.controller('controllerCompanyPostJob', function($scope, $stateParams, $state, $log, $http) {
+jobPortalApp.controller('controllerCompanyPostJob', function($scope, $stateParams, $state, $log, $http, $window) {
 	
 	if($state.params.companyDet !== null && $state.params.companyDet !== "" && $state.params.companyDet !== undefined) {
 		console.log("fasdfasds")
@@ -48,6 +48,7 @@ jobPortalApp.controller('controllerCompanyPostJob', function($scope, $stateParam
 		}).success(function(data){
 			console.log("job created");
 			$scope.sMsg=true;
+            $window.scrollTo(0,0);
 		}).error(function(data){
 			console.log("errro");
 			$scope.fMsg=true;

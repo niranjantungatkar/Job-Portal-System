@@ -7,6 +7,7 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
     $scope.offeraccepted = false;
     $scope.offerrejected = false;
     $scope.applicationispending = false;
+    $scope.applicationiscancelled = false;
 
     //check whether user is verified
     if($state.params.jobAndProfile.profileDet.verified == true)
@@ -67,6 +68,9 @@ jobPortalApp.controller('controllerViewJob', function($scope, $state, $statePara
 
                 if(data[i].applicationStatus == 0)
                     $scope.applicationispending = true;
+
+                if(data[i].applicationStatus == 2)
+                    $scope.applicationiscancelled = true;
             }        
         }
     }).error(function(error) {
