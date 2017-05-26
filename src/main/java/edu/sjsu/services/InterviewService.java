@@ -6,8 +6,10 @@ import java.io.IOException;
 import java.net.SocketException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +19,16 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import edu.sjsu.exceptions.CompanyExceptions;
 import edu.sjsu.exceptions.InterviewException;
 import edu.sjsu.exceptions.JobApplicationExceptions;
+import edu.sjsu.models.Company;
 import edu.sjsu.models.Interview;
 import edu.sjsu.models.JobApplication;
+import edu.sjsu.models.JobPosting;
 import edu.sjsu.repositories.InterviewRepository;
 import edu.sjsu.repositories.JobApplicationRepository;
+import edu.sjsu.repositories.JobPostingRepository;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.ValidationException;
@@ -48,10 +54,16 @@ public class InterviewService {
 	JobApplicationRepository jobApplicationRepository;
 
 	@Autowired
+	JobPostingRepository jobPostingRepository;
+
+	@Autowired
 	InterviewRepository interviewRepository;
 
 	@Autowired
 	EmailService emailService;
+
+	@Autowired
+	CompanyService companyService;
 
 	public JobApplication scheduleInterview(Map<String, Object> params) throws JobApplicationExceptions {
 
@@ -114,6 +126,17 @@ public class InterviewService {
 		}
 		interviewRepository.save(interview);
 		return true;
+	}
+
+	public List<JobApplication> getApplicationsByCompany(Map<String, Object> map) throws CompanyExceptions {
+		String companyName = (String) map.get("companyName");
+		Company company = companyService.getCompany(companyName);
+		List<JobPosting> jobPostings = jobPostingRepository.findByCompany(company);
+		List<JobApplication> allApplications = new ArrayList<>();
+		for (JobPosting jobPosting : jobPostings) {
+			allApplications.addAll(jobApplicationRepository.findByJobPosting(jobPosting));
+		}
+		return allApplications;
 	}
 
 	public void sendInterviewInvitation(Map<String, Object> params) {

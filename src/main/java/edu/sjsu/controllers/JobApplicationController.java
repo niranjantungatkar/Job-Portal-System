@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.sjsu.exceptions.CompanyExceptions;
 import edu.sjsu.exceptions.InterviewException;
 import edu.sjsu.exceptions.JobApplicationExceptions;
 import edu.sjsu.exceptions.JobPostingException;
@@ -177,6 +178,25 @@ public class JobApplicationController {
 			result.put("msg", "true");
 			return new ResponseEntity(result, responseHeaders, HttpStatus.OK);
 		} catch (InterviewException ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		} catch (Exception ex) {
+			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = "/jobapplication/interview/companysearch", method = RequestMethod.POST)
+	public ResponseEntity getInterviewByCompany(@RequestBody Map<String, Object> params) {
+
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+
+		try {
+			List<JobApplication> allApplications = interviewService.getApplicationsByCompany(params);
+			return new ResponseEntity(allApplications, responseHeaders, HttpStatus.OK);
+		} catch (CompanyExceptions ex) {
 			return new ResponseEntity(getErrorResponse("500", ex.getMessage()), responseHeaders,
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		} catch (Exception ex) {
